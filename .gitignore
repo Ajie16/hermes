@@ -1,0 +1,37 @@
+# Environment and secrets
+.env
+.env.*
+*.pem
+*.key
+*_key
+credentials*
+secrets/
+keys/
+.secret/
+
+# Runtime state
+*.db
+*.db-shm
+*.db-wal
+gateway.pid
+gateway_state.json
+auth.lock
+feishu_seen_message_ids.json
+channel_directory.json
+models_dev_cache.json
+processes.json
+.hermes_history
+.tick.lock
+
+# Logs and caches
+logs/
+cache/
+*.log
+
+# Runtime outputs
+cron/output/
+dogfood-output/
+cron/.tick.lock
+
+# Web dashboard build
+web_dashboard/node_modules/
