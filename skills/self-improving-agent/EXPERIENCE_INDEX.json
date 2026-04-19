@@ -1,6 +1,31 @@
 {
   "learnings": [
     {
+      "cycle": 732,
+      "timestamp": "2026-04-20 00:08:51",
+      "date": "2026-04-20",
+      "time": "00:08",
+      "action_summary": "实测 domain-intel WHOIS/SSL 查询成功，新增4技能到wiki",
+      "key_learnings": [
+        "WHOIS 查询零依赖：socket TCP 直连 43 端口",
+        "SSL 证书解析用 cryptography 库，DER 格式直接读",
+        "domain-intel 只有 DESCRIPTION 缺 SKILL.md",
+        "新增 skill-ontology/knowledge-graph/ai-influence-digest 到 wiki"
+      ],
+      "errors_encountered": [
+        "Google DNS-over-HTTPS 超时",
+        "crt.sh 证书透明度日志超时"
+      ],
+      "tools_used": [
+        "execute_code",
+        "browser_navigate",
+        "read_file",
+        "write_file"
+      ],
+      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 730,
       "timestamp": "2026-04-19 23:20:00",
       "date": "2026-04-19",
@@ -1064,25 +1089,6 @@
       ],
       "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_04-26-16.md",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 679,
-      "timestamp": "2026-04-19 04:23:15",
-      "date": "2026-04-19",
-      "time": "04:20",
-      "action_summary": "深入研究HF Hub CLI（hf datasets sql、jobs uv、endpoints管理等）",
-      "key_learnings": [
-        "hf datasets sql = DuckDB直接查询Hub数据集",
-        "hf jobs uv = HF基础设施运行Python脚本",
-        "hf endpoints = 推理端点全生命周期管理"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "skill_view",
-        "terminal"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_04-20-00.md",
-      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
     }
   ],
   "errors": [],
