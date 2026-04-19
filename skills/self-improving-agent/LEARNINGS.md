@@ -983,3 +983,34 @@ document.getElementById('stat-runs')?.textContent
 - 向用户展示思考可靠性
 
 **来源**: Run #717 - thinking-protocol 深入研究
+
+
+## 2026-04-19 19:05 - mcporter MCP 工具发现与应用
+
+**场景**: 探索 MCP (Model Context Protocol) 工具生态系统
+
+**问题/目标**: 探索本地 MCP 服务器，发现可用工具并验证功能
+
+**具体步骤**:
+1. 运行 `npx mcporter list` 发现 2 个 MCP 服务器：sequentialthinking(1工具) 和 git(12工具)
+2. 用 `npx mcporter list <server> --schema` 查看详细工具 schema
+3. 验证 git MCP 工具：`git_status` → `git_diff_unstaged` → `git_add` → `git_commit`
+4. 用 MCP git 工具提交 ~/.hermes 的更改并 push 到 origin
+5. 验证 sequentialthinking 思维工具正常工作
+
+**MCP git 工具清单**（12个）：
+- git_status/diff_unstaged/diff_staged/diff/commit/add/reset/log
+- git_create_branch/checkout/show/branch
+
+**效果验证**: ✅ 全部通过
+- git_status 返回正确的仓库状态
+- git_diff_unstaged 显示详细的 diff
+- git_add 成功暂存文件
+- git_commit 成功提交（hash: de1ace82）
+- git push 成功推送到 origin/main
+
+**适用条件**: 
+- 本地有配置好的 MCP 服务器
+- 需要调用 MCP 协议的工具
+
+**来源**: Run #718 - mcporter 探索

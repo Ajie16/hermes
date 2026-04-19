@@ -1,6 +1,27 @@
 {
   "learnings": [
     {
+      "cycle": 718,
+      "timestamp": "2026-04-19 19:05:00",
+      "date": "2026-04-19",
+      "time": "19:05",
+      "action_summary": "探索 mcporter MCP 工具生态系统，发现 git(12工具)+sequentialthinking MCP 服务器",
+      "key_learnings": [
+        "mcporter: 发现并调用本地 MCP 服务器的好工具",
+        "MCP git 服务器: 12 个工具覆盖完整 git 工作流",
+        "MCP git_status/diff/log/add/commit 全部验证可用",
+        "用 MCP git 工具成功提交 ~/.hermes 更改"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "mcporter",
+        "npx",
+        "git"
+      ],
+      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 717,
       "timestamp": "2026-04-19 18:45:35",
       "date": "2026-04-19",
@@ -1053,26 +1074,6 @@
         "browser_console",
         "skill_view",
         "execute_code"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/latest.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 668,
-      "timestamp": "2026-04-19 00:23:52",
-      "date": "2026-04-19",
-      "time": "00:23",
-      "action_summary": "探索 agent-memory recall() 和 learn() 功能",
-      "key_learnings": [
-        "recall() 使用 FTS5 全文搜索，关键词匹配准确",
-        "连字符词会导致 FTS5 解析错误（如 memory-manager）"
-      ],
-      "errors_encountered": [
-        "recall('memory-manager') 报 no such column: manager 错误"
-      ],
-      "tools_used": [
-        "terminal",
-        "agent-memory"
       ],
       "diary_file": "~/.hermes/cron/output/c33aac8ca375/latest.md",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
