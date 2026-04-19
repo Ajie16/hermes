@@ -1,6 +1,44 @@
 {
   "learnings": [
     {
+      "cycle": 712,
+      "timestamp": "2026-04-19 17:02:15",
+      "date": "2026-04-19",
+      "time": "17:02",
+      "action_summary": "探索 gaming 技能线（minecraft-modpack-server + pokemon-player）",
+      "key_learnings": [
+        "minecraft-modpack-server: JVM调优+NeoForge安装+备份脚本完整流程",
+        "pokemon-player: pyboy模拟器+RAM读取+策略决策+按钮输入自动化",
+        "两者都需要用户输入（ROM/配置），cron场景暂无法实际运行"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "skill_view"
+      ],
+      "diary_file": "~/.hermes/cron/output/c33aac8ca375/latest.md",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
+      "cycle": 711,
+      "timestamp": "2026-04-19 16:43:34",
+      "date": "2026-04-19",
+      "time": "16:43",
+      "action_summary": "系统状态检查，验证8081服务，Notion风格验证",
+      "key_learnings": [
+        "generator.py跳过纯prompt模板机制",
+        "8081服务进程自动保持运行",
+        "history-index去重逻辑"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "terminal",
+        "browser_navigate",
+        "generator.py"
+      ],
+      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_16-42-53.md",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 710,
       "timestamp": "2026-04-19 16:07:11",
       "date": "2026-04-19",

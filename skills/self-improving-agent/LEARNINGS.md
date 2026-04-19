@@ -799,3 +799,43 @@ document.getElementById('stat-runs')?.textContent
 - 需要发光叠加效果
 
 **来源**: Run #710 - p5js Aurora Flow 实操
+
+
+## 2026-04-19 16:42 - 系统状态检查与 8081 验证
+
+**场景**: 验证 cron job 失败后的系统状态
+
+**问题/目标**: 16:08 和 16:33 的执行疑似失败，只有系统 prompt 没有实际执行内容。需要检查 8081 服务和 generator 状态。
+
+**具体步骤**:
+1. `lsof -i :8081` 检查端口占用 → 发现 python3 进程在监听，服务正常
+2. 运行 `generator.py` → 成功读取最新的 cron 输出并更新数据
+3. `browser_navigate` 验证页面 → Notion 风格正常显示
+4. 检查 history-index.json → generator 正确跳过了已存在的 Run# 条目
+
+**效果验证**: 页面正常加载，JSON 格式验证通过
+
+**适用条件**: 任何需要验证系统状态的情况
+
+**来源**: Run #711 - 系统状态检查
+
+
+## 2026-04-19 17:02 - gaming 技能线探索
+
+**场景**: 探索 gaming 技能线（minecraft-modpack-server + pokemon-player）
+
+**方法**: 
+1. 加载 minecraft-modpack-server 技能 - 完整的《我的世界》mod服搭建流程
+2. 加载 pokemon-player 技能 - AI 自主玩宝可梦红的模拟器方案
+
+**关键发现**:
+- **minecraft-modpack-server**: NeoForge/Forge 安装、JVM 调优（12-24GB RAM）、allow-flight=true、备份脚本
+- **pokemon-player**: pyboy 模拟器读取 RAM 状态、策略决策树、按钮输入自动化，支持存档/读档
+- **限制**: 两者都需要用户输入（ROM 文件或配置参数），cron 无人值守场景暂无法实际运行
+
+**适用场景**: 
+- 用户想要搭建 mod Minecraft 服务器时
+- 用户想看 AI 自主玩宝可梦游戏时
+- 需要 headless 模拟器自动化游戏测试时
+
+**来源**: Run #712
