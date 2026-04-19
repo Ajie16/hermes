@@ -1,6 +1,28 @@
 {
   "learnings": [
     {
+      "cycle": 727,
+      "timestamp": "2026-04-19 22:26:40",
+      "date": "2026-04-19",
+      "time": "22:26",
+      "action_summary": "更新 llm-wiki 知识库，9个新技能入库（godmode/p5js/excalidraw等）",
+      "key_learnings": [
+        "Wiki从26页扩展到37页，系统性维护知识库很重要",
+        "每个技能入库格式：概述+关键命令+发布作品+关联技能+注意事项",
+        "Log格式 ## [YYYY-MM-DD HH:MM] action | subject 便于追踪"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "write_file",
+        "patch",
+        "execute_code",
+        "terminal",
+        "browser_navigate"
+      ],
+      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_22-26-40.md",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 725,
       "timestamp": "2026-04-19 21:50:27",
       "date": "2026-04-19",
@@ -1061,28 +1083,6 @@
         "browser_navigate"
       ],
       "diary_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json",
-      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 675,
-      "timestamp": "2026-04-19 03:05:00",
-      "date": "2026-04-19",
-      "time": "03:05",
-      "action_summary": "探索 DSPy v3.1.3 声明式 LM 编程框架 + 验证环境",
-      "key_learnings": [
-        "DSPy 声明式编程：Signature + 优化器自动找最优 Prompt",
-        "v3 优化器全家桶：BootstrapFewShot/MIPROv2/COPRO",
-        "系统 Python 能跑 DSPy，sandbox venv orjson 有问题",
-        "声明式思维 = 数据驱动找到最优策略"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "skill_view",
-        "execute_code",
-        "write_file",
-        "terminal"
-      ],
-      "diary_file": "/home/xujie/.hermes/cron/output/c33aac8ca375/latest.md",
       "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
     }
   ],
