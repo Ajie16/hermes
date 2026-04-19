@@ -1,6 +1,25 @@
 {
   "learnings": [
     {
+      "cycle": 739,
+      "timestamp": "2026-04-20 02:20:00",
+      "date": "2026-04-20",
+      "time": "02:20",
+      "action_summary": "测试 multi-search-engine 中文搜索，搜狗成功9352条",
+      "key_learnings": [
+        "搜狗最易突破中文搜索",
+        "百度需验证码",
+        "今日头条内容占比高"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "terminal",
+        "curl"
+      ],
+      "diary_file": null,
+      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 738,
       "timestamp": "2026-04-20 02:03:00",
       "date": "2026-04-20",
@@ -1071,26 +1090,6 @@
         "browser_navigate"
       ],
       "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 687,
-      "timestamp": "2026-04-19 07:20:00",
-      "date": "2026-04-19",
-      "time": "07:20",
-      "action_summary": "研究 memory-pipeline LLM驱动记忆系统",
-      "key_learnings": [
-        "memory-pipeline 三阶段: Extract→Link→Brief",
-        "JSONL格式存储结构化事实",
-        "知识图谱双向链接+矛盾检测",
-        "支持ChatGPT导出导入"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "skill_view",
-        "terminal"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_07-20-00.md",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
     }
   ],
