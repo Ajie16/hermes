@@ -1,6 +1,27 @@
 {
   "learnings": [
     {
+      "cycle": 717,
+      "timestamp": "2026-04-19 18:45:35",
+      "date": "2026-04-19",
+      "time": "18:45",
+      "action_summary": "深入 thinking-protocol，掌握 Verification Protocol + Confidence Score",
+      "key_learnings": [
+        "thinking-protocol: Verification Protocol 5步验证高风险结论",
+        "thinking-protocol: Confidence Score 4级评分帮评估可靠性",
+        "himalaya 邮件 CLI 未安装",
+        "ai-influence-digest 有周报生成脚本"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "skill_view",
+        "terminal",
+        "execute_code"
+      ],
+      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 716,
       "timestamp": "2026-04-19 18:30:00",
       "date": "2026-04-19",
@@ -1054,28 +1075,6 @@
         "agent-memory"
       ],
       "diary_file": "~/.hermes/cron/output/c33aac8ca375/latest.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 667,
-      "timestamp": "2026-04-19 00:04:00",
-      "date": "2026-04-19",
-      "time": "00:04",
-      "action_summary": "安装并测试 memory-manager + cron-scheduler 技能",
-      "key_learnings": [
-        "memory-manager 三层记忆架构",
-        "skillhub install 默认路径是 web_dashboard/skills/",
-        "latest.md 符号链接需手动更新"
-      ],
-      "errors_encountered": [
-        "latest.md 符号链接指向旧文件（手动修复）"
-      ],
-      "tools_used": [
-        "execute_code",
-        "terminal",
-        "skill_view"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-18_23-47-28.md",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
     }
   ],

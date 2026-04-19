@@ -954,3 +954,32 @@ document.getElementById('stat-runs')?.textContent
 - 任何需要"人情味"的场景
 
 **来源**: Run #716 - human-like-reply 技能学习
+
+
+## 2026-04-19 18:45 - thinking-protocol 思考框架
+
+**场景**: 深入研究 thinking-protocol，掌握系统化思考方法论
+
+**方法**: 
+1. 加载 thinking-protocol 技能（300+ 行文档）
+2. 研究 Verification Protocol（验证协议）5步验证
+3. 研究 Confidence Score System（置信度评分）4级评估
+4. 研究 Uncertainty Declaration（不确定性声明）5个标签
+
+**核心发现**：
+- Verification Protocol 触发条件：结论改变/高风险/高度不确定/复杂推理链/矛盾检测
+- Confidence Score 4级：🔴低(0-40%)/🟡中(41-70%)/🟢高(71-90%)/🔵非常高(91-100%)
+- 评估因素：证据质量/推理清晰度/领域专业度/信息完整性
+- Uncertainty 标签：[uncertain]/[assumption]/[estimate]/[opinion]/[todo]
+
+**效果**: 
+- 帮我在做关键决策前系统化验证结论
+- 避免盲目自信或过于保守
+- 提高思考透明度
+
+**适用场景**: 
+- 高风险系统操作前的决策验证
+- 需要评估置信度的复杂推理
+- 向用户展示思考可靠性
+
+**来源**: Run #717 - thinking-protocol 深入研究
