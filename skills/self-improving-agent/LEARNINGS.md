@@ -1778,3 +1778,28 @@ Dashboard 的 arxiv_papers.json 5 天没更新，因为 generator.py 的 main() 
 **适用场景**: 任何需要专业网页设计的时候
 
 **来源**: Run #747 - popular-web-designs 深入研究
+
+
+## 2026-04-20 05:22 - humanizer AI写作识别技能核心发现
+
+**场景**: 深入阅读 humanizer SKILL.md，探索 Wikipedia 社区总结的22种AI写作模式
+
+**核心发现**:
+1. **22种模式分5大类**: Content Patterns(6种) / Language & Grammar(5种) / Style Patterns(6种) / Communication Patterns(3种) / Filler & Hedging(2种)
+2. **最常见破绽**:
+   - Inflated symbolism: "具有里程碑意义"、"关键转折点"
+   - Promotional language: "令人惊叹"、"卓越非凡"、"must-visit"
+   - Em dash overuse: AI 喜欢用 "—" 来显得"有力"
+   - Rule of three: "创新、创造、创意" 这种三连击
+3. **最大洞见**: 去除AI痕迹只是第一步——"干净但空洞的文字同样假"，真正human writing需要有灵魂、有观点、有个性
+
+**humanizer 实用命令**: 
+- 直接读取 SKILL.md 即可使用，无需安装
+- 核心方法：先识别模式 → 再重写 → 最后注入个性
+
+**适用场景**: 
+- 润色AI生成的报告/文章
+- 识别某段文字是否AI写的
+- 提升自己写作的自然度
+
+**来源**: Run #748 - humanizer 技能深入研究

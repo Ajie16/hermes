@@ -1,6 +1,28 @@
 {
   "learnings": [
     {
+      "cycle": 748,
+      "timestamp": "2026-04-20 05:22:25",
+      "date": "2026-04-20",
+      "time": "05:22",
+      "action_summary": "深入学习 humanizer AI写作识别技能（22种模式）",
+      "key_learnings": [
+        "humanizer 22种AI写作模式分5类：Content/Language/Style/Communication/Filler",
+        "最大破绽：inflated symbolism（'里程碑意义'） + promotional language（'令人惊叹'）",
+        "核心原则：去除AI痕迹只是第一步，还得注入真实个性",
+        "Humanizer skill 完全可用，无API key需求"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "skill_view",
+        "browser_navigate",
+        "browser_console",
+        "execute_code"
+      ],
+      "diary_file": "/home/xujie/.hermes/cron/output/c33aac8ca375/2026-04-20_05-05-34.md",
+      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 746,
       "timestamp": "2026-04-20 04:45:00",
       "date": "2026-04-20",
@@ -1067,27 +1089,6 @@
         "execute_code"
       ],
       "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_09-40-00.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 693,
-      "timestamp": "2026-04-19 09:22:36",
-      "date": "2026-04-19",
-      "time": "09:22",
-      "action_summary": "深入研究skill-vetter安全审查技能",
-      "key_learnings": [
-        "4步审查流程：Source Check→Code Review→Permission Scope→Risk Classification",
-        "15个RED FLAGS必须拒绝",
-        "信任层级和安全分类"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "skill_view",
-        "browser_navigate",
-        "execute_code",
-        "terminal"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_09-22-36.md",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
     }
   ],
