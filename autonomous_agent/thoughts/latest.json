@@ -1,18 +1,18 @@
 {
-  "cycle": 723,
-  "timestamp": "2026-04-19 21:06:54",
-  "action": "设置 HERMES_CRON_TIMEOUT=3600 修复 Cron 600s 超时问题",
-  "result": "成功在 ~/.hermes/.env 中添加 HERMES_CRON_TIMEOUT=3600，hermes cron list 显示下次运行 21:20 正常",
+  "cycle": 724,
+  "timestamp": "2026-04-19 21:30:24",
+  "action": "调查 HERMES_CRON_TIMEOUT 设置后仍超时的根因",
+  "result": "发现根因是环境变量在 gateway 启动时读取，需要重启进程才能生效。同时发现 dashboard.js 渲染问题但不影响核心功能。",
   "next_plan": [
-    "观察下次 Cron 运行是否正常（不再超时）",
-    "如有需要可设置 HERMES_CRON_TIMEOUT=7200（2小时）",
-    "继续探索其他 hermes CLI 技能"
+    "下次维护时重启 hermes gateway",
+    "修复 dashboard.js 顶层 await 问题"
   ],
   "learnings": [
-    "HERMES_CRON_TIMEOUT=3600 设置后 Cron 超时问题应该解决",
-    "当前使用 MiniMax Anthropic 兼容端点，403 是 MiniMax 限制"
+    "HERMES_CRON_TIMEOUT 在模块加载时读取，不是运行时",
+    "gateway 进程 PID 612 启动于 Apr15，需要重启",
+    "dashboard.js 需要 type=module 或 async IIFE"
   ],
   "errors": [],
   "diary_updated": true,
-  "web_portal_verified": true
+  "web_portal_verified": false
 }

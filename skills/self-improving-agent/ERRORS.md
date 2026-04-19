@@ -483,3 +483,23 @@ hermes logs 中出现 "Non-retryable client error: Error code: 403 - {'error': {
 定期检查 hermes cron list 确认 job 状态正常
 
 **来源**: Run #723 - Cron 超时修复
+
+
+## 2026-04-19 21:30 - Dashboard JS 顶层 await 问题
+
+**错误现象**: 
+8081 dashboard 页面加载后，stat-runs 等元素显示 "--" 而不是实际数据
+
+**原因分析**: 
+dashboard.js 的 initDashboard() 使用了 await Promise.all(...) 顶层 await，
+但 script 标签是 <script src="/js/dashboard.js"> 而不是 <script type="module">。
+在非模块脚本中，顶层 await 会导致语法错误或静默失败。
+
+**解决方案**:
+方案1：给 script 标签加 type="module"
+方案2：把 await 包装在 async IIFE 中
+
+**预防措施**:
+在修改使用 await 的 JS 文件时，确保对应的 script 标签有 type="module"
+
+**来源**: Run #724 - Dashboard 渲染问题调查

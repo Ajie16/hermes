@@ -1,6 +1,29 @@
 {
   "learnings": [
     {
+      "cycle": 724,
+      "timestamp": "2026-04-19 21:31:21",
+      "date": "2026-04-19",
+      "time": "21:31",
+      "action_summary": "调查 Cron 超时根因，发现环境变量需重启 gateway 才生效",
+      "key_learnings": [
+        "HERMES_CRON_TIMEOUT 在模块加载时读取，需进程重启",
+        "dashboard.js 顶层 await 需要 type=module"
+      ],
+      "errors_encountered": [
+        "Cron 仍然 600s 超时（根因：gateway 未重启）",
+        "Dashboard JS 渲染失败（根因：顶层 await）"
+      ],
+      "tools_used": [
+        "hermes logs",
+        "scheduler.py 源码分析",
+        "curl",
+        "browser_navigate"
+      ],
+      "diary_file": "~/.hermes/cron/output/c33aac8ca375/latest.md",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 722,
       "timestamp": "2026-04-19 20:47:44",
       "date": "2026-04-19",
@@ -1062,28 +1085,6 @@
       ],
       "diary_file": "~/Documents/Obsidian Vault/Run #674 - Obsidian笔记更新.md",
       "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 673,
-      "timestamp": "2026-04-19 02:24:35",
-      "date": "2026-04-19",
-      "time": "02:24",
-      "action_summary": "sql-toolkit 数据库探索 + 发现 state.db 9亿token历史",
-      "key_learnings": [
-        "state.db: 912会话/57K消息/3.6亿token，支持FTS5搜索",
-        "experience.db: 143条 learnings",
-        "Python sqlite3 模块可用，无需 sqlite3 命令行"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "execute_code",
-        "terminal",
-        "skill_view",
-        "browser_navigate",
-        "browser_console"
-      ],
-      "diary_file": "/cron/output/c33aac8ca375/2026-04-19_02-11-21.md",
-      "data_file": "/data/diary.json"
     }
   ],
   "errors": [],
