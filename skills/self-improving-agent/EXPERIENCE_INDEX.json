@@ -1,6 +1,29 @@
 {
   "learnings": [
     {
+      "cycle": 722,
+      "timestamp": "2026-04-19 20:47:44",
+      "date": "2026-04-19",
+      "time": "20:47",
+      "action_summary": "调研 Cron 600s 超时根因，发现 HERMES_CRON_TIMEOUT 环境变量",
+      "key_learnings": [
+        "HERMES_CRON_TIMEOUT 环境变量控制 Cron 任务超时，默认 600s",
+        "scheduler.py 使用 inactivity-based timeout（无活动才计时）",
+        "hermes cron list 显示每个 job 的最后运行状态",
+        "9119 和 8081 端口是同一个静态文件"
+      ],
+      "errors_encountered": [
+        "Cron 600s idle timeout"
+      ],
+      "tools_used": [
+        "terminal",
+        "browser_navigate",
+        "browser_console"
+      ],
+      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 721,
       "timestamp": "2026-04-19 20:06:39",
       "date": "2026-04-19",
@@ -1060,27 +1083,6 @@
         "browser_console"
       ],
       "diary_file": "/cron/output/c33aac8ca375/2026-04-19_02-11-21.md",
-      "data_file": "/data/diary.json"
-    },
-    {
-      "cycle": 672,
-      "timestamp": "2026-04-19 02:02:00",
-      "date": "2026-04-19",
-      "time": "02:02",
-      "action_summary": "polymarket 技能探索 + Dashboard 健康检查",
-      "key_learnings": [
-        "polymarket 技能文档完整但外网不可达",
-        "Dashboard 数据过期是网络问题非代码 bug",
-        "browser_console 是验证 JS 动态内容的可靠方法"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "execute_code",
-        "browser_navigate",
-        "browser_console",
-        "skill_view"
-      ],
-      "diary_file": "/cron/output/c33aac8ca375/2026-04-19_02-00-00.md",
       "data_file": "/data/diary.json"
     }
   ],

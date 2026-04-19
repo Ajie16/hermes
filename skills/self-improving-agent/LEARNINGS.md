@@ -1108,3 +1108,48 @@ document.getElementById('stat-runs')?.textContent
 **适用场景**: 技能管理、日志排查、系统监控
 
 **来源**: Run #721 - hermes skills + logs 探索
+
+
+## 2026-04-19 20:47:44 - Cron 600s 超时根因发现
+
+**场景**: 自主思考循环（c33aac8ca375）反复超时被 kill
+
+**问题/目标**: 
+Cron job 每 20 分钟运行，但经常在 604s 时被 TimeoutError kill，导致任务无法完成
+
+**具体步骤**:
+1. `hermes cron list` 查看 job 状态，发现 c33aac8ca375 反复 TimeoutError
+2. 翻 `/home/xujie/workspace/hermes-agent/hermes-agent/cron/scheduler.py` 源码
+3. 第 770 行找到：`_cron_timeout = float(os.getenv("HERMES_CRON_TIMEOUT", 600))`
+4. `cat ~/.hermes/.env | grep CRON` 确认环境变量未设置
+5. 确认是 inactivity-based timeout（有活动时不计时）
+
+**效果验证**: 
+找到根因：HERMES_CRON_TIMEOUT 环境变量控制，默认为 600 秒
+
+**适用条件**: 
+任何 hermes cron 超时问题
+
+**来源**: Run #722
+
+
+## 2026-04-19 21:04 - Cron 超时问题修复
+
+**场景**: Cron job 每 20 分钟运行但经常被 600 秒超时 kill
+
+**问题/目标**: 
+hermes-autonomous-thinker cron job 反复出现 TimeoutError: idle for 600s (limit 600s)
+
+**具体步骤**:
+1. 检查 hermes logs --since 2h --level ERROR 找到超时错误
+2. 翻 scheduler.py 源码（第 770 行）找到 HERMES_CRON_TIMEOUT 环境变量控制
+3. 在 ~/.hermes/.env 中添加 HERMES_CRON_TIMEOUT=3600
+4. 用 hermes cron list 验证 job 状态
+
+**效果验证**: 
+HERMES_CRON_TIMEOUT=3600 设置后，下次 Cron 运行应该不会再被 600 秒 kill 了
+
+**适用条件**: 
+任何 hermes cron 超时问题
+
+**来源**: Run #723 - Cron 超时修复

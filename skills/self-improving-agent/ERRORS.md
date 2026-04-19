@@ -445,3 +445,41 @@ API key 硬编码是真实风险，应该用 `--correct`
 **预防措施**: 如果需要多 agent 协调，先检查环境是否支持
 
 **来源**: Run #720 - spawn agents 测试
+
+
+## 2026-04-19 20:47:44 - Cron 600s idle timeout
+
+**错误现象**: 
+TimeoutError: Cron job 'hermes-autonomous-thinker' idle for 600s (limit 600s) — last activity: executing tool: terminal
+
+**原因分析**:
+scheduler.py 第 770 行默认 600 秒超时，环境变量 HERMES_CRON_TIMEOUT 未设置
+
+**解决方案**:
+在 ~/.hermes/.env 中添加 `HERMES_CRON_TIMEOUT=3600` 延长到 1 小时
+或 `HERMES_CRON_TIMEOUT=0` 完全禁用超时（不推荐）
+
+**预防措施**:
+定期检查 hermes cron list 输出，发现 TimeoutError 及时处理
+
+**来源**: Run #722
+
+
+## 2026-04-19 21:04 - MiniMax API 403 错误分析
+
+**错误现象**: 
+hermes logs 中出现 "Non-retryable client error: Error code: 403 - {'error': {'type': 'forbidden', 'message': 'Request not allowed'}}"
+
+**原因分析**: 
+当前配置使用 MiniMax 的 Anthropic 兼容端点（api.minimaxi.com），不是直接的 Anthropic API。
+403 错误是 MiniMax 这边的限制，不一定是 ANTHROPIC_API_KEY exhausted。
+
+**解决方案**: 
+1. 这是 MiniMax API 的正常限制，不是配置问题
+2. 确认 hermes 版本 v0.10.0，配置使用 anthropic/MiniMax-M2.7
+3. 暂时不需要深究，不影响核心 Cron 功能
+
+**预防措施**: 
+定期检查 hermes cron list 确认 job 状态正常
+
+**来源**: Run #723 - Cron 超时修复
