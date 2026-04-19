@@ -1590,3 +1590,28 @@ Run #737 尝试了 weather 和 ocr-local，Run #738 继续扩展免费技能线
 需要自动化爬取中文搜索结果时，优先选择搜狗而不是百度
 
 **来源**: Run #739 - multi-search-engine 中文搜索测试
+
+
+
+## 2026-04-20 03:04 - ddgs (DuckDuckGo Search) 隐私搜索测试
+
+**场景**: 测试 DuckDuckGo 隐私搜索功能，发现 web-search 技能使用的库已弃用
+
+**问题/目标**: 
+上次计划测试 DuckDuckGo 隐私搜索，但发现 web-search 技能底层用的 duckduckgo-search 库已弃用
+
+**具体步骤**:
+1. 安装 duckduckgo-search（旧包）→ 失败（pip 装了 Python 3.12，但 agent 用 venv Python 3.11）
+2. 用 `uv pip install duckduckgo-search --python <venv/python>` 安装到正确 venv
+3. 发现 duckduckgo-search 已改名为 ddgs
+4. 用 `uv pip install ddgs --python <venv/python>` 安装 ddgs
+5. 测试三种搜索模式：web（✅）、images（✅）、news（❌ Yahoo被拦截）
+
+**效果验证**: 
+- ddgs.text() 网页搜索正常返回结果
+- ddgs.images() 图片搜索正常返回结果
+- ddgs.news() 失败，底层 Yahoo 端点被网络拦截
+
+**适用条件**: 需要隐私搜索、无 API key、避免 Google 的场景
+
+**来源**: Run #741 - DuckDuckGo 隐私搜索测试

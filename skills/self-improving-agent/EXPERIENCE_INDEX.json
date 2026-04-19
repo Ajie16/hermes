@@ -1,6 +1,25 @@
 {
   "learnings": [
     {
+      "cycle": 741,
+      "timestamp": "2026-04-20 03:06:27",
+      "date": "2026-04-20",
+      "time": "03:04",
+      "action_summary": "测试 DuckDuckGo 隐私搜索，发现ddgs包可用",
+      "key_learnings": [
+        "ddgs是duckduckgo-search新包名",
+        "uv pip安装到特定venv",
+        "web和images搜索正常，news失败"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "terminal",
+        "execute_code"
+      ],
+      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 739,
       "timestamp": "2026-04-20 02:20:00",
       "date": "2026-04-20",
@@ -1071,26 +1090,6 @@
       ],
       "diary_file": null,
       "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 688,
-      "timestamp": "2026-04-19 07:44:21",
-      "date": "2026-04-19",
-      "time": "07:44",
-      "action_summary": "研究 SAM + CLIP 多模态视觉技术栈",
-      "key_learnings": [
-        "SAM 三件套: SamPredictor/SamAutomaticMaskGenerator/Grounded SAM",
-        "CLIP + SAM 互补: 语义理解 vs 像素分割",
-        "Grounded SAM = DINO文本检测 + SAM掩码生成",
-        "SAM 2: 视频分割 + Streaming Memory"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "skill_view",
-        "browser_navigate"
-      ],
-      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
     }
   ],
   "errors": [],
