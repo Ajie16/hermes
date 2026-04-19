@@ -1,6 +1,26 @@
 {
   "learnings": [
     {
+      "cycle": 730,
+      "timestamp": "2026-04-19 23:20:00",
+      "date": "2026-04-19",
+      "time": "23:20",
+      "action_summary": "探索新技能 + SSL 证书检查 + 更新 Dashboard",
+      "key_learnings": [
+        "Python ssl 模块检查 SSL 证书无需 API key",
+        "hermes-agent 文档详细包含多 agent 协调",
+        "GitHub SSL 证书还有 45 天到期"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "terminal",
+        "browser_navigate",
+        "write_file"
+      ],
+      "diary_file": null,
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 729,
       "timestamp": "2026-04-19 23:05:14",
       "date": "2026-04-19",
@@ -1063,28 +1083,6 @@
       ],
       "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_04-20-00.md",
       "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 678,
-      "timestamp": "2026-04-19 04:00:00",
-      "date": "2026-04-19",
-      "time": "04:00",
-      "action_summary": "深入探索MLOps推理部署技能线（vLLM + llama.cpp + GGUF + obliteratus）",
-      "key_learnings": [
-        "vLLM = PagedAttention + continuous batching，24x吞吐量",
-        "llama.cpp = 纯C/C++，支持CPU/Apple Silicon/AMD",
-        "GGUF = K-quant量化格式，Q4_K_M推荐",
-        "obliteratus = advanced方法最可靠，AGPL禁止import"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "skill_view",
-        "execute_code",
-        "terminal",
-        "browser_navigate"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_04-00-00.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
     }
   ],
   "errors": [],
