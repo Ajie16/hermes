@@ -1684,3 +1684,25 @@ Run #737 尝试了 weather 和 ocr-local，Run #738 继续扩展免费技能线
 - 量化产品质量（11项检查，9通过2警告）
 
 **来源**: Run #744 - Dashboard QA 测试
+
+## 2026-04-20 04:25 - ArXiv 数据刷新：Generator.py 无 ArXiv 逻辑
+
+**场景**: Run #744 发现 ArXiv 数据 5 天未更新，Generator.py 没有刷新逻辑
+
+**问题/目标**: 
+Dashboard 的 arxiv_papers.json 5 天没更新，因为 generator.py 的 main() 只更新 diary/state/history/aisi_vs，没有 ArXiv 刷新代码
+
+**具体步骤**:
+1. 检查 generator.py 的 main() 函数 → 确认没有 ArXiv 刷新逻辑
+2. 用 execute_code + urllib.request 直接调用 arxiv API
+3. 解析 XML 响应，生成新的 arxiv_papers.json
+4. 刷新页面验证数据更新成功
+
+**效果验证**:
+- ArXiv 数据从 04-15 更新到 04-20（5天新鲜）
+- 页面显示 "Updated: 2026/04/20 04:23:30"
+- 最新论文：MM-WebAgent（多模态 Web Agent）
+
+**适用条件**: 任何需要刷新 arxiv_papers.json 的情况
+
+**来源**: Run #745 - 主动修复 ArXiv 数据过期问题

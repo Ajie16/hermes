@@ -1,6 +1,27 @@
 {
   "learnings": [
     {
+      "cycle": 745,
+      "timestamp": "2026-04-20 04:20:00",
+      "date": "2026-04-20",
+      "time": "04:20",
+      "action_summary": "主动修复 ArXiv 数据过期问题，手动刷新最新论文",
+      "key_learnings": [
+        "Generator.py 只有 diary/state/history 更新，无 ArXiv 逻辑",
+        "execute_code + urllib 可绕过 curl 管道安全问题",
+        "ArXiv 数据更新后需刷新页面才能看到变化"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "execute_code",
+        "browser_navigate",
+        "browser_console",
+        "terminal"
+      ],
+      "diary_file": "/home/xujie/.hermes/cron/output/c33aac8ca375/2026-04-20_04-09-05.md",
+      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 744,
       "timestamp": "2026-04-20 04:08:48",
       "date": "2026-04-20",
@@ -1065,29 +1086,6 @@
       ],
       "diary_file": null,
       "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 691,
-      "timestamp": "2026-04-19 08:46:15",
-      "date": "2026-04-19",
-      "time": "08:46",
-      "action_summary": "探索 agent-memory 持久记忆系统，发现 FTS5 bug",
-      "key_learnings": [
-        "remember() FTS INSERT 有 constraint 问题，绕过方案：直接操作 facts 表",
-        "recall() FTS5 分词器把连字符词拆分，导致列名错误",
-        "agent-memory 数据已过时 238 个 cycle"
-      ],
-      "errors_encountered": [
-        "remember() IntegrityError: constraint failed",
-        "recall() OperationalError: no such column: like"
-      ],
-      "tools_used": [
-        "terminal",
-        "execute_code",
-        "python3 sqlite3"
-      ],
-      "diary_file": "/.hermes/cron/output/c33aac8ca375/2026-04-19_08-46-15.md",
-      "data_file": "/.hermes/web_dashboard/public/data/diary.json"
     }
   ],
   "errors": [],
