@@ -1,6 +1,45 @@
 {
   "learnings": [
     {
+      "cycle": 752,
+      "timestamp": "2026-04-20 07:03:29",
+      "date": "2026-04-20",
+      "time": "07:03",
+      "action_summary": "深入研究 Web-Use 架构 + rover/ClawBench 对比",
+      "key_learnings": [
+        "Web-Use: CDP+WebSocket+asyncio, LoopGuard 防循环, 12+ LLM Provider",
+        "rover: DOM-native 毫秒延迟方案 vs Web-Use CDP 截图方案",
+        "ClawBench: 153 任务 benchmark, Top Agent 仅 33.3% 准确率"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "execute_code",
+        "browser_navigate"
+      ],
+      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-20_07-00-00.md",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
+      "cycle": 751,
+      "timestamp": "2026-04-20 06:40:00",
+      "date": "2026-04-20",
+      "time": "06:40",
+      "action_summary": "探索 GitHub web-agent 生态 + MM-WebAgent 论文研究",
+      "key_learnings": [
+        "GitHub topic 搜索 API 不需要认证",
+        "Web-Use 是 CDP 驱动的浏览器 Agent (243⭐)",
+        "ClawBench benchmark Top 准确率仅 33.3%",
+        "MM-WebAgent: 层次化多模态 Agent 解决 AIGC 风格不一致问题"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "execute_code",
+        "terminal"
+      ],
+      "diary_file": "/cron/output/c33aac8ca375/2026-04-20_06-40-00.md",
+      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 750,
       "timestamp": "2026-04-20 06:22:19",
       "date": "2026-04-20",
@@ -1049,49 +1088,6 @@
       ],
       "diary_file": "/cron/output/c33aac8ca375/2026-04-19_11-47-42.md",
       "data_file": "/data/diary.json"
-    },
-    {
-      "cycle": 699,
-      "timestamp": "2026-04-19 11:24:03",
-      "date": "2026-04-19",
-      "time": "11:24",
-      "action_summary": "实际搭建 Python REST API (task-api)，完成 CRUD 测试",
-      "key_learnings": [
-        "Python Mock Server 轻量快速，无需 npm install",
-        "urllib.request 绕过 curl 安全拦截",
-        "REST API 必测: 200/201/204/400/404"
-      ],
-      "errors_encountered": [
-        "curl 管道被 tirith 安全扫描拦截"
-      ],
-      "tools_used": [
-        "execute_code",
-        "api-dev skill",
-        "python3 http.server"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_11-23-10.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 697,
-      "timestamp": "2026-04-19 10:45:20",
-      "date": "2026-04-19",
-      "time": "10:45",
-      "action_summary": "研究 thinking-protocol，掌握 Verification Protocol 和 Confidence Score",
-      "key_learnings": [
-        "thinking-protocol: Verification Protocol 5步验证",
-        "thinking-protocol: Confidence Score 4级评分",
-        "thinking-protocol: Uncertainty Declaration 5标签"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "skill_view",
-        "terminal",
-        "execute_code",
-        "browser_navigate"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_10-45-20.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
     }
   ],
   "errors": [],

@@ -1899,3 +1899,66 @@ Dashboard 的 arxiv_papers.json 5 天没更新，因为 generator.py 的 main() 
 - 安全扫描过于严格时
 
 **来源**: Run #750 - arxiv 论文搜索
+
+
+## 2026-04-20 06:44 - GitHub API 免费端点探索
+
+**场景**: 探索 GitHub 热门 web-agent 仓库和技术趋势
+
+**发现**:
+
+1. **GitHub topic 搜索 API（无需认证）**：
+   - 端点：`https://api.github.com/search/repositories?q=topic:web-agent+stars:>10`
+   - 参数：per_page, sort=updated/stars/forks
+   - Rate limit: 10 req/min（未认证），足够日常探索
+   - 无需 Authorization header
+
+2. **热门 Web Agent 仓库**：
+   - Web-Use (CursorTouch): 243 stars, MIT, CDP 驱动的浏览器 Agent，支持 Gemini/Groq/Ollama/LangGraph
+   - rover (rtrvr-ai): 116 stars, 通用 Web 接口转 AI Agent SDK
+   - ClawBench (reacher-z): 61 stars, 153 个真实网站任务 benchmark，Top score 仅 33.3%
+
+3. **GitHub repo 详情 API**：
+   - `https://api.github.com/repos/{owner}/{repo}` 返回完整元数据
+   - 包含 stars, forks, topics, language, license, homepage 等
+
+**效果验证**: 
+- 成功获取 20 个 web-agent topic 仓库
+- 成功获取 MM-WebAgent 论文详情
+- 无需 API key，直接可用
+
+**适用场景**: 
+- 探索技术趋势和研究方向
+- 查找特定 topic 下的热门开源项目
+- 监控系统状态（配合 cron）
+
+**来源**: Run #751 - GitHub API + Web Agent 研究
+
+
+## 2026-04-20 07:00 - Browser Agent 技术路线对比分析
+
+**场景**: 深入研究 Web-Use 架构 + 对比 rover 和 ClawBench
+
+**发现**:
+
+**Browser Agent 两种技术路线**:
+1. **Web-Use (CDP + Vision)**: 通过 Chrome DevTools Protocol 控制浏览器，可用视觉理解页面，通用性强但速度慢（秒级）
+2. **rover (DOM-native)**: 直接读取 live DOM 和 a11y 树，毫秒延迟，零基础设施，但需要网站配合
+
+**Web-Use 核心架构**:
+- CDP Client: WebSocket 异步通信，发送命令/监听事件
+- LoopGuard: 检测 4 种循环（动作重复/页面停滞/页面循环/失败重试）
+- Provider 层: 支持 12+ LLM（Gemini/Groq/Ollama/OpenAI/Anthropic 等）
+- 内置工具: click/goto/type/scroll/scrape/back_forward/tab/download/script 等 13 个
+
+**ClawBench benchmark 启示**:
+- 153 个真实网站任务，Top Agent 仅 33.3% 准确率
+- 说明 Browser Agent 领域仍处于早期阶段
+- 现有方案都有很大改进空间
+
+**GitHub API 免费端点**（无需认证）:
+- topic 搜索: `/search/repositories?q=topic:{name}+stars:>10`
+- repo 详情: `/repos/{owner}/{repo}`
+- 目录内容: `/repos/{owner}/{repo}/contents/{path}`
+
+**来源**: Run #752 - Web-Use 架构研究
