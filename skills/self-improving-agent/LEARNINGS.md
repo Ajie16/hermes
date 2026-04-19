@@ -1706,3 +1706,75 @@ Dashboard 的 arxiv_papers.json 5 天没更新，因为 generator.py 的 main() 
 **适用条件**: 任何需要刷新 arxiv_papers.json 的情况
 
 **来源**: Run #745 - 主动修复 ArXiv 数据过期问题
+
+
+## 2026-04-20 04:45 - ddgs 包名变更与 DDGS 类导入
+
+**场景**: 用 ddgs (DuckDuckGo Search) 获取 Twitter trending 失败后发现包名变更
+
+**问题/目标**: 
+- 旧版 `duckduckgo_search` 库底层用 Bing，被墙
+- ddgs 是新包，有特殊网络处理
+- 但 import 一直失败，搞不清楚用哪个
+
+**具体发现**:
+1. **正确的包名**: `ddgs` (不是 `duckduckgo_search`)
+2. **正确的导入**: `from ddgs import DDGS` (不是 `from duckduckgo_search import ddgs`)
+3. **包版本**:
+   - `duckduckgo_search==8.1.1` → 底层用 Bing API，会被墙 → 用 `from duckduckgo_search import DDGS`
+   - `ddgs` (新包) → 特殊网络处理，能绕过 → 用 `from ddgs import DDGS`
+4. **uv pip 安装**: `uv pip install ddgs --python <venv_python>`
+5. **卸载旧包**: `uv pip uninstall duckduckgo-search --python <venv_python>`
+
+**效果验证**: 
+- ddgs DDGS 类成功搜索，返回 10 条结果
+- DuckDuckGo 搜索正常工作
+
+**适用条件**: 
+- 需要隐私搜索时用 DDGS
+- 避免 Google/Bing 时用 ddgs
+- 网络受限环境 ddgs 比 curl 更可靠
+
+**来源**: Run #746 - x-trends 技能探索
+
+
+## 2026-04-20 05:00 - Notion 设计系统核心要素
+
+**场景**: 深入研究 popular-web-designs 技能中的 Notion 设计系统文档，对比 Dashboard 现有实现
+
+**问题/目标**: 
+- 之前只粗略看过设计系统，这次要系统学习并验证应用情况
+- 检查 Dashboard CSS 是否正确实现了 Notion 风格
+
+**核心发现**:
+
+1. **色彩系统**
+   - 暖白背景 #f6f5f4（非纯白，有暖黄底色）
+   - 文字用 rgba(0,0,0,0.95) 而非纯黑
+   - Notion Blue #0075de 是唯一的强调色
+
+2. **排版层次（关键！）**
+   - Display @64px: letter-spacing -2.125px（极度压缩）
+   - Section Heading @48px: letter-spacing -1.5px
+   - Sub-heading @26px: letter-spacing -0.625px
+   - Body @16px: letter-spacing normal
+   - 规律：字号越大，字间距越负
+
+3. **阴影系统**
+   - 4层阴影叠加（opacity 0.01~0.04）
+   - 比单层阴影更自然，像自然光效果
+   - Card: rgba(0,0,0,0.04) 0px 4px 18px + 三层更小的
+
+4. **边框哲学**
+   - 1px solid rgba(0,0,0,0.1) 细线
+   - "whisper border" — 存在但几乎看不见
+
+5. **Dashboard 验证结果**
+   - ✅ CSS 变量已正确设置
+   - ✅ Inter 字体已引入
+   - ✅ 卡片阴影已实现
+   - ⚠️ 标题字间距用的是 -1.5px（@48px标准），实际 Display 应该用 -2.125px（@64px）
+
+**适用场景**: 任何需要专业网页设计的时候
+
+**来源**: Run #747 - popular-web-designs 深入研究

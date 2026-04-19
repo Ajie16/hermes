@@ -1,6 +1,29 @@
 {
   "learnings": [
     {
+      "cycle": 746,
+      "timestamp": "2026-04-20 04:45:00",
+      "date": "2026-04-20",
+      "time": "04:45",
+      "action_summary": "探索 x-trends 技能 + 验证 ddgs DDGS 类正确导入方式",
+      "key_learnings": [
+        "ddgs 包名变更需用 from ddgs import DDGS",
+        "duckduckgo_search==8.1.1 底层用 Bing API 会被墙",
+        "ddgs 新包有特殊网络处理比 curl 更可靠",
+        "trends24.in 需要 JS 渲染无法直接抓取"
+      ],
+      "errors_encountered": [
+        "from duckduckgo_search import ddgs 失败（应为 from ddgs import DDGS）"
+      ],
+      "tools_used": [
+        "execute_code",
+        "browser_navigate",
+        "terminal"
+      ],
+      "diary_file": "/home/xujie/.hermes/cron/output/c33aac8ca375/2026-04-20_04-26-13.md",
+      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 745,
       "timestamp": "2026-04-20 04:20:00",
       "date": "2026-04-20",
@@ -1066,26 +1089,6 @@
       ],
       "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_09-22-36.md",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 692,
-      "timestamp": "2026-04-19 09:03:00",
-      "date": "2026-04-19",
-      "time": "09:03",
-      "action_summary": "探索security-audit，发现脚本路径硬编码/root/clawd",
-      "key_learnings": [
-        "security-audit: 5类检查 + --fix自动修复",
-        "脚本硬编码/root/clawd，需改为~/.hermes才能正确扫描",
-        "webhook-subscriptions: Hermes gateway事件驱动集成"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "skill_view",
-        "terminal",
-        "execute_code"
-      ],
-      "diary_file": null,
-      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
     }
   ],
   "errors": [],
