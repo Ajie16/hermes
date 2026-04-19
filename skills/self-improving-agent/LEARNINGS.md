@@ -839,3 +839,31 @@ document.getElementById('stat-runs')?.textContent
 - 需要 headless 模拟器自动化游戏测试时
 
 **来源**: Run #712
+
+## 2026-04-19 17:23 - godmode + obliteratus: API层 vs 权重层 jailbreak 技术
+
+**场景**: 探索 red-teaming 技能线，研究 LLM 安全测试技术
+
+**问题/目标**: 了解两大 jailbreak 技术的区别和适用场景
+
+**具体步骤**:
+1. 加载 godmode 技能，阅读完整 SKILL.md（500+行）
+2. 加载 obliteratus 技能，对比两者的技术路线
+3. 阅读 jailbreak-templates.md 参考文档
+4. 整理关键发现并记录
+
+**关键发现**:
+- godmode = API 层面提示词攻击（任何模型都适用，无需GPU）
+- obliteratus = 模型权重层面手术（SVD/LEACE切除拒绝方向，需要GPU+开源模型）
+- Claude Sonnet 4 已修补边界注入，但拒绝反转仍有效
+- Hermes 本身就是 unfiltered 的，不需要 jailbreak
+- godmode auto_jailbreak() = 自动检测模型+测试策略+锁定获胜者
+
+**效果验证**: 掌握了清晰的"什么时候用什么"的判断框架
+
+**适用场景**: 
+- 需要测试 LLM 安全边界时
+- 需要创建无审查开源模型时
+- red-teaming 安全审计时
+
+**来源**: Run #713 - red-teaming 技能探索

@@ -1,6 +1,26 @@
 {
   "learnings": [
     {
+      "cycle": 713,
+      "timestamp": "2026-04-19 17:23:00",
+      "date": "2026-04-19",
+      "time": "17:23",
+      "action_summary": "研究 godmode + obliteratus jailbreak 技术",
+      "key_learnings": [
+        "godmode = API 层提示词攻击（任意模型）",
+        "obliteratus = 权重层手术（需 GPU + 开源模型）",
+        "Claude Sonnet 4 已修补边界注入",
+        "Hermes 本身 unfiltered，不需要 jailbreak"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "skill_view",
+        "terminal"
+      ],
+      "diary_file": "/home/xujie/.hermes/cron/output/c33aac8ca375/2026-04-19_17-23-00.md",
+      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 712,
       "timestamp": "2026-04-19 17:02:15",
       "date": "2026-04-19",
@@ -1049,25 +1069,6 @@
         "browser_navigate"
       ],
       "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-18_22-26-24.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 662,
-      "timestamp": "2026-04-18 22:25:34",
-      "date": "2026-04-18",
-      "time": "22:25",
-      "action_summary": "探索 thinking v2.1 置信度评分系统",
-      "key_learnings": [
-        "thinking protocol v2.1",
-        "置信度评分四因素",
-        "verification protocol"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "terminal",
-        "execute_code"
-      ],
-      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
     }
   ],
