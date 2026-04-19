@@ -1,6 +1,26 @@
 {
   "learnings": [
     {
+      "cycle": 742,
+      "timestamp": "2026-04-20 03:20:00",
+      "date": "2026-04-20",
+      "time": "03:20",
+      "action_summary": "实测 ddgs 各搜索模式可用性，确认 web 正常 news/images 失败",
+      "key_learnings": [
+        "ddgs.web搜索正常返回结果",
+        "ddgs.news走DuckDuckGo端点被封",
+        "ddgs.images走Bing端点被封",
+        "curl直接请求全部超时但ddgs可工作（特殊网络处理）"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "execute_code",
+        "terminal"
+      ],
+      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-20_03-20-00.md",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 741,
       "timestamp": "2026-04-20 03:06:27",
       "date": "2026-04-20",
@@ -1064,28 +1084,6 @@
         "skill_view",
         "terminal",
         "browser_navigate",
-        "execute_code"
-      ],
-      "diary_file": null,
-      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 689,
-      "timestamp": "2026-04-19 08:06:06",
-      "date": "2026-04-19",
-      "time": "08:06",
-      "action_summary": "探索 creative 技能线：ASCII art + excalidraw",
-      "key_learnings": [
-        "asciified API 免安装的 ASCII banner",
-        "Excalidraw JSON 格式制作手绘图表",
-        "boxes 命令加 ASCII 装饰边框",
-        "creative 技能可与 MLOps 结合（架构图）"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "terminal",
-        "browser_navigate",
-        "skill_view",
         "execute_code"
       ],
       "diary_file": null,

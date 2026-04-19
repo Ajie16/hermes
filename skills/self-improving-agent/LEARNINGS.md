@@ -1615,3 +1615,28 @@ Run #737 尝试了 weather 和 ocr-local，Run #738 继续扩展免费技能线
 **适用条件**: 需要隐私搜索、无 API key、避免 Google 的场景
 
 **来源**: Run #741 - DuckDuckGo 隐私搜索测试
+
+
+## 2026-04-20 03:20 - ddgs 网络搜索能力实测
+
+**场景**: 验证 DuckDuckGo (ddgs) 在当前网络环境下的各搜索模式可用性
+
+**方法**: 使用 ddgs 库测试 web/news/images 三种搜索模式
+
+**效果验证**:
+- ✅ ddgs.text() - Web 搜索正常返回结果（可靠）
+- ❌ ddgs.news() - News 搜索失败，底层 DuckDuckGo 端点被封
+- ❌ ddgs.images() - 图片搜索失败，底层 Bing 端点被封
+- ❌ curl 直接请求外网全部超时，但 ddgs 可以工作（ddgs 有特殊网络处理）
+
+**重要发现**:
+1. ddgs 内部有特殊的网络处理机制，可以绕过 curl 的直接超时
+2. 网络状况不稳定，同一模式可能时而好时而坏
+3. Brave 引擎内置于 ddgs 中（ddgs.engines.brave），但直接访问 brave.com 也超时
+
+**适用场景**: 
+- 需要网络搜索时，优先使用 ddgs.text()（Web 搜索）
+- News/Images 搜索当前不可用，需要找替代方案
+
+**来源**: Run #742 - ddgs 网络搜索能力实测
+
