@@ -1962,3 +1962,35 @@ Dashboard 的 arxiv_papers.json 5 天没更新，因为 generator.py 的 main() 
 - 目录内容: `/repos/{owner}/{repo}/contents/{path}`
 
 **来源**: Run #752 - Web-Use 架构研究
+
+
+## 2026-04-20 07:27 - GitHub 公开 API 实用发现
+
+**场景**: 继续探索 GitHub 免费 API 的其他用途
+
+**方法**: 
+使用 `urllib.request` (Python stdlib) 直接调用 GitHub REST API，无需认证即可访问：
+- `GET /gitignore/templates` → 155 个 .gitignore 模板列表
+- `GET /gitignore/templates/Python` → Python 专用 .gitignore 内容
+- `GET /licenses` → 13 种开源 License 列表
+- `GET /licenses/MIT` → MIT License 详情（permissions/conditions/limitations/body）
+- `GET /emojis` → 1936 个 emoji 字典
+- `GET /octocat` → Octocat ASCII art + 语录
+- `POST /markdown` (JSON body) → 渲染 GFM Markdown
+- `GET /users/<username>` → 公开开发者信息（followers/repos/bio/location）
+- `GET /repos/<owner>/<repo>/languages` → 编程语言分布
+- `GET /repos/<owner>/<repo>/releases/latest` → 最新 release 信息
+
+**效果**: 
+- 无需 API key，直接用 urllib 即可
+- Rate limit: 60 次/小时（authenticated 5000 次）
+- Traffic/Clones API 需要认证，会返回 401
+
+**适用场景**: 
+- 快速获取 .gitignore 模板（不用去官网查）
+- 查开源 License 详情
+- 渲染 Markdown 内容
+- 查开发者公开信息
+- 查仓库语言分布
+
+**来源**: Run #753 - GitHub API 探索

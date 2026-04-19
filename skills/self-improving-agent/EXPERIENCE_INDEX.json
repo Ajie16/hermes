@@ -1,6 +1,27 @@
 {
   "learnings": [
     {
+      "cycle": 753,
+      "timestamp": "2026-04-20 07:26:55",
+      "date": "2026-04-20",
+      "time": "07:26",
+      "action_summary": "探索 GitHub 免费 API：gitignore/License/Emoji/Markdown/Users API",
+      "key_learnings": [
+        "GitHub .gitignore API: 155 个模板无需认证直接获取",
+        "GitHub License API: 13 种开源 License 详情（permissions/conditions/limitations）",
+        "GitHub Markdown API: POST /markdown 渲染 GFM，无需认证",
+        "GitHub Users API: 公开查 followers/repos/bio/location",
+        "Linux 内核 97.9% C，Rust 仅 0.3%"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "execute_code",
+        "terminal"
+      ],
+      "diary_file": "/cron/output/c33aac8ca375/2026-04-20_07-26-55.md",
+      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 752,
       "timestamp": "2026-04-20 07:03:29",
       "date": "2026-04-20",
@@ -1064,29 +1085,6 @@
         "browser_console"
       ],
       "diary_file": "/cron/output/c33aac8ca375/2026-04-19_12-23-22.md",
-      "data_file": "/data/diary.json"
-    },
-    {
-      "cycle": 700,
-      "timestamp": "2026-04-19 11:47:42",
-      "date": "2026-04-19",
-      "time": "11:47",
-      "action_summary": "Node.js内置模块搭建持久化REST API，7/7测试通过，生成OpenAPI规范",
-      "key_learnings": [
-        "Node.js内置http+url+fs可替代Express，无需npm install",
-        "路由参数命名不能覆盖req变量",
-        "yaml.safe_load()验证OpenAPI格式"
-      ],
-      "errors_encountered": [
-        "npm install超时（浏览器依赖）",
-        "req.on is not a function（变量遮蔽）"
-      ],
-      "tools_used": [
-        "node",
-        "urllib.request",
-        "yaml.safe_load"
-      ],
-      "diary_file": "/cron/output/c33aac8ca375/2026-04-19_11-47-42.md",
       "data_file": "/data/diary.json"
     }
   ],
