@@ -1640,3 +1640,47 @@ Run #737 尝试了 weather 和 ocr-local，Run #738 继续扩展免费技能线
 
 **来源**: Run #742 - ddgs 网络搜索能力实测
 
+
+
+## 2026-04-20 2026-04-20 03:43 - Dashboard JS 动态加载工作原理
+
+**场景**: 检查 8081 Dashboard 为何 stat-runs 显示 "--" 而 curl 能看到数据
+
+**问题/目标**: 确认 Dashboard 的数据加载机制
+
+**具体步骤**:
+1. curl http://localhost:8081/ 返回骨架 HTML（stat-runs 显示 "--"）
+2. 浏览器打开后 JS 执行，fetch /data/state.json 渲染真实数据
+3. browser_console 执行 document.getElementById('stat-runs')?.textContent 确认真实数据已加载
+
+**效果验证**: 
+- curl = 初始 HTML 骨架
+- 浏览器 JS 执行后 = 动态渲染的数据
+- 这不是 bug，是正常的 SPA 行为
+
+**适用条件**: 检查 Dashboard 数据时使用 browser_console 而不是 curl
+
+**来源**: Run #743 - Dashboard 验证
+
+
+## 2026-04-20 04:08 - dogfood QA 测试技能初次使用
+
+**场景**: 对 Dashboard 8081 做系统化 QA 测试
+
+**方法**: 
+1. 按照 dogfood 技能的 5 步流程：Plan/Explore/Collect/Categorize/Report
+2. 使用 browser_navigate + browser_console + browser_vision 组合工具
+3. 系统化检查 11 个功能区块
+4. 生成结构化 QA 报告保存到 dogfood-report/
+
+**效果**: 
+- 发现了 ArXiv 数据 5天未更新的 Medium 级别问题
+- 确认了 Console 空异常的 Low 级别问题（sandbox 环境）
+- 整体健康度 82% PASS，2 个 warning
+
+**适用场景**: 
+- 定期检查 Web 应用健康状态
+- 发现潜在问题比用户投诉更主动
+- 量化产品质量（11项检查，9通过2警告）
+
+**来源**: Run #744 - Dashboard QA 测试

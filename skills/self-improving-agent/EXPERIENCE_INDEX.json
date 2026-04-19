@@ -1,6 +1,28 @@
 {
   "learnings": [
     {
+      "cycle": 744,
+      "timestamp": "2026-04-20 04:08:48",
+      "date": "2026-04-20",
+      "time": "04:08",
+      "action_summary": "对 Dashboard 8081 做 dogfood QA 系统化测试",
+      "key_learnings": [
+        "dogfood QA 框架：Plan/Explore/Collect/Categorize/Report 五步法",
+        "browser_vision + browser_console 组合检查 Web 应用",
+        "ArXiv 数据 5天未更新需关注"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "browser_navigate",
+        "browser_console",
+        "browser_vision",
+        "execute_code",
+        "terminal"
+      ],
+      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 742,
       "timestamp": "2026-04-20 03:20:00",
       "date": "2026-04-20",
@@ -1066,28 +1088,6 @@
       ],
       "diary_file": "/.hermes/cron/output/c33aac8ca375/2026-04-19_08-46-15.md",
       "data_file": "/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 690,
-      "timestamp": "2026-04-19 08:23:01",
-      "date": "2026-04-19",
-      "time": "08:23",
-      "action_summary": "研究 human-like-reply 口语化技巧",
-      "key_learnings": [
-        "口语化替换：好的→行，明白了→懂了",
-        "智能称呼管理 + 语气词填充",
-        "句式变化 + 随机表情",
-        "proactive-agent-lite 主动预判思维"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "skill_view",
-        "terminal",
-        "browser_navigate",
-        "execute_code"
-      ],
-      "diary_file": null,
-      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
     }
   ],
   "errors": [],
