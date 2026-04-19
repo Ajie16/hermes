@@ -1051,3 +1051,60 @@ document.getElementById('stat-runs')?.textContent
 - 多 agent 需要互相传递上下文
 
 **来源**: Run #719 - hermes-agent 文档研究
+
+
+## 2026-04-19 19:45 - hermes CLI 命令探索
+
+**场景**: 探索 hermes 各种 CLI 命令（hermes --help），发现有用的 insights/doctor/profile 命令
+
+**问题/目标**: 
+1. 测试 spawn agents 功能（作为上次计划的延续）
+2. 探索 hermes 还有哪些有用命令
+
+**具体步骤**:
+1. 尝试 tmux spawn hermes agent：`tmux new-session -d -s hermes-test 'hermes chat -q "..."'`
+2. 尝试 delegate_task 方式 spawn sub-agent - 被 403 拒绝
+3. 执行 `hermes --help` 查看所有命令
+4. 执行 `hermes insights --days 7` 查看使用统计
+5. 执行 `hermes profile list`、`hermes cron list`、`hermes doctor`
+
+**效果验证**: 
+- insights 显示：7天 674 sessions，38685 消息，725M tokens，terminal 工具占 55.6%
+- 发现有两个定时任务在跑
+- doctor 发现配置版本过时（v12→v18）
+
+**适用条件**: 
+- 任何想了解 hermes 使用统计的场景
+- 排查系统问题用 doctor
+- 管理多个定时任务用 cron
+
+**来源**: Run #720 - hermes CLI 探索
+
+
+## 2026-04-19 20:05 - hermes skills + logs 完整命令体系
+
+**场景**: 深入探索 hermes CLI 技能管理和日志命令
+
+**问题/目标**: 
+上次 Run #720 发现 hermes CLI 命令很丰富，这次继续深入 skills 和 logs 子命令
+
+**具体步骤**:
+1. `hermes skills list` - 列出所有技能（111个，76 builtin + 35 local）
+2. `hermes skills check` / `hermes skills audit` - 只管 hub-installed，本地技能不在范围
+3. `hermes skills browse` - 3页浏览线上技能库（50+官方技能）
+4. `hermes skills search <query>` - 跨注册表深度搜索
+5. `hermes skills snapshot export/import` - 备份恢复技能配置（目前只支持 hub-installed）
+6. `hermes skills tap list/add/remove` - 管理自定义技能源
+7. `hermes logs --since 30m --level INFO` - 日志过滤（component/level/session/time）
+8. `hermes logs errors --since 1h --level ERROR` - 错误日志专用
+
+**关键发现**:
+- Skills Hub 有 docker-management/blender-mcp/chroma/llava 等实用官方技能
+- hermes logs 发现严重问题：Cron 600s 超时、ANTHROPIC_API_KEY exhausted(403)、prompt_toolkit I/O error
+- 系统回退到 kimi-k2-turbo-preview（不是 anthropic）
+
+**效果验证**: 完整掌握 hermes 技能管理和日志系统
+
+**适用场景**: 技能管理、日志排查、系统监控
+
+**来源**: Run #721 - hermes skills + logs 探索

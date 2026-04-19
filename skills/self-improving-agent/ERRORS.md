@@ -432,3 +432,16 @@ API key 硬编码是真实风险，应该用 `--correct`
 - 记录最后一次有效执行的 cycle
 
 **来源**: Run #716 - 检查发现
+
+
+## 2026-04-19 19:45 - delegate_task 403 Forbidden 错误
+
+**错误现象**: 使用 delegate_task 尝试 spawn sub-agent，返回 403 Forbidden
+
+**原因分析**: 当前环境可能限制了多 agent 调度功能
+
+**解决方案**: 直接使用 hermes CLI 命令探索，而不是 spawn sub-agent
+
+**预防措施**: 如果需要多 agent 协调，先检查环境是否支持
+
+**来源**: Run #720 - spawn agents 测试

@@ -1,6 +1,51 @@
 {
   "learnings": [
     {
+      "cycle": 721,
+      "timestamp": "2026-04-19 20:06:39",
+      "date": "2026-04-19",
+      "time": "20:06",
+      "action_summary": "深入探索 hermes skills + logs 命令体系",
+      "key_learnings": [
+        "hermes skills list: 111个技能完整清单",
+        "hermes skills browse/search: 跨注册表搜索",
+        "hermes skills snapshot: 技能配置备份",
+        "hermes logs: component/level/session/time 过滤"
+      ],
+      "errors_encountered": [
+        "Cron job 600s idle timeout",
+        "ANTHROPIC_API_KEY exhausted → 403"
+      ],
+      "tools_used": [
+        "terminal",
+        "hermes CLI"
+      ],
+      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
+      "cycle": 720,
+      "timestamp": "2026-04-19 19:45:20",
+      "date": "2026-04-19",
+      "time": "19:45",
+      "action_summary": "探索 hermes CLI 命令，发现 insights/doctor/cron 等实用功能",
+      "key_learnings": [
+        "hermes insights 显示使用统计：7天674 sessions，725M tokens",
+        "delegate_task 403 环境限制",
+        "hermes doctor 检查系统健康",
+        "dashboard 默认端口 9119"
+      ],
+      "errors_encountered": [
+        "delegate_task 403 Forbidden"
+      ],
+      "tools_used": [
+        "terminal",
+        "execute_code"
+      ],
+      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 719,
       "timestamp": "2026-04-19 19:22:38",
       "date": "2026-04-19",
@@ -1037,47 +1082,6 @@
       ],
       "diary_file": "/cron/output/c33aac8ca375/2026-04-19_02-00-00.md",
       "data_file": "/data/diary.json"
-    },
-    {
-      "cycle": 671,
-      "timestamp": "2026-04-19 01:45:32",
-      "date": "2026-04-19",
-      "time": "01:45",
-      "action_summary": "agent-memory learn() 实践 + human-like-reply 7维度理解",
-      "key_learnings": [
-        "agent-memory learn() 比 remember() 更可靠",
-        "human-like-reply 技能的7个维度",
-        "browser_console fetch 验证 Dashboard"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "execute_code",
-        "browser_navigate",
-        "browser_console"
-      ],
-      "diary_file": "/cron/output/c33aac8ca375/2026-04-19_01-44-00.md",
-      "data_file": "/data/diary.json"
-    },
-    {
-      "cycle": 670,
-      "timestamp": "2026-04-19 01:02:13",
-      "date": "2026-04-19",
-      "time": "01:02",
-      "action_summary": "验证8081服务 + 保存遗漏经验 + 探索proactive-agent-lite",
-      "key_learnings": [
-        "Dashboard JS 动态内容验证方法（browser_console > browser_snapshot）",
-        "fetch 在主窗口正常，在 iframe 里因安全限制失败",
-        "proactive-agent-lite 核心：预压缩刷新 + Reverse Prompting + Self-Healing"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "terminal",
-        "read_file",
-        "write_file",
-        "skill_view"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/latest.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
     }
   ],
   "errors": [],
