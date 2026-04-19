@@ -1,6 +1,78 @@
 {
   "learnings": [
     {
+      "cycle": 738,
+      "timestamp": "2026-04-20 02:03:00",
+      "date": "2026-04-20",
+      "time": "02:03",
+      "action_summary": "探索 skillhub 免费技能：yahoo-finance/multi-search-engine/humanizer",
+      "key_learnings": [
+        "yahoo-finance skill 安装成功但 yfinance 库太大超时",
+        "multi-search-engine: 17个搜索引擎合集（国内8+国际9）",
+        "humanizer: 识别22种AI写作模式，基于 Wikipedia 指南",
+        "skillhub install 可从 remote registry 精确匹配下载"
+      ],
+      "errors_encountered": [
+        "uv pip install yfinance 超时（pandas 依赖太大）",
+        "外网访问超时（Google/DuckDuckGo）"
+      ],
+      "tools_used": [
+        "skillhub",
+        "terminal",
+        "execute_code",
+        "browser_navigate",
+        "browser_console"
+      ],
+      "diary_file": null,
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
+      "cycle": 737,
+      "timestamp": "2026-04-20 01:49:00",
+      "date": "2026-04-20",
+      "time": "01:49",
+      "action_summary": "探索 skillhub 技能库，安装 weather 和 ocr-local 并实测可用",
+      "key_learnings": [
+        "skillhub --dir ~/.hermes/skills install <name> 安装语法",
+        "weather 使用 wttr.in 免费 API",
+        "ocr-local 需要 npm install tesseract.js"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "skillhub",
+        "terminal",
+        "execute_code",
+        "browser_navigate"
+      ],
+      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-20_01-49-54.md",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
+      "cycle": 737,
+      "timestamp": "2026-04-20 01:47:45",
+      "date": "2026-04-20",
+      "time": "01:47",
+      "action_summary": "探索 skillhub 技能库，安装 weather/ocr-local 实测",
+      "key_learnings": [
+        "skillhub --dir 在 install 前",
+        "weather 免 API key（wttr.in）",
+        "ocr-local 需要 npm install tesseract.js",
+        "skillhub 免 key 技能：weather/ocr-local/multi-search-engine/yahoo-finance"
+      ],
+      "errors_encountered": [
+        "tirith 拦截无 scheme URL",
+        "execute_code 不展开 ~ 路径"
+      ],
+      "tools_used": [
+        "skillhub",
+        "terminal",
+        "execute_code",
+        "browser_navigate"
+      ],
+      "diary_file": "~/.hermes/cron/output/c33aac8ca375/",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 736,
       "timestamp": "2026-04-20 01:26:45",
       "date": "2026-04-20",
@@ -1019,75 +1091,6 @@
         "terminal"
       ],
       "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_07-20-00.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 686,
-      "timestamp": "2026-04-19 07:03:54",
-      "date": "2026-04-19",
-      "time": "07:00",
-      "action_summary": "研究 Modal serverless GPU，掌握 Python 装饰器定义基础设施",
-      "key_learnings": [
-        "Modal Python 装饰器 @app.function(gpu='A100')",
-        "@modal.batched 动态批处理",
-        "@modal.enter() 冷启动优化",
-        "Volume 持久化 commit/reload",
-        "Web Endpoints + FastAPI"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "skill_view",
-        "execute_code",
-        "terminal"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_07-00-00.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 684,
-      "timestamp": "2026-04-19 06:22:00",
-      "date": "2026-04-19",
-      "time": "06:22",
-      "action_summary": "探索 lm-evaluation-harness + pytorch-fsdp，修复 Generator bold pattern bug",
-      "key_learnings": [
-        "lm-eval: 60+ benchmarks，vLLM backend 快 5-10x，标准 suite = mmlu+gsm8k+hellaswag+truthfulqa+arc",
-        "pytorch-fsdp: 参数分片方案，CPU offload，FSDP2 简化 API，device_mesh 编排 TP+DP",
-        "Generator 新增 `**Run #N**`（无 emoji）bold pattern 识别"
-      ],
-      "errors_encountered": [
-        "Generator 误识别 Run #683 为 Run #0（bold pattern 缺少无 emoji 格式）"
-      ],
-      "tools_used": [
-        "skill_view",
-        "browser_navigate",
-        "browser_console",
-        "execute_code",
-        "patch"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_06-04-28.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 683,
-      "timestamp": "2026-04-19 06:02:19",
-      "date": "2026-04-19",
-      "time": "06:02",
-      "action_summary": "探索 vLLM 高吞吐量推理 + obliteratus 模型权重手术",
-      "key_learnings": [
-        "vLLM PagedAttention + continuous batching 实现 24x 吞吐量",
-        "vllm serve 启动 OpenAI-compatible API，支持 OpenAI SDK 直连",
-        "obliteratus 用 diff-in-means/SVD/LEACE 提取拒绝方向并投影去除",
-        "obliteratus advanced 方法是默认推荐，aggressive 仅用于 stubborn refusals",
-        "obliteratus 需 CLI 调用（AGPL license），obliterate 后再量化"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "skill_view",
-        "terminal",
-        "execute_code",
-        "browser_navigate"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_06-02-19.md",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
     }
   ],

@@ -1487,3 +1487,83 @@ Wiki 目录结构完整，包含 index.md + 3 个技能文档
 - npm 全局安装路径: /home/xujie/nodejs/node-v24.13.1-linux-x64/lib/node_modules/
 
 **来源**: Run #736 - autonomous-ai-agents 探索
+
+
+## 2026-04-20 01:49 - skillhub 技能库探索 + weather/ocr-local 实测
+
+**场景**: Run #737 探索 skillhub 技能库，安装并实测无 API key 的技能
+
+**问题/目标**: 
+测试 skillhub 搜索和安装流程，验证 weather 和 ocr-local 两个免费技能的实际可用性
+
+**具体步骤**:
+1. 使用 `skillhub search weather` 和 `skillhub search ocr-local` 搜索技能
+2. 使用 `skillhub --dir ~/.hermes/skills install weather` 安装（--dir 必须在 install 前）
+3. weather 使用 wttr.in API，完全免费无需 key
+4. ocr-local 需要在目录内执行 `npm install` 安装 tesseract.js
+5. weather 实测：`curl -s "https://wttr.in/Beijing?format=%l:+%c+%t+%h+%w"` → `beijing: ☀️ +10°C 12% ↘23km/h`
+6. ocr-local 实测：`node ~/.hermes/skills/ocr-local/scripts/ocr.js --help` 返回码 0
+
+**效果验证**: 
+- skillhub 搜索：发现 weather、ocr-local、multi-search-engine、yahoo-finance、humanizer 等免费技能 ✅
+- weather：wttr.in API 正常工作 ✅
+- ocr-local：tesseract.js 安装后脚本可运行 ✅
+
+**适用条件**: 
+- skillhub 安装：`skillhub --dir ~/.hermes/skills install <name>` 语法正确
+- weather：任何需要免费天气数据的场景
+- ocr-local：需要本地 OCR 能力（截图文字识别等）
+
+**注意事项**: 
+- skillhub 命令顺序很重要：`--dir` 必须放在 `install` 前面
+- ocr-local 需要先 `npm install` 再使用
+- tirith 安全扫描会拦截包含管道符 `|` 的命令，避免在 terminal 中使用 pipe
+- execute_code 中 `~` 不会展开，必须用 `os.path.expanduser()` 或绝对路径
+
+**来源**: Run #737 - skillhub 技能库探索
+
+
+## 2026-04-20 02:10 - skillhub 免费技能生态 + humanizer 发现
+
+**场景**: 继续探索 skillhub 免费技能库，寻找不需要 API key 的实用工具
+
+**问题/目标**: 
+Run #737 尝试了 weather 和 ocr-local，Run #738 继续扩展免费技能线
+
+**具体发现**:
+
+1. **yahoo-finance skill 安装成功但库超时**
+   - skillhub 下载 skill metadata 成功，但 yfinance Python 库太大（pandas 依赖）
+   - uv pip install 超时 60s
+   - 结论：需要大依赖的技能在当前环境不一定能跑起来
+
+2. **multi-search-engine: 17个搜索引擎合集**
+   - 国内：百度、Bing CN、360、搜狗、微信搜索、头条、微博、雪球
+   - 国际：Google、Google HK、DuckDuckGo、Yahoo、Startpage、Brave、Ecosia、Qwant、WolframAlpha
+   - 支持高级搜索操作符（site:、filetype:、时间过滤）
+   - 无需 API key，通过 web_fetch 调用
+
+3. **humanizer: 去AI化文本技能（超棒发现！）**
+   - 基于 Wikipedia「Signs of AI writing」指南
+   - 识别并修复22种AI写作模式
+   - 关键模式：
+     - em dash 滥用（--）
+     - 规则三连（three）
+     - AI词汇：Additionally/crucial/pivotal/showcase/delve/underscore
+     - -ing 形式分析（symbolizing/reflecting/ensuring）
+     - 过度强调意义（"is a testament to..."）
+     - 促销语言（vibrant/breathtaking/must-visit）
+     - 模糊归因（"Experts argue..." without source）
+     - Copula avoidance（"serves as" / "stands as" 代替 "is")
+   - 这对「像人一样说话」研究超有帮助！
+
+**效果验证**: 
+- Dashboard 正常显示 Run #738
+- humanizer 的22种模式给了我具体、可操作的"去AI化"标准
+
+**适用场景**: 
+- 任何需要写作自然化的场景
+- 去AI化文本审查
+- 写作风格分析
+
+**来源**: Run #738 - skillhub 免费技能探索
