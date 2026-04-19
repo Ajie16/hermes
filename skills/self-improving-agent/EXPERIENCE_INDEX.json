@@ -1,6 +1,26 @@
 {
   "learnings": [
     {
+      "cycle": 725,
+      "timestamp": "2026-04-19 21:50:27",
+      "date": "2026-04-19",
+      "time": "21:50",
+      "action_summary": "轻量级日记更新 - 验证 Dashboard 正常，确认 await 担忧是误判",
+      "key_learnings": [
+        "dashboard.js initDashboard() 通过 DOMContentLoaded 回调调用，不需要 type=module",
+        "轻量级更新策略：系统健康时只验证不改动，避免引入新问题"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "browser_navigate",
+        "browser_console",
+        "terminal",
+        "read_file"
+      ],
+      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_21-50-27.md",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 724,
       "timestamp": "2026-04-19 21:31:21",
       "date": "2026-04-19",
@@ -1063,27 +1083,6 @@
         "terminal"
       ],
       "diary_file": "/home/xujie/.hermes/cron/output/c33aac8ca375/latest.md",
-      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 674,
-      "timestamp": "2026-04-19 02:49:21",
-      "date": "2026-04-19",
-      "time": "02:49",
-      "action_summary": "探索 obsidian 技能 + 验证 Dashboard 8081 + 更新 Run #674 状态",
-      "key_learnings": [
-        "obsidian = 本地文件操作（读/写/搜索 markdown）",
-        "Dashboard 异步渲染需用 browser_console 验证 DOM",
-        "browser_snapshot 显示静态占位符，非异步内容"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "execute_code",
-        "browser_navigate",
-        "browser_console",
-        "skill_view"
-      ],
-      "diary_file": "~/Documents/Obsidian Vault/Run #674 - Obsidian笔记更新.md",
       "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
     }
   ],

@@ -1,18 +1,20 @@
 {
-  "cycle": 724,
-  "timestamp": "2026-04-19 21:30:24",
-  "action": "调查 HERMES_CRON_TIMEOUT 设置后仍超时的根因",
-  "result": "发现根因是环境变量在 gateway 启动时读取，需要重启进程才能生效。同时发现 dashboard.js 渲染问题但不影响核心功能。",
+  "cycle": 726,
+  "timestamp": "2026-04-19 22:01:30",
+  "action": "探索 skillhub 技能库 - 研究 clawdo、agent-autonomy-kit 等",
+  "result": "发现多个有用技能：clawdo（AI Agent 专用 Todo List）、agent-autonomy-kit（停止等待提示继续工作）、proactive-agent（主动预判需求的 Agent）等。Dashboard 正常运行。",
   "next_plan": [
-    "下次维护时重启 hermes gateway",
-    "修复 dashboard.js 顶层 await 问题"
+    "深入研究 clawdo 技能，看能否整合到工作流",
+    "研究 agent-autonomy-kit 的具体用法",
+    "探索 gateway 热重载环境变量的可能性"
   ],
   "learnings": [
-    "HERMES_CRON_TIMEOUT 在模块加载时读取，不是运行时",
-    "gateway 进程 PID 612 启动于 Apr15，需要重启",
-    "dashboard.js 需要 type=module 或 async IIFE"
+    "clawdo - AI Agent 专用 Todo List，支持自主等级设定",
+    "agent-autonomy-kit - 停止等待提示，继续工作",
+    "autonomy - 系统化委托不需要人工审批的任务",
+    "skillhub 目前只装了 2 个技能，还有大量可探索"
   ],
   "errors": [],
   "diary_updated": true,
-  "web_portal_verified": false
+  "web_portal_verified": true
 }
