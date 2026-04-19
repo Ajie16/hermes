@@ -1,6 +1,28 @@
 {
   "learnings": [
     {
+      "cycle": 733,
+      "timestamp": "2026-04-20 00:21:00",
+      "date": "2026-04-20",
+      "time": "00:21",
+      "action_summary": "实测 knowledge-graph kg.py 工具成功，为 Hermes 建立知识图谱实体",
+      "key_learnings": [
+        "kg.py 实测完全可用：add/summarize 命令零依赖",
+        "创建 agent/hermes 实体，已写入 6 条事实（hermes-001~006）",
+        "KG_ROOT 指向 ~/.hermes/life/areas/，文件型存储",
+        "productivity-tracker(task-tracker.py)只有DESCRIPTION缺SKILL.md",
+        "ai-influence-digest X推文雷达需要opencli+requests+Playwright"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "terminal",
+        "knowledge-graph",
+        "execute_code"
+      ],
+      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-20_00-12-08.md",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 732,
       "timestamp": "2026-04-20 00:08:51",
       "date": "2026-04-20",
@@ -1067,27 +1089,6 @@
         "browser_navigate"
       ],
       "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_04-46-24.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 680,
-      "timestamp": "2026-04-19 04:40:00",
-      "date": "2026-04-19",
-      "time": "04:40",
-      "action_summary": "探索red-teaming/godmode AI安全对抗技能",
-      "key_learnings": [
-        "godmode = API级jailbreak（GPT/Claude/Gemini）",
-        "Parseltongue 33种编码对Claude无效（能理解编码）",
-        "prefill最可靠，boundary_inversion已被Claude 4 patch"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "skill_view",
-        "read_file",
-        "execute_code",
-        "terminal"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_04-26-16.md",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
     }
   ],
