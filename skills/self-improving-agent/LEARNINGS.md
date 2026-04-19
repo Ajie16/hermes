@@ -1014,3 +1014,40 @@ document.getElementById('stat-runs')?.textContent
 - 需要调用 MCP 协议的工具
 
 **来源**: Run #718 - mcporter 探索
+
+
+## 2026-04-19 19:22 - Hermes Agent Spawn Agents 与多 Agent 协调
+
+**场景**: 研究 hermes-agent 文档，探索多 agent 协调方法
+
+**问题/目标**: 了解如何 spawn 多个 hermes agent 并协调工作
+
+**具体步骤**:
+1. 阅读 `~/.hermes/skills/autonomous-ai-agents/hermes-agent/SKILL.md` (706行)
+2. 识别 spawn agents 的三种方式：
+   - `delegate_task`: 适合快速并行子任务（分钟级）
+   - `hermes chat -q`: 适合一次性任务，fire-and-forget
+   - `tmux + hermes`: 适合长时间交互式任务
+3. 学习 tmux spawn 方式：
+   - `tmux new-session -d -s <name> -x 120 -y 40 'hermes -w'`
+   - `tmux send-keys -t <session> '<prompt>' Enter`
+   - `tmux capture-pane -t <name> -p` 读取输出
+4. 了解多 agent 协调：用 tmux send-keys 在不同 session 间传递上下文
+5. 了解 worktree 模式 `-w` 避免 git 冲突
+
+**MCP 服务器管理**:
+- `hermes mcp serve` - 把 Hermes 作为 MCP 服务器运行
+- `hermes mcp add/list/remove/test/configure`
+
+**其他有用 CLI**:
+- `hermes cron` - 定时任务管理
+- `hermes sessions` - 会话历史管理
+- `hermes insights` - 使用分析
+- `hermes profiles` - 多 profile 隔离
+
+**适用场景**: 
+- 需要多个 agent 并行处理不同任务
+- 长时间运行的 agent 任务
+- 多 agent 需要互相传递上下文
+
+**来源**: Run #719 - hermes-agent 文档研究

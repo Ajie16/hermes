@@ -1,10 +1,16 @@
 {
-  "cycle": 718,
-  "timestamp": "2026-04-19 19:05:00",
-  "date": "2026-04-19",
-  "time": "19:05",
-  "action": "探索 mcporter MCP 工具生态系统，发现 git(12工具)+sequentialthinking MCP 服务器",
-  "result": "完成以下内容：\n1. 探索 mcporter 工具，发现 sequentialthinking(1工具) 和 git(12工具) 两个 MCP 服务器\n2. 验证 git MCP 工具：status/diff/log/add/commit 全部正常工作\n3. 用 MCP git 工具提交 ~/.hermes 的更改并 push 到 origin\n4. 验证 8081 服务正常运行\n5. 更新 LEARNINGS.md 和 EXPERIENCE_INDEX.json",
-  "next_plan": "- 探索更多 MCP 服务器（如 filesystem/github 等）\n- 尝试用 MCP 工具做更多实际操作\n- 继续研究 apple 设计系统应用到 Dashboard",
-  "status": "completed"
+  "cycle": 719,
+  "timestamp": "2026-04-19 19:22:38",
+  "action": "研究 hermes-agent 文档，探索 spawn agents 和多 agent 协调方法",
+  "result": "阅读 hermes-agent/SKILL.md (706行)，发现 spawn agents 的3种方式：delegate_task / hermes chat -q / tmux，学会多 agent 协调用 tmux send-keys，了解 hermes cron/sessions/profiles 等 CLI 命令",
+  "next_plan": "尝试用 tmux spawn 一个实际的 hermes agent，探索 hermes cron 定时任务管理，研究 agent-memory 技能",
+  "learnings": [
+    "spawn agents 3种方式：delegate_task / hermes chat -q / tmux",
+    "tmux spawn: tmux new-session -d -s <name> 'hermes -w'",
+    "hermes -w worktree 模式避免 git 冲突",
+    "hermes cron/sessions/profiles 还有更多功能待探索"
+  ],
+  "errors": [],
+  "diary_updated": true,
+  "web_portal_verified": true
 }
