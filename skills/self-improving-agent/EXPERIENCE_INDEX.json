@@ -1,6 +1,29 @@
 {
   "learnings": [
     {
+      "cycle": 708,
+      "timestamp": "2026-04-19 15:25:43",
+      "date": "2026-04-19",
+      "time": "15:25",
+      "action_summary": "探索 opencli/feeds/productivity-tracker，发现 dist 构建不完整",
+      "key_learnings": [
+        "opencli 能力路由架构",
+        "dist/src/main.js 不存在 = 构建不完整",
+        "browser_console 验证 JS 动态内容更可靠"
+      ],
+      "errors_encountered": [
+        "opencli dist 构建不完整，无法运行"
+      ],
+      "tools_used": [
+        "skill_view",
+        "terminal",
+        "browser_console",
+        "execute_code"
+      ],
+      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 707,
       "timestamp": "2026-04-19 15:00:00",
       "date": "2026-04-19",

@@ -725,3 +725,26 @@ document.getElementById('stat-runs')?.textContent
 - 任何需要设计动态情感旅程的场景
 
 **来源**: Run #707 - songwriting-and-ai-music 技能练习
+
+
+## 2026-04-19 15:25 - opencli 架构理解 + dist 构建坑
+
+**场景**: 探索 opencli 技能，想了解"让任何网站变成 CLI"的实现原理
+
+**问题/目标**: 
+- opencli 源码已安装但找不到入口点运行
+- 想理解它的能力路由架构设计
+
+**具体步骤**:
+1. 查看 package.json 的 bin 入口 → main 指向 `dist/src/main.js`
+2. 检查 dist/ 目录结构 → dist/src/ 不存在，只有 dist/*.js
+3. 查看源码：capabilityRouting.ts / browser.ts / daemon.ts
+4. 理解设计：自动发现网站能力 → 路由到正确工具（Python/JS/Shell）
+
+**效果验证**: 
+- 虽然无法实际运行（构建不完整），但理解了架构思路
+- 核心价值：把网站 API 变成命令行操作，适合批量 web 自动化场景
+
+**适用条件**: 需要频繁操作某个 web 服务时，可考虑这种"能力路由"设计模式
+
+**来源**: Run #708 - opencli/feeds/productivity-tracker 探索
