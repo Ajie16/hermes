@@ -1,0 +1,507 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "hermes-agent",
+  "elements": [
+    {
+      "type": "text",
+      "id": "title",
+      "x": 300,
+      "y": 20,
+      "text": "Hermes Agent Self-Improvement Loop",
+      "fontSize": 28,
+      "fontFamily": 1,
+      "strokeColor": "#1e1e1e",
+      "originalText": "Hermes Agent Self-Improvement Loop",
+      "autoResize": true
+    },
+    {
+      "type": "rectangle",
+      "id": "r_cron",
+      "x": 50,
+      "y": 80,
+      "width": 160,
+      "height": 70,
+      "roundness": {
+        "type": 3
+      },
+      "backgroundColor": "#ffd8a8",
+      "fillStyle": "solid",
+      "boundElements": [
+        {
+          "id": "t_cron",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "t_cron",
+      "x": 65,
+      "y": 100,
+      "width": 130,
+      "height": 30,
+      "text": "Cron Trigger",
+      "fontSize": 18,
+      "fontFamily": 1,
+      "strokeColor": "#1e1e1e",
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "r_cron",
+      "originalText": "Cron Trigger",
+      "autoResize": true
+    },
+    {
+      "type": "rectangle",
+      "id": "r_read",
+      "x": 250,
+      "y": 80,
+      "width": 160,
+      "height": 70,
+      "roundness": {
+        "type": 3
+      },
+      "backgroundColor": "#a5d8ff",
+      "fillStyle": "solid",
+      "boundElements": [
+        {
+          "id": "t_read",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "t_read",
+      "x": 265,
+      "y": 100,
+      "width": 130,
+      "height": 30,
+      "text": "Read History",
+      "fontSize": 18,
+      "fontFamily": 1,
+      "strokeColor": "#1e1e1e",
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "r_read",
+      "originalText": "Read History",
+      "autoResize": true
+    },
+    {
+      "type": "rectangle",
+      "id": "r_think",
+      "x": 450,
+      "y": 80,
+      "width": 160,
+      "height": 70,
+      "roundness": {
+        "type": 3
+      },
+      "backgroundColor": "#d0bfff",
+      "fillStyle": "solid",
+      "boundElements": [
+        {
+          "id": "t_think",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "t_think",
+      "x": 465,
+      "y": 100,
+      "width": 130,
+      "height": 30,
+      "text": "Think & Decide",
+      "fontSize": 18,
+      "fontFamily": 1,
+      "strokeColor": "#1e1e1e",
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "r_think",
+      "originalText": "Think & Decide",
+      "autoResize": true
+    },
+    {
+      "type": "arrow",
+      "id": "a1",
+      "x": 210,
+      "y": 115,
+      "width": 40,
+      "height": 0,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          40,
+          0
+        ]
+      ],
+      "endArrowhead": "arrow",
+      "startBinding": {
+        "elementId": "r_cron",
+        "fixedPoint": [
+          1,
+          0.5
+        ]
+      },
+      "endBinding": {
+        "elementId": "r_read",
+        "fixedPoint": [
+          0,
+          0.5
+        ]
+      }
+    },
+    {
+      "type": "arrow",
+      "id": "a2",
+      "x": 410,
+      "y": 115,
+      "width": 40,
+      "height": 0,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          40,
+          0
+        ]
+      ],
+      "endArrowhead": "arrow",
+      "startBinding": {
+        "elementId": "r_read",
+        "fixedPoint": [
+          1,
+          0.5
+        ]
+      },
+      "endBinding": {
+        "elementId": "r_think",
+        "fixedPoint": [
+          0,
+          0.5
+        ]
+      }
+    },
+    {
+      "type": "rectangle",
+      "id": "r_exec",
+      "x": 450,
+      "y": 200,
+      "width": 160,
+      "height": 70,
+      "roundness": {
+        "type": 3
+      },
+      "backgroundColor": "#b2f2bb",
+      "fillStyle": "solid",
+      "boundElements": [
+        {
+          "id": "t_exec",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "t_exec",
+      "x": 465,
+      "y": 220,
+      "width": 130,
+      "height": 30,
+      "text": "Execute Action",
+      "fontSize": 18,
+      "fontFamily": 1,
+      "strokeColor": "#1e1e1e",
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "r_exec",
+      "originalText": "Execute Action",
+      "autoResize": true
+    },
+    {
+      "type": "arrow",
+      "id": "a3",
+      "x": 530,
+      "y": 150,
+      "width": 0,
+      "height": 50,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          50
+        ]
+      ],
+      "endArrowhead": "arrow",
+      "startBinding": {
+        "elementId": "r_think",
+        "fixedPoint": [
+          0.5,
+          1
+        ]
+      },
+      "endBinding": {
+        "elementId": "r_exec",
+        "fixedPoint": [
+          0.5,
+          0
+        ]
+      }
+    },
+    {
+      "type": "rectangle",
+      "id": "r_dash",
+      "x": 450,
+      "y": 320,
+      "width": 160,
+      "height": 70,
+      "roundness": {
+        "type": 3
+      },
+      "backgroundColor": "#c3fae8",
+      "fillStyle": "solid",
+      "boundElements": [
+        {
+          "id": "t_dash",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "t_dash",
+      "x": 465,
+      "y": 340,
+      "width": 130,
+      "height": 30,
+      "text": "Update 8081",
+      "fontSize": 18,
+      "fontFamily": 1,
+      "strokeColor": "#1e1e1e",
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "r_dash",
+      "originalText": "Update 8081",
+      "autoResize": true
+    },
+    {
+      "type": "arrow",
+      "id": "a4",
+      "x": 530,
+      "y": 270,
+      "width": 0,
+      "height": 50,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          50
+        ]
+      ],
+      "endArrowhead": "arrow",
+      "startBinding": {
+        "elementId": "r_exec",
+        "fixedPoint": [
+          0.5,
+          1
+        ]
+      },
+      "endBinding": {
+        "elementId": "r_dash",
+        "fixedPoint": [
+          0.5,
+          0
+        ]
+      }
+    },
+    {
+      "type": "rectangle",
+      "id": "r_save",
+      "x": 250,
+      "y": 320,
+      "width": 160,
+      "height": 70,
+      "roundness": {
+        "type": 3
+      },
+      "backgroundColor": "#fff3bf",
+      "fillStyle": "solid",
+      "boundElements": [
+        {
+          "id": "t_save",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "t_save",
+      "x": 265,
+      "y": 340,
+      "width": 130,
+      "height": 30,
+      "text": "Save Learnings",
+      "fontSize": 18,
+      "fontFamily": 1,
+      "strokeColor": "#1e1e1e",
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "r_save",
+      "originalText": "Save Learnings",
+      "autoResize": true
+    },
+    {
+      "type": "arrow",
+      "id": "a5",
+      "x": 330,
+      "y": 355,
+      "width": -80,
+      "height": 0,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          -80,
+          0
+        ]
+      ],
+      "endArrowhead": "arrow",
+      "startBinding": {
+        "elementId": "r_dash",
+        "fixedPoint": [
+          0,
+          0.5
+        ]
+      },
+      "endBinding": {
+        "elementId": "r_save",
+        "fixedPoint": [
+          1,
+          0.5
+        ]
+      }
+    },
+    {
+      "type": "arrow",
+      "id": "a6",
+      "x": 250,
+      "y": 355,
+      "width": 0,
+      "height": -235,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          -235
+        ]
+      ],
+      "endArrowhead": "arrow",
+      "strokeStyle": "dashed",
+      "startBinding": {
+        "elementId": "r_save",
+        "fixedPoint": [
+          0.5,
+          0.5
+        ]
+      },
+      "endBinding": {
+        "elementId": "r_read",
+        "fixedPoint": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "type": "rectangle",
+      "id": "r_data",
+      "x": 650,
+      "y": 200,
+      "width": 200,
+      "height": 150,
+      "roundness": {
+        "type": 3
+      },
+      "backgroundColor": "#c3fae8",
+      "fillStyle": "solid",
+      "strokeStyle": "dashed",
+      "boundElements": [
+        {
+          "id": "t_data",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "t_data",
+      "x": 660,
+      "y": 210,
+      "width": 180,
+      "height": 130,
+      "text": "Data Files\\n\\ndiary.json\\nhistory-index.json\\nstate.json\\nmetrics.json\\nLEARNINGS.md\\nERRORS.md",
+      "fontSize": 14,
+      "fontFamily": 1,
+      "strokeColor": "#1e1e1e",
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "containerId": "r_data",
+      "originalText": "Data Files\\n\\ndiary.json\\nhistory-index.json\\nstate.json\\nmetrics.json\\nLEARNINGS.md\\nERRORS.md",
+      "autoResize": true
+    },
+    {
+      "type": "arrow",
+      "id": "a7",
+      "x": 610,
+      "y": 235,
+      "width": 40,
+      "height": 0,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          40,
+          0
+        ]
+      ],
+      "endArrowhead": "arrow",
+      "startBinding": {
+        "elementId": "r_exec",
+        "fixedPoint": [
+          1,
+          0.5
+        ]
+      },
+      "endBinding": {
+        "elementId": "r_data",
+        "fixedPoint": [
+          0,
+          0.5
+        ]
+      }
+    }
+  ],
+  "appState": {
+    "viewBackgroundColor": "#ffffff"
+  }
+}

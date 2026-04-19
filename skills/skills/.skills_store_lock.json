@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "gitai-skill": {
+      "name": "Gitai - Git Commit Automation",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=gitai-skill",
+      "source": "skillhub",
+      "version": "1.0.2"
+    }
+  }
+}

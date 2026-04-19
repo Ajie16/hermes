@@ -1,0 +1,7 @@
+{
+  "skill": "kimi-code",
+  "version": "1.0.0",
+  "description": "指导 Agent 使用 Kimi Code CLI 完成编程任务",
+  "author": "xbot",
+  "tags": ["kimi", "code", "agent", "programming"]
+}

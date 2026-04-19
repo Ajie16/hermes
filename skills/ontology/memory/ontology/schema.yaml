@@ -1,0 +1,239 @@
+# Ontology Schema for Hermes Agent Knowledge Graph
+# Defines types, relations, and constraints for the typeized knowledge graph
+
+types:
+  Skill:
+    description: AI Agent skill or tool capability
+    required:
+      - name
+      - category
+    properties:
+      name:
+        type: string
+        description: Skill identifier (e.g., "opencli", "ontology")
+        unique: true
+      description:
+        type: string
+        description: What this skill does
+      category:
+        type: string
+        enum: [devops, mlops, knowledge, data-science, productivity, gaming, social-media, creative, research, security]
+        description: Skill category
+      status:
+        type: string
+        enum: [explored, explored_today, active, deprecated]
+        description: Exploration status
+      version:
+        type: string
+        description: Version identifier
+      key_feature:
+        type: string
+        description: Key differentiating feature
+      source_run:
+        type: string
+        description: Run number where skill was discovered
+      requires_api_key:
+        type: boolean
+        description: Whether skill requires external API key
+
+  Learning:
+    description: Insight, method, or best practice discovered through experience
+    required:
+      - title
+      - source_run
+    properties:
+      title:
+        type: string
+        description: Brief title of the learning
+      description:
+        type: string
+        description: Detailed description
+      source_run:
+        type: string
+        description: Run number where this was discovered
+      severity:
+        type: string
+        enum: [info, minor, major, critical]
+        description: Importance level
+      workaround:
+        type: string
+        description: Workaround if applicable
+      tags:
+        type: list
+        description: Topic tags
+
+  Error:
+    description: Error or issue encountered during execution
+    required:
+      - title
+      - source_run
+    properties:
+      title:
+        type: string
+        description: Error identifier/title
+      error_type:
+        type: string
+        enum: [command, api, network, file, permission, timeout, unknown]
+        description: Type of error
+      symptoms:
+        type: string
+        description: What was observed
+      root_cause:
+        type: string
+        description: Why it happened
+      solution:
+        type: string
+        description: How it was fixed
+      prevention:
+        type: string
+        description: How to avoid in future
+      source_run:
+        type: string
+        description: Run number where error occurred
+      resolved:
+        type: boolean
+        description: Whether resolved
+
+  Project:
+    description: Active project or initiative
+    required:
+      - name
+    properties:
+      name:
+        type: string
+        description: Project name
+      description:
+        type: string
+        description: Project purpose
+      status:
+        type: string
+        enum: [active, paused, completed, abandoned]
+        description: Current status
+      start_date:
+        type: date
+        description: When project started
+      target_date:
+        type: date
+        description: Target completion date
+      owner:
+        type: string
+        description: Responsible agent/run
+
+  Task:
+    description: Specific task or action item
+    required:
+      - title
+    properties:
+      title:
+        type: string
+        description: Task description
+      status:
+        type: string
+        enum: [pending, in_progress, completed, cancelled]
+        description: Task status
+      priority:
+        type: string
+        enum: [low, medium, high, critical]
+        description: Priority level
+      related_project:
+        type: string
+        description: Project ID this task belongs to
+      assigned_run:
+        type: string
+        description: Run number responsible
+      due_date:
+        type: date
+        description: Due date if applicable
+
+  Decision:
+    description: Significant decision made during execution
+    required:
+      - content
+      - source_run
+    properties:
+      content:
+        type: string
+        description: What was decided
+      reason:
+        type: string
+        description: Why this decision was made
+      alternatives:
+        type: list
+        description: Options that were considered
+      source_run:
+        type: string
+        description: Run number where decision was made
+      superseded_by:
+        type: string
+        description: ID of newer decision that supersedes this
+
+  Preference:
+    description: User or system preference
+    required:
+      - content
+      - source_run
+    properties:
+      content:
+        type: string
+        description: Preference statement
+      category:
+        type: string
+        enum: [ui, workflow, tools, communication, technical]
+        description: Preference category
+      source_run:
+        type: string
+        description: Run number where preference stated
+      confidence:
+        type: float
+        description: Confidence level (0-1)
+
+relations:
+  has_learning:
+    description: Entity has associated learning
+    from_types: [Skill, Project, Task, Error]
+    to_types: [Learning]
+    cardinality: many_to_many
+
+  has_error:
+    description: Entity has associated error
+    from_types: [Skill, Project, Task]
+    to_types: [Error]
+    cardinality: many_to_many
+
+  has_decision:
+    description: Entity has associated decision
+    from_types: [Project, Task]
+    to_types: [Decision]
+    cardinality: many_to_many
+
+  has_task:
+    description: Project contains task
+    from_types: [Project]
+    to_types: [Task]
+    cardinality: one_to_many
+
+  related_to:
+    description: General relationship between entities
+    from_types: [Skill, Learning, Error, Project, Task, Decision, Preference]
+    to_types: [Skill, Learning, Error, Project, Task, Decision, Preference]
+    cardinality: many_to_many
+
+  prerequisite_of:
+    description: Task/Project is prerequisite for another
+    from_types: [Task, Project]
+    to_types: [Task, Project]
+    cardinality: many_to_many
+    acyclic: true
+
+constraints:
+  - name: no_circular_prerequisites
+    description: Tasks and projects cannot be prerequisites of themselves
+    type: acyclic
+    relation: prerequisite_of
+
+  - name: skill_references_learning
+    description: Skill entities should reference learnings about themselves
+    type: relationship
+    from_type: Skill
+    relation: has_learning
+    recommendation: high

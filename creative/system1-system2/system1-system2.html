@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System 1 vs System 2 — 像人一样思考</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>p5.disableFriendlyErrors = true;</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { 
+      overflow: hidden; 
+      background: #0a0a0f; 
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    canvas { display: block; }
+    
+    #overlay {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      color: rgba(255,255,255,0.6);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+      pointer-events: none;
+      z-index: 10;
+    }
+    #overlay span {
+      display: inline-block;
+      margin-right: 16px;
+    }
+    .key {
+      display: inline-block;
+      background: rgba(255,255,255,0.1);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 11px;
+      margin-right: 4px;
+    }
+  </style>
+</head>
+<body>
+<div id="overlay">
+  <span><span class="key">S</span> System 1 快</span>
+  <span><span class="key">D</span> System 2 慢</span>
+  <span><span class="key">R</span> 重置</span>
+</div>
+<script>
+// === Configuration ===
+const CONFIG = {
+  particleCount: 280,
+  flowScale: 0.003,
+  timeWarp: 0.0004
+};
+
+// === Color Palette ===
+const PALETTE = {
+  bg: [10, 10, 15],
+  // System 1: Warm orange/red (fast, intuitive)
+  s1: { h: 22, sMin: 85, sMax: 100, bMin: 70, bMax: 100 },
+  // System 2: Cool blue/purple (slow, deliberate)  
+  s2: { h: 235, sMin: 60, sMax: 90, bMin: 60, bMax: 95 }
+};
+
+// === Global State ===
+let particles = [];
+let t = 0;
+let mode = 'both'; // 's1', 's2', 'both'
+let pgOverlay; // persistent trail canvas
+
+class ThinkingParticle {
+  constructor(system) {
+    this.system = system;
+    this.reset();
+  }
+  
+  reset() {
+    this.pos = createVector(Math.random() * width, Math.random() * height);
+    this.vel = createVector(0, 0);
+    this.acc = createVector(0, 0);
+    this.life = Math.random() * 200 + 100;
+    this.maxLife = this.life;
+    
+    if (this.system === 's1') {
+      // Fast, explosive - System 1
+      this.size = Math.random() * 2.5 + 1;
+      this.speed = Math.random() * 2.5 + 1.5;
+      this.noiseScale = Math.random() * 0.008 + 0.004;
+      this.hue = random(PALETTE.s1.h - 15, PALETTE.s1.h + 15);
+      this.sat = random(PALETTE.s1.sMin, PALETTE.s1.sMax);
+      this.bri = random(PALETTE.s1.bMin, PALETTE.s1.bMax);
+      this.trail = 12; // long trail
+      this.type = 'firework';
+    } else {
+      // Slow, deliberate - System 2
+      this.size = Math.random() * 4 + 2;
+      this.speed = Math.random() * 0.4 + 0.15;
+      this.noiseScale = Math.random() * 0.003 + 0.001;
+      this.hue = random(PALETTE.s2.h - 20, PALETTE.s2.h + 20);
+      this.sat = random(PALETTE.s2.sMin, PALETTE.s2.sMax);
+      this.bri = random(PALETTE.s2.bMin, PALETTE.s2.bMax);
+      this.trail = 6; // short trail
+      this.type = 'ripple';
+    }
+  }
+  
+  update() {
+    let noiseVal, angle;
+    
+    if (this.system === 's1') {
+      // System 1: Rapid response to noise - quick decisions
+      noiseVal = noise(
+        this.pos.x * this.noiseScale + t * 0.8, 
+        this.pos.y * this.noiseScale + t * 0.8
+      );
+      angle = noiseVal * TWO_PI * 4; // more erratic
+    } else {
+      // System 2: Slow, considered movement
+      noiseVal = noise(
+        this.pos.x * this.noiseScale + t * 0.15, 
+        this.pos.y * this.noiseScale + t * 0.15
+      );
+      angle = noiseVal * TWO_PI * 1.2; // more deliberate
+    }
+    
+    let force = p5.Vector.fromAngle(angle);
+    force.mult(this.speed * 0.06);
+    this.acc.add(force);
+    
+    this.vel.add(this.acc);
+    this.vel.limit(this.speed);
+    this.pos.add(this.vel);
+    this.acc.mult(0);
+    
+    // Damping
+    this.vel.mult(this.system === 's1' ? 0.96 : 0.92);
+    
+    // Wrap edges
+    if (this.pos.x < 0) this.pos.x = width;
+    if (this.pos.x > width) this.pos.x = 0;
+    if (this.pos.y < 0) this.pos.y = height;
+    if (this.pos.y > height) this.pos.y = 0;
+    
+    this.life--;
+    
+    if (this.life <= 0) this.reset();
+  }
+  
+  draw(pg) {
+    let lifeRatio = this.life / this.maxLife;
+    let alpha = lifeRatio * (this.system === 's1' ? 200 : 160);
+    let currentSize = this.size * (0.3 + lifeRatio * 0.7);
+    
+    if (this.system === 's1') {
+      // Firework trails
+      let col = color('hsba(' + this.hue + ',' + this.sat + '%,' + this.bri + '%,' + (alpha/255) + ')');
+      
+      // Trail
+      for (let i = 1; i <= this.trail; i++) {
+        let trailPos = p5.Vector.sub(this.pos, p5.Vector.mult(this.vel, i * 2));
+        let trailAlpha = alpha * (1 - i/this.trail) * 0.5;
+        let trailCol = color('hsba(' + this.hue + ',' + this.sat + '%,' + (this.bri * (1-i/this.trail*0.5)) + '%,' + (trailAlpha/255) + ')');
+        pg.stroke(trailCol);
+        pg.strokeWeight(currentSize * (1 - i/this.trail * 0.7));
+        pg.point(trailPos.x, trailPos.y);
+      }
+      
+      // Core glow
+      pg.noStroke();
+      pg.fill(this.hue, this.sat, this.bri, alpha * 0.4);
+      pg.ellipse(this.pos.x, this.pos.y, currentSize * 4, currentSize * 4);
+      pg.fill(this.hue, this.sat, this.bri, alpha);
+      pg.ellipse(this.pos.x, this.pos.y, currentSize, currentSize);
+    } else {
+      // Ripple/consciousness waves
+      let col = color('hsba(' + this.hue + ',' + this.sat + '%,' + this.bri + '%,' + (alpha/255) + ')');
+      
+      // Subtle geometric shape
+      pg.noFill();
+      pg.stroke(col);
+      pg.strokeWeight(currentSize * 0.5);
+      
+      let sides = 6;
+      let radius = currentSize * 2;
+      pg.beginShape();
+      for (let i = 0; i < sides; i++) {
+        let angle = TWO_PI / sides * i + t * 0.1;
+        let px = this.pos.x + Math.cos(angle) * radius;
+        let py = this.pos.y + Math.sin(angle) * radius;
+        pg.vertex(px, py);
+      }
+      pg.endShape(CLOSE);
+      
+      // Center point
+      pg.noStroke();
+      pg.fill(this.hue, this.sat * 0.5, this.bri, alpha);
+      pg.ellipse(this.pos.x, this.pos.y, currentSize * 0.6, currentSize * 0.6);
+    }
+  }
+}
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  colorMode(HSB, 360, 100, 100, 255);
+  pixelDensity(1);
+  
+  // Persistent overlay buffer
+  pgOverlay = createGraphics(width, height);
+  pgOverlay.colorMode(HSB, 360, 100, 100, 255);
+  pgOverlay.background(10, 10, 15);
+  
+  // Spawn particles
+  for (let i = 0; i < CONFIG.particleCount; i++) {
+    particles.push(new ThinkingParticle(Math.random() < 0.55 ? 's1' : 's2'));
+  }
+}
+
+function draw() {
+  // Fade previous frame slowly
+  pgOverlay.noStroke();
+  pgOverlay.fill(10, 10, 15, 8); // slow fade
+  pgOverlay.rect(0, 0, width, height);
+  
+  // Draw particles to overlay buffer
+  for (let p of particles) {
+    if (mode === 'both' || p.system === mode) {
+      p.update();
+      p.draw(pgOverlay);
+    } else {
+      p.update(); // still update but don't draw
+    }
+  }
+  
+  // Render composite
+  background(10, 10, 15);
+  image(pgOverlay, 0, 0);
+  
+  // Draw label
+  drawLabel();
+  
+  t += CONFIG.timeWarp * deltaTime * 60;
+}
+
+function drawLabel() {
+  // Subtle center labels
+  textAlign(CENTER, CENTER);
+  textFont('Inter');
+  
+  let s1Alpha = (mode === 's2') ? 0 : (sin(t * 2) * 0.2 + 0.4) * 255;
+  let s2Alpha = (mode === 's1') ? 0 : (sin(t * 1.5 + 1) * 0.2 + 0.4) * 255;
+  
+  if (mode === 'both' || mode === 's1') {
+    fill(22, 90, 100, s1Alpha);
+    textSize(14);
+    textStyle(BOLD);
+    text('SYSTEM 1', width * 0.25, height - 60);
+    fill(22, 70, 100, s1Alpha * 0.7);
+    textSize(11);
+    textStyle(NORMAL);
+    text('快思考 · 直觉 · 冲动', width * 0.25, height - 40);
+  }
+  
+  if (mode === 'both' || mode === 's2') {
+    fill(235, 75, 95, s2Alpha);
+    textSize(14);
+    textStyle(BOLD);
+    text('SYSTEM 2', width * 0.75, height - 60);
+    fill(235, 60, 80, s2Alpha * 0.7);
+    textSize(11);
+    textStyle(NORMAL);
+    text('慢思考 · 逻辑 · 深思', width * 0.75, height - 40);
+  }
+}
+
+function keyPressed() {
+  if (key === 's' || key === 'S') mode = 's1';
+  if (key === 'd' || key === 'D') mode = 's2';
+  if (key === 'b' || key === 'B') mode = 'both';
+  if (key === 'r' || key === 'R') {
+    for (let p of particles) p.reset();
+    pgOverlay.background(10, 10, 15);
+  }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  let oldPg = pgOverlay;
+  pgOverlay = createGraphics(width, height);
+  pgOverlay.colorMode(HSB, 360, 100, 100, 255);
+  pgOverlay.image(oldPg, 0, 0);
+}
+</script>
+</body>
+</html>

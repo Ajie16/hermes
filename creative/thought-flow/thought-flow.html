@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>思维粒子流场 - Thought Flow Field</title>
+  <script>p5.disableFriendlyErrors = true;</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { 
+      width: 100%; 
+      height: 100%; 
+      overflow: hidden; 
+      background: #0a0a0f;
+    }
+    canvas { display: block; }
+    #info {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      color: rgba(255,255,255,0.5);
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 12px;
+      pointer-events: none;
+      z-index: 10;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="info">移动鼠标探索粒子流场 | Move mouse to explore</div>
+<script>
+// === Thought Flow Field - 思维粒子流场 ===
+// A mesmerizing particle system that responds to mouse movement
+// Inspired by the flow of consciousness
+
+const CONFIG = {
+  particleCount: 3000,
+  noiseScale: 0.003,
+  timeScale: 0.0008,
+  mouseAttraction: 2.5,
+  mouseRadius: 180,
+  trailAlpha: 8,
+  maxSpeed: 4,
+  colorShift: 0.2
+};
+
+const PALETTE = {
+  bg: [10, 10, 15],
+  particles: [
+    [200, 80, 95],   // Cyan glow
+    [280, 70, 90],   // Magenta
+    [180, 90, 85],   // Blue-purple
+    [320, 60, 88],   // Warm gold
+    [240, 75, 92]    // Soft violet
+  ]
+};
+
+let particles = [];
+let bgBuffer;
+let t = 0;
+
+class FlowParticle {
+  constructor() {
+    this.reset();
+    this.colorIdx = Math.floor(Math.random() * PALETTE.particles.length);
+  }
+  
+  reset() {
+    this.x = Math.random() * width;
+    this.y = Math.random() * height;
+    this.prevX = this.x;
+    this.prevY = this.y;
+    this.speed = Math.random() * 1.5 + 0.5;
+    this.life = Math.random() * 200 + 100;
+    this.maxLife = this.life;
+    this.colorIdx = Math.floor(Math.random() * PALETTE.particles.length);
+  }
+  
+  update() {
+    this.prevX = this.x;
+    this.prevY = this.y;
+    
+    // Multi-octave noise for organic flow
+    let nx = this.x * CONFIG.noiseScale;
+    let ny = this.y * CONFIG.noiseScale;
+    let angle = noise(nx, ny, t) * TWO_PI * 2;
+    
+    // Add time-based movement
+    angle += noise(nx + 100, ny + 100, t * 0.5) * PI;
+    
+    // Mouse influence
+    let dx = mouseX - this.x;
+    let dy = mouseY - this.y;
+    let dist = Math.sqrt(dx * dx + dy * dy);
+    
+    if (dist < CONFIG.mouseRadius && dist > 0) {
+      let force = (1 - dist / CONFIG.mouseRadius) * CONFIG.mouseAttraction;
+      angle += Math.atan2(dy, dx) * force;
+    }
+    
+    // Apply velocity
+    let vx = Math.cos(angle) * this.speed;
+    let vy = Math.sin(angle) * this.speed;
+    
+    this.x += vx;
+    this.y += vy;
+    
+    // Life cycle
+    this.life--;
+    
+    // Wrap around edges with margin
+    let margin = 50;
+    if (this.x < -margin) this.x = width + margin;
+    if (this.x > width + margin) this.x = -margin;
+    if (this.y < -margin) this.y = height + margin;
+    if (this.y > height + margin) this.y = -margin;
+    
+    if (this.life <= 0) {
+      this.reset();
+    }
+  }
+  
+  draw() {
+    let lifeRatio = this.life / this.maxLife;
+    let alpha = lifeRatio * 150;
+    
+    // Get color from palette
+    let col = PALETTE.particles[this.colorIdx];
+    let hueShift = (t * 50) % 360;
+    
+    // Shift hue slightly over time
+    let h = (col[0] + hueShift) % 360;
+    let s = col[1];
+    let b = col[2] * (0.5 + lifeRatio * 0.5);
+    
+    // Draw trail
+    stroke(h, s, b, alpha);
+    strokeWeight(1.5);
+    line(this.prevX, this.prevY, this.x, this.y);
+    
+    // Draw glow point at head
+    if (lifeRatio > 0.7) {
+      let glowAlpha = (lifeRatio - 0.7) / 0.3 * 200;
+      fill(h, s, b, glowAlpha);
+      noStroke();
+      ellipse(this.x, this.y, 2);
+    }
+  }
+}
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  pixelDensity(1);
+  colorMode(HSB, 360, 100, 100, 100);
+  
+  // Create background buffer for trails
+  bgBuffer = createGraphics(width, height);
+  bgBuffer.colorMode(HSB, 360, 100, 100, 100);
+  bgBuffer.background(10, 10, 6);
+  
+  // Initialize particles
+  for (let i = 0; i < CONFIG.particleCount; i++) {
+    particles.push(new FlowParticle());
+  }
+}
+
+function draw() {
+  // Fade trails
+  bgBuffer.noStroke();
+  bgBuffer.fill(10, 10, 6, CONFIG.trailAlpha);
+  bgBuffer.rect(0, 0, width, height);
+  
+  // Draw particles to background buffer
+  bgBuffer.strokeWeight(1.5);
+  for (let p of particles) {
+    p.update();
+    
+    let lifeRatio = p.life / p.maxLife;
+    let alpha = lifeRatio * 120;
+    let col = PALETTE.particles[p.colorIdx];
+    let hueShift = (t * 50) % 360;
+    let h = (col[0] + hueShift) % 360;
+    
+    bgBuffer.stroke(h, col[1], col[2] * (0.5 + lifeRatio * 0.5), alpha);
+    bgBuffer.line(p.prevX, p.prevY, p.x, p.y);
+  }
+  
+  // Draw background to main canvas
+  image(bgBuffer, 0, 0);
+  
+  // Draw bright heads directly for extra glow
+  noStroke();
+  for (let p of particles) {
+    if (p.life / p.maxLife > 0.85) {
+      let col = PALETTE.particles[p.colorIdx];
+      let hueShift = (t * 50) % 360;
+      let h = (col[0] + hueShift) % 360;
+      let glowAlpha = (p.life / p.maxLife - 0.85) / 0.15 * 150;
+      fill(h, col[1], col[2], glowAlpha);
+      ellipse(p.x, p.y, 3);
+    }
+  }
+  
+  // Draw mouse influence zone (subtle)
+  if (mouseX > 0 && mouseY > 0) {
+    noFill();
+    stroke(200, 30, 50, 15);
+    strokeWeight(1);
+    ellipse(mouseX, mouseY, CONFIG.mouseRadius * 2);
+  }
+  
+  t += CONFIG.timeScale;
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  bgBuffer = createGraphics(width, height);
+  bgBuffer.colorMode(HSB, 360, 100, 100, 100);
+  bgBuffer.background(10, 10, 6);
+}
+
+function mousePressed() {
+  // Randomize particle colors on click
+  for (let p of particles) {
+    p.colorIdx = Math.floor(Math.random() * PALETTE.particles.length);
+  }
+}
+
+function keyPressed() {
+  if (key === 's' || key === 'S') {
+    saveCanvas('thought-flow-' + Date.now(), 'png');
+  }
+  if (key === 'r' || key === 'R') {
+    // Reset all particles
+    for (let p of particles) {
+      p.reset();
+    }
+    bgBuffer.background(10, 10, 6);
+  }
+}
+</script>
+</body>
+</html>

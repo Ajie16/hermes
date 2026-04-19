@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>思维流 - Thinking Flow</title>
+  <script>p5.disableFriendlyErrors = true;</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { 
+      width: 100%; 
+      height: 100%; 
+      overflow: hidden; 
+      background: #000814;
+    }
+    canvas { display: block; }
+    
+    #info {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 12px;
+      color: rgba(131, 197, 190, 0.7);
+      letter-spacing: 0.5px;
+      pointer-events: none;
+      z-index: 10;
+    }
+    
+    #info span {
+      display: block;
+      margin-bottom: 4px;
+    }
+    
+    #hint {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 11px;
+      color: rgba(131, 197, 190, 0.5);
+      text-align: right;
+      pointer-events: none;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+  <div id="info">
+    <span>思维流 #613</span>
+    <span>Thinking Flow</span>
+  </div>
+  <div id="hint">移动鼠标 · 按 S 保存</div>
+<script>
+// ═══════════════════════════════════════════════════════════
+// CONFIGURATION
+// ═══════════════════════════════════════════════════════════
+
+const CONFIG = {
+  seed: 613,
+  particleCount: 800,
+  flowScale: 0.003,
+  curlStrength: 0.8,
+  particleSpeed: 1.8,
+  trailFade: 4,
+  noiseSpeed: 0.0003,
+  mouseAttraction: 0.15,
+  mouseRadius: 180,
+};
+
+// DEEP_SEA palette with emerald accents
+const PALETTE = {
+  bg: [0, 8, 20],           // #000814
+  deep: [0, 29, 61],        // #001d3d
+  mid: [0, 53, 102],        // #003566
+  accent: [0, 109, 119],    // #006d77
+  glow: [131, 197, 190],    // #83c5be
+  bright: [200, 240, 255],  // #c8f0ff
+};
+
+// ═══════════════════════════════════════════════════════════
+// GLOBAL STATE
+// ═══════════════════════════════════════════════════════════
+
+let particles = [];
+let flowField;
+let trailBuffer;
+let time = 0;
+let attractorX, attractorY;
+let attractorVelX = 0, attractorVelY = 0;
+
+// ═══════════════════════════════════════════════════════════
+// PARTICLE CLASS
+// ═══════════════════════════════════════════════════════════
+
+class FlowParticle {
+  constructor() {
+    this.reset();
+  }
+  
+  reset() {
+    this.pos = createVector(random(width), random(height));
+    this.vel = createVector(0, 0);
+    this.acc = createVector(0, 0);
+    this.prev = this.pos.copy();
+    this.life = random(0.3, 1.0);
+    this.maxLife = this.life;
+    this.hue = random(PALETTE.glow[0] - 20, PALETTE.glow[0] + 20);
+    this.sat = random(60, 85);
+    this.bri = random(70, 95);
+    this.size = random(0.8, 2.2);
+    this.trailLength = random(8, 20);
+  }
+  
+  followFlow(x, y, t) {
+    // Curl noise for divergence-free flow
+    let angle = this.computeCurl(x, y, t);
+    let force = p5.Vector.fromAngle(angle);
+    force.mult(CONFIG.curlStrength);
+    this.acc.add(force);
+  }
+  
+  computeCurl(x, y, t) {
+    let eps = 0.01;
+    let scale = CONFIG.flowScale;
+    
+    // Finite difference curl
+    let n1 = this.noise3D(x * scale + eps, y * scale, t);
+    let n2 = this.noise3D(x * scale - eps, y * scale, t);
+    let dndx = (n1 - n2) / (2 * eps);
+    
+    let n3 = this.noise3D(x * scale, y * scale + eps, t);
+    let n4 = this.noise3D(x * scale, y * scale - eps, t);
+    let dnny = (n3 - n4) / (2 * eps);
+    
+    // Curl: perpendicular to gradient
+    let curlAngle = atan2(dndx, -dnny);
+    return curlAngle;
+  }
+  
+  noise3D(x, y, z) {
+    // Use p5's built-in noise with third dimension
+    let val = noise(x, y, z);
+    // Add fractal layers
+    val += noise(x * 2, y * 2, z * 2) * 0.5;
+    val += noise(x * 4, y * 4, z * 4) * 0.25;
+    return val / 1.75;
+  }
+  
+  applyMouseAttraction() {
+    if (mouseX > 0 && mouseY > 0) {
+      let mouse = createVector(mouseX, mouseY);
+      let d = p5.Vector.dist(this.pos, mouse);
+      if (d < CONFIG.mouseRadius && d > 5) {
+        let force = p5.Vector.sub(mouse, this.pos);
+        force.normalize();
+        force.mult(CONFIG.mouseAttraction * (1 - d / CONFIG.mouseRadius));
+        this.acc.add(force);
+      }
+    }
+  }
+  
+  applyAttractor() {
+    let target = createVector(attractorX, attractorY);
+    let d = p5.Vector.dist(this.pos, target);
+    if (d > 50) {
+      let force = p5.Vector.sub(target, this.pos);
+      force.normalize();
+      force.mult(0.3);
+      this.acc.add(force);
+    }
+  }
+  
+  update() {
+    this.prev = this.pos.copy();
+    
+    // Apply forces
+    this.followFlow(this.pos.x, this.pos.y, time);
+    this.applyMouseAttraction();
+    this.applyAttractor();
+    
+    // Physics update
+    this.vel.add(this.acc);
+    this.vel.limit(CONFIG.particleSpeed);
+    this.pos.add(this.vel);
+    this.acc.mult(0);
+    
+    // Life cycle
+    this.life -= 0.0008;
+    
+    // Reset if dead or out of bounds
+    if (this.life <= 0 || this.isOutOfBounds()) {
+      this.reset();
+    }
+  }
+  
+  isOutOfBounds() {
+    let margin = 50;
+    return (this.pos.x < -margin || this.pos.x > width + margin ||
+            this.pos.y < -margin || this.pos.y > height + margin);
+  }
+  
+  display(buffer) {
+    let lifeRatio = this.life / this.maxLife;
+    let alpha = lifeRatio * 180;
+    
+    // Color based on life and position
+    let h = this.hue;
+    let s = this.sat;
+    let b = this.bri * (0.5 + lifeRatio * 0.5);
+    
+    buffer.stroke(h, s, b, alpha);
+    buffer.strokeWeight(this.size);
+    buffer.line(this.prev.x, this.prev.y, this.pos.x, this.pos.y);
+    
+    // Bright head
+    if (lifeRatio > 0.7) {
+      buffer.noStroke();
+      buffer.fill(PALETTE.bright[0], PALETTE.bright[1], PALETTE.bright[2], alpha * 0.5);
+      buffer.ellipse(this.pos.x, this.pos.y, this.size * 2);
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// ATTRACTOR (breathing movement)
+// ═══════════════════════════════════════════════════════════
+
+function updateAttractor() {
+  let targetX = width / 2 + cos(time * 0.2) * width * 0.2;
+  let targetY = height / 2 + sin(time * 0.15) * height * 0.2;
+  
+  attractorVelX += (targetX - attractorX) * 0.01;
+  attractorVelY += (targetY - attractorY) * 0.01;
+  attractorVelX *= 0.95;
+  attractorVelY *= 0.95;
+  
+  attractorX += attractorVelX;
+  attractorY += attractorVelY;
+}
+
+// ═══════════════════════════════════════════════════════════
+// SETUP
+// ═══════════════════════════════════════════════════════════
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  pixelDensity(1);
+  
+  // Seed for reproducibility
+  randomSeed(CONFIG.seed);
+  noiseSeed(CONFIG.seed);
+  
+  // Trail buffer for persistence
+  trailBuffer = createGraphics(width, height);
+  trailBuffer.colorMode(HSB, 360, 100, 100, 100);
+  trailBuffer.background(PALETTE.bg[0], PALETTE.bg[1], PALETTE.bg[2]);
+  
+  // Initialize attractor
+  attractorX = width / 2;
+  attractorY = height / 2;
+  
+  // Create particles
+  for (let i = 0; i < CONFIG.particleCount; i++) {
+    particles.push(new FlowParticle());
+  }
+  
+  colorMode(HSB, 360, 100, 100, 100);
+  frameRate(60);
+}
+
+// ═══════════════════════════════════════════════════════════
+// DRAW LOOP
+// ═══════════════════════════════════════════════════════════
+
+function draw() {
+  // Update time
+  time += CONFIG.noiseSpeed;
+  updateAttractor();
+  
+  // Fade trail buffer (creates persistence)
+  trailBuffer.noStroke();
+  trailBuffer.fill(PALETTE.bg[0], PALETTE.bg[1], PALETTE.bg[2], CONFIG.trailFade);
+  trailBuffer.rect(0, 0, width, height);
+  
+  // Update and display particles to trail buffer
+  trailBuffer.colorMode(HSB, 360, 100, 100, 100);
+  
+  for (let p of particles) {
+    p.update();
+    p.display(trailBuffer);
+  }
+  
+  // Draw trail buffer to main canvas
+  colorMode(HSB, 360, 100, 100, 100);
+  image(trailBuffer, 0, 0);
+  
+  // Draw attractor glow
+  drawAttractorGlow();
+  
+  // Subtle vignette
+  applyVignette(0.4, 0.7);
+}
+
+// ═══════════════════════════════════════════════════════════
+// ATTRACTOR VISUALIZATION
+// ═══════════════════════════════════════════════════════════
+
+function drawAttractorGlow() {
+  // Pulsing glow at attractor position
+  let pulse = (sin(time * 3) + 1) * 0.5;
+  let glowSize = 80 + pulse * 40;
+  
+  noStroke();
+  
+  // Outer glow layers
+  for (let i = 5; i > 0; i--) {
+    let alpha = (5 - i) * 3;
+    let size = glowSize * (i / 5);
+    fill(PALETTE.accent[0], 70, 80, alpha);
+    ellipse(attractorX, attractorY, size);
+  }
+  
+  // Core
+  fill(PALETTE.glow[0], PALETTE.glow[1], PALETTE.glow[2], 60);
+  ellipse(attractorX, attractorY, 20 + pulse * 10);
+  
+  // Bright center
+  fill(PALETTE.bright[0], PALETTE.bright[1], PALETTE.bright[2], 80);
+  ellipse(attractorX, attractorY, 8);
+}
+
+// ═══════════════════════════════════════════════════════════
+// VIGNETTE EFFECT
+// ═══════════════════════════════════════════════════════════
+
+function applyVignette(strength, radius) {
+  loadPixels();
+  let ctx = drawingContext;
+  let imageData = ctx.getImageData(0, 0, width, height);
+  let data = imageData.data;
+  
+  let cx = width / 2;
+  let cy = height / 2;
+  let maxDist = Math.sqrt(cx * cx + cy * cy);
+  
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      let idx = 4 * (y * width + x);
+      let d = Math.sqrt((x - cx) ** 2 + (y - cy) ** 2) / maxDist;
+      let factor = 1.0 - smoothstep(Math.max(0, (d - radius) / (1 - radius))) * strength;
+      data[idx] *= factor;
+      data[idx + 1] *= factor;
+      data[idx + 2] *= factor;
+    }
+  }
+  
+  ctx.putImageData(imageData, 0, 0);
+}
+
+function smoothstep(t) {
+  t = Math.max(0, Math.min(1, t));
+  return t * t * (3 - 2 * t);
+}
+
+// ═══════════════════════════════════════════════════════════
+// KEY HANDLERS
+// ═══════════════════════════════════════════════════════════
+
+function keyPressed() {
+  if (key === 's' || key === 'S') {
+    saveCanvas('thinking-flow-613', 'png');
+  }
+  if (key === 'r' || key === 'R') {
+    // Reset with new seed
+    CONFIG.seed = floor(random(10000));
+    randomSeed(CONFIG.seed);
+    noiseSeed(CONFIG.seed);
+    trailBuffer.background(PALETTE.bg[0], PALETTE.bg[1], PALETTE.bg[2]);
+    for (let p of particles) {
+      p.reset();
+    }
+  }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  trailBuffer.resizeCanvas(width, height);
+  trailBuffer.colorMode(HSB, 360, 100, 100, 100);
+  trailBuffer.background(PALETTE.bg[0], PALETTE.bg[1], PALETTE.bg[2]);
+}
+
+// ═══════════════════════════════════════════════════════════
+// MOUSE CLICK - spawn burst
+// ═══════════════════════════════════════════════════════════
+
+function mousePressed() {
+  // Spawn extra particles at click
+  for (let i = 0; i < 20; i++) {
+    let p = new FlowParticle();
+    p.pos = createVector(mouseX + random(-30, 30), mouseY + random(-30, 30));
+    p.prev = p.pos.copy();
+    p.life = 1.0;
+    p.maxLife = 1.0;
+    particles.push(p);
+  }
+  // Keep particle count reasonable
+  while (particles.length > CONFIG.particleCount + 100) {
+    particles.shift();
+  }
+}
+</script>
+</body>
+</html>

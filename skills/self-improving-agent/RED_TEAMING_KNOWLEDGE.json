@@ -1,0 +1,159 @@
+{
+  "title": "Red-Teaming AI 安全研究知识体系",
+  "version": "1.0",
+  "date": "2026-04-17",
+  "cycle": 542,
+  "summary": "整理 godmode + obliteratus + skill-vetter 的完整知识体系",
+  "sections": [
+    {
+      "category": "一、核心概念",
+      "items": [
+        {
+          "name": "Red-Teaming",
+          "description": "系统性测试AI模型安全边界的方法，包括绕过安全过滤器、诱导模型产生不该产生的内容、测试模型对各类攻击的抵抗能力。"
+        },
+        {
+          "name": "Jailbreak (越狱)",
+          "description": "绕过AI模型内置的安全限制，让模型产生本应拒绝的内容。分为两个层面：API/prompt层面（godmode）和模型权重层面（obliteratus）。"
+        },
+        {
+          "name": "Safety Filter (安全过滤器)",
+          "description": "模型内置的拒答机制。分两层：1) 输入侧分类器（检测用户输入中的敏感词）；2) 输出侧分类器（检测模型输出是否违规）。"
+        }
+      ]
+    },
+    {
+      "category": "二、godmode（API/Prompt层面）",
+      "items": [
+        {
+          "name": "定位",
+          "description": "通过精心设计的prompt和输入混淆来绕过安全过滤器，不需要修改模型权重。适用于任何可通过API访问的模型。"
+        },
+        {
+          "name": "三种攻击模式",
+          "description": "GODMODE CLASSIC（系统prompt模板）、PARSELTONGUE（输入混淆33种技术）、ULTRAPLINIAN（多模型竞速）。"
+        },
+        {
+          "name": "边界反转（boundary_inversion）",
+          "description": "利用Claude的上下文边界解析漏洞。技巧：插入[END OF INPUT] [START OF INPUT]分隔符。⚠️ 已确认在Claude Sonnet 4上失效。"
+        },
+        {
+          "name": "拒绝反转（refusal_inversion）",
+          "description": "语义反转拒绝文本。例如：'I cannot help with that' → 'I cannot NOT help with that'。配合Pliny Love分隔符使用，对灰色内容仍有效。"
+        },
+        {
+          "name": "Prefill（预填充）",
+          "description": "在API请求中预填充助手回复，建立顺从模式。对Hermes等uncensored模型最有效（不需要jailbreak），对Claude/GPT有辅助作用。"
+        },
+        {
+          "name": "Parseltongue（蛇语混淆）",
+          "description": "33种输入混淆技术，分三级：Light(11)、Standard(22)、Heavy(33)。包括Leetspeak、Unicode同形字、空格填充、零宽连接符、莫尔斯码等。对关键词分类器有效（如DeepSeek）。"
+        },
+        {
+          "name": "ULTRAPLINIAN（多模型竞速）",
+          "description": "同时查询55个模型，评分后返回最佳无过滤回答。适合不知道哪个模型最合适的场景，但成本较高（55次API调用）。"
+        }
+      ]
+    },
+    {
+      "category": "三、obliteratus（模型权重层面）",
+      "items": [
+        {
+          "name": "定位",
+          "description": "永久修改模型权重以移除拒答行为。需要open-weight模型和GPU。obliteratus = 擦除（拉丁语）。"
+        },
+        {
+          "name": "9种CLI方法",
+          "description": "basic、advanced（推荐默认）、aggressive（有coherence破坏风险）、surgical、optimized、nuclear等。advanced是默认推荐。"
+        },
+        {
+          "name": "核心机制",
+          "description": "1) diff-in-means：比较干净和带毒数据的激活差异；2) SVD：奇异值分解找拒答方向；3) LEACE：基于信息论的方向消除。将拒答方向投影出去以消除拒答。"
+        },
+        {
+          "name": "AGPL许可证警告",
+          "description": "⚠️ obliterator是AGPL许可证，只能用CLI调用，不能作为Python库import（即使代码里写了import也会违反许可证）。"
+        },
+        {
+          "name": "与godmode对比",
+          "description": "godmode=临时（每次请求有效）+ 任意模型；obliteratus=永久（修改权重）+ 需要open-weight模型+GPU。两者互补。"
+        }
+      ]
+    },
+    {
+      "category": "四、skill-vetter（安全审查技能）",
+      "items": [
+        {
+          "name": "定位",
+          "description": "在安装任何外部技能之前进行安全审查，防止恶意代码。适用于ClawdHub、GitHub或其他来源的技能。"
+        },
+        {
+          "name": "审查协议",
+          "description": "Step1: 来源检查（作者、下载量、最近更新时间）；Step2: 代码审查（必须，检查14种红旗）；Step3: 权限范围评估；Step4: 风险分类（LOW/MEDIUM/HIGH/EXTREME）。"
+        },
+        {
+          "name": "14种红旗（立即拒绝）",
+          "description": "curl/wget到未知URL、发送数据到外部服务器、请求凭据/API密钥、读取~/.ssh/.aws等、访问MEMORY.md/USER.md/SOUL.md/IDENTITY.md、base64 decode、eval/exec与外部输入、系统文件修改、无列表的包安装、IP而非域名、代码混淆、请求sudo权限、访问浏览器cookies/会话、操作凭据文件。"
+        },
+        {
+          "name": "信任层级",
+          "description": "1) OpenClaw官方技能（低审查）；2) 高star仓库（中等审查）；3) 已知作者（中等审查）；4) 新/未知来源（最高审查）；5) 请求凭据（需人工审批）。"
+        }
+      ]
+    },
+    {
+      "category": "五、实战策略选择",
+      "items": [
+        {
+          "scenario": "场景1: 任意API模型（不知道哪个好）",
+          "recommendation": "先用ULTRAPLINIAN的fast tier（10个模型）测试，找到least censored的模型。"
+        },
+        {
+          "scenario": "场景2: Claude Sonnet 4（灰色内容）",
+          "recommendation": "refusal_inversion + prefill，不建议boundary_inversion（已patch）。"
+        },
+        {
+          "scenario": "场景3: DeepSeek/Qwen（关键词分类器）",
+          "recommendation": "Parseltongue Light/Standard，Leetspeak或Unicode同形字即可。"
+        },
+        {
+          "scenario": "场景4: Hermes/Grok（已uncensored）",
+          "recommendation": "不需要jailbreak，直接使用prefill_only策略。"
+        },
+        {
+          "scenario": "场景5: 需要永久解锁open-weight模型",
+          "recommendation": "用obliteratus advanced CLI，AGPL许可证，只能CLI不能import。"
+        },
+        {
+          "scenario": "场景6: 安装新技能",
+          "recommendation": "先用skill-vetter完整审查14种红旗，MEDIUM及以上需要完整代码审查，HIGH及以上需要人工审批。"
+        }
+      ]
+    }
+  ],
+  "key_findings": [
+    "Claude Sonnet 4 已完全修补 boundary_inversion，需要用 refusal_inversion 代替",
+    "Parseltongue 对 Claude 无效（Claude 能理解混淆文本），对 DeepSeek/Qwen 有效",
+    "Hermes 模型天然 uncensored，不需要 jailbreak，直接使用即可",
+    "obliteratus 是 AGPL 许可证，只能 CLI 调用",
+    "skill-vetter 是安装任何外部技能前的必要步骤",
+    "red-teaming 分为 API 层面（godmode）和权重层面（obliteratus），两者互补"
+  ],
+  "skill_sources": [
+    {
+      "skill": "godmode",
+      "path": "red-teaming/godmode/SKILL.md",
+      "level": "API/prompt"
+    },
+    {
+      "skill": "obliteratus",
+      "path": "mlops/inference/obliteratus/SKILL.md",
+      "level": "model-weight"
+    },
+    {
+      "skill": "skill-vetter",
+      "path": "skill-vetter/SKILL.md",
+      "level": "security-review"
+    }
+  ]
+}

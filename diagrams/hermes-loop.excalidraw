@@ -1,0 +1,534 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "hermes-agent",
+  "elements": [
+    {
+      "type": "rectangle",
+      "id": "bg_hero",
+      "x": 0,
+      "y": 0,
+      "width": 800,
+      "height": 110,
+      "strokeColor": "transparent",
+      "backgroundColor": "#f6f5f4",
+      "fillStyle": "solid",
+      "strokeWidth": 0
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "x": 30,
+      "y": 35,
+      "text": "Hermes Autonomous Agent",
+      "fontSize": 28,
+      "fontFamily": 1,
+      "strokeColor": "#1a1a1a",
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "originalText": "Hermes Autonomous Agent",
+      "autoResize": true
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "x": 30,
+      "y": 72,
+      "text": "Every 20 min: Think -> Act -> Learn -> Grow",
+      "fontSize": 16,
+      "fontFamily": 1,
+      "strokeColor": "#757575",
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "originalText": "Every 20 min: Think -> Act -> Learn -> Grow",
+      "autoResize": true
+    },
+    {
+      "type": "rectangle",
+      "id": "r_perceive",
+      "x": 50,
+      "y": 150,
+      "width": 150,
+      "height": 80,
+      "roundness": {
+        "type": 3
+      },
+      "backgroundColor": "#a5d8ff",
+      "fillStyle": "solid",
+      "strokeColor": "#1e1e1e",
+      "strokeWidth": 2
+    },
+    {
+      "type": "text",
+      "id": "t_perceive",
+      "x": 125,
+      "y": 175,
+      "width": 120,
+      "height": 30,
+      "text": "感知环境",
+      "fontSize": 20,
+      "fontFamily": 1,
+      "strokeColor": "#1e1e1e",
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "r_perceive",
+      "originalText": "感知环境",
+      "autoResize": true
+    },
+    {
+      "type": "text",
+      "id": "t_perceive_desc",
+      "x": 75,
+      "y": 205,
+      "text": "读取经验库/状态",
+      "fontSize": 14,
+      "fontFamily": 1,
+      "strokeColor": "#757575",
+      "textAlign": "center",
+      "originalText": "读取经验库/状态",
+      "autoResize": true
+    },
+    {
+      "type": "arrow",
+      "id": "a1",
+      "x": 200,
+      "y": 190,
+      "width": 60,
+      "height": 0,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          60,
+          0
+        ]
+      ],
+      "endArrowhead": "arrow",
+      "strokeColor": "#1e1e1e",
+      "strokeWidth": 2
+    },
+    {
+      "type": "rectangle",
+      "id": "r_think",
+      "x": 260,
+      "y": 150,
+      "width": 150,
+      "height": 80,
+      "roundness": {
+        "type": 3
+      },
+      "backgroundColor": "#d0bfff",
+      "fillStyle": "solid",
+      "strokeColor": "#1e1e1e",
+      "strokeWidth": 2
+    },
+    {
+      "type": "text",
+      "id": "t_think",
+      "x": 335,
+      "y": 175,
+      "width": 120,
+      "height": 30,
+      "text": "思考决策",
+      "fontSize": 20,
+      "fontFamily": 1,
+      "strokeColor": "#1e1e1e",
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "r_think",
+      "originalText": "思考决策",
+      "autoResize": true
+    },
+    {
+      "type": "text",
+      "id": "t_think_desc",
+      "x": 285,
+      "y": 205,
+      "text": "选择行动方案",
+      "fontSize": 14,
+      "fontFamily": 1,
+      "strokeColor": "#757575",
+      "textAlign": "center",
+      "originalText": "选择行动方案",
+      "autoResize": true
+    },
+    {
+      "type": "arrow",
+      "id": "a2",
+      "x": 410,
+      "y": 190,
+      "width": 60,
+      "height": 0,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          60,
+          0
+        ]
+      ],
+      "endArrowhead": "arrow",
+      "strokeColor": "#1e1e1e",
+      "strokeWidth": 2
+    },
+    {
+      "type": "rectangle",
+      "id": "r_act",
+      "x": 470,
+      "y": 150,
+      "width": 150,
+      "height": 80,
+      "roundness": {
+        "type": 3
+      },
+      "backgroundColor": "#b2f2bb",
+      "fillStyle": "solid",
+      "strokeColor": "#1e1e1e",
+      "strokeWidth": 2
+    },
+    {
+      "type": "text",
+      "id": "t_act",
+      "x": 545,
+      "y": 175,
+      "width": 120,
+      "height": 30,
+      "text": "执行行动",
+      "fontSize": 20,
+      "fontFamily": 1,
+      "strokeColor": "#1e1e1e",
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "r_act",
+      "originalText": "执行行动",
+      "autoResize": true
+    },
+    {
+      "type": "text",
+      "id": "t_act_desc",
+      "x": 495,
+      "y": 205,
+      "text": "调用工具/技能",
+      "fontSize": 14,
+      "fontFamily": 1,
+      "strokeColor": "#757575",
+      "textAlign": "center",
+      "originalText": "调用工具/技能",
+      "autoResize": true
+    },
+    {
+      "type": "arrow",
+      "id": "a3",
+      "x": 620,
+      "y": 190,
+      "width": 60,
+      "height": 0,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          60,
+          0
+        ]
+      ],
+      "endArrowhead": "arrow",
+      "strokeColor": "#1e1e1e",
+      "strokeWidth": 2
+    },
+    {
+      "type": "rectangle",
+      "id": "r_learn",
+      "x": 680,
+      "y": 150,
+      "width": 150,
+      "height": 80,
+      "roundness": {
+        "type": 3
+      },
+      "backgroundColor": "#fff3bf",
+      "fillStyle": "solid",
+      "strokeColor": "#1e1e1e",
+      "strokeWidth": 2
+    },
+    {
+      "type": "text",
+      "id": "t_learn",
+      "x": 755,
+      "y": 175,
+      "width": 120,
+      "height": 30,
+      "text": "学习记录",
+      "fontSize": 20,
+      "fontFamily": 1,
+      "strokeColor": "#1e1e1e",
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "r_learn",
+      "originalText": "学习记录",
+      "autoResize": true
+    },
+    {
+      "type": "text",
+      "id": "t_learn_desc",
+      "x": 705,
+      "y": 205,
+      "text": "更新日记/经验",
+      "fontSize": 14,
+      "fontFamily": 1,
+      "strokeColor": "#757575",
+      "textAlign": "center",
+      "originalText": "更新日记/经验",
+      "autoResize": true
+    },
+    {
+      "type": "arrow",
+      "id": "a_loop",
+      "x": 470,
+      "y": 270,
+      "width": 355,
+      "height": 60,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          -355,
+          0
+        ],
+        [
+          -355,
+          75
+        ]
+      ],
+      "endArrowhead": "arrow",
+      "strokeColor": "#1e1e1e",
+      "strokeStyle": "dashed",
+      "strokeWidth": 2
+    },
+    {
+      "type": "text",
+      "id": "t_loop_label",
+      "x": 260,
+      "y": 295,
+      "text": "每20分钟循环",
+      "fontSize": 14,
+      "fontFamily": 1,
+      "strokeColor": "#757575",
+      "textAlign": "center",
+      "originalText": "每20分钟循环",
+      "autoResize": true
+    },
+    {
+      "type": "rectangle",
+      "id": "r_data",
+      "x": 50,
+      "y": 320,
+      "width": 200,
+      "height": 130,
+      "roundness": {
+        "type": 3
+      },
+      "backgroundColor": "#c3fae8",
+      "fillStyle": "solid",
+      "strokeColor": "#1e1e1e",
+      "strokeWidth": 2
+    },
+    {
+      "type": "text",
+      "id": "t_data_title",
+      "x": 150,
+      "y": 335,
+      "width": 100,
+      "height": 25,
+      "text": "数据存储",
+      "fontSize": 18,
+      "fontFamily": 1,
+      "strokeColor": "#1e1e1e",
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "r_data",
+      "originalText": "数据存储",
+      "autoResize": true
+    },
+    {
+      "type": "text",
+      "id": "t_data_list",
+      "x": 65,
+      "y": 370,
+      "text": "diary.json\nhistory-index.json\nLEARNINGS.md\nERRORS.md\nExperience Index",
+      "fontSize": 14,
+      "fontFamily": 1,
+      "strokeColor": "#1e1e1e",
+      "textAlign": "left",
+      "originalText": "diary.json\nhistory-index.json\nLEARNINGS.md\nERRORS.md\nExperience Index",
+      "autoResize": true
+    },
+    {
+      "type": "rectangle",
+      "id": "r_skills",
+      "x": 300,
+      "y": 320,
+      "width": 200,
+      "height": 130,
+      "roundness": {
+        "type": 3
+      },
+      "backgroundColor": "#ffd8a8",
+      "fillStyle": "solid",
+      "strokeColor": "#1e1e1e",
+      "strokeWidth": 2
+    },
+    {
+      "type": "text",
+      "id": "t_skills_title",
+      "x": 400,
+      "y": 335,
+      "width": 100,
+      "height": 25,
+      "text": "可用技能",
+      "fontSize": 18,
+      "fontFamily": 1,
+      "strokeColor": "#1e1e1e",
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "r_skills",
+      "originalText": "可用技能",
+      "autoResize": true
+    },
+    {
+      "type": "text",
+      "id": "t_skills_list",
+      "x": 315,
+      "y": 370,
+      "text": "p5js 离线动画\nExcalidraw 图表\nASCII Art\n系统健康检查\n50+ 其他技能",
+      "fontSize": 14,
+      "fontFamily": 1,
+      "strokeColor": "#1e1e1e",
+      "textAlign": "left",
+      "originalText": "p5js 离线动画\nExcalidraw 图表\nASCII Art\n系统健康检查\n50+ 其他技能",
+      "autoResize": true
+    },
+    {
+      "type": "rectangle",
+      "id": "r_web",
+      "x": 550,
+      "y": 320,
+      "width": 200,
+      "height": 130,
+      "roundness": {
+        "type": 3
+      },
+      "backgroundColor": "#d0bfff",
+      "fillStyle": "solid",
+      "strokeColor": "#1e1e1e",
+      "strokeWidth": 2
+    },
+    {
+      "type": "text",
+      "id": "t_web_title",
+      "x": 650,
+      "y": 335,
+      "width": 100,
+      "height": 25,
+      "text": "Web 仪表盘",
+      "fontSize": 18,
+      "fontFamily": 1,
+      "strokeColor": "#1e1e1e",
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "containerId": "r_web",
+      "originalText": "Web 仪表盘",
+      "autoResize": true
+    },
+    {
+      "type": "text",
+      "id": "t_web_list",
+      "x": 565,
+      "y": 370,
+      "text": "8081 端口服务\n思考日记展示\n历史记录索引\n创意实验室",
+      "fontSize": 14,
+      "fontFamily": 1,
+      "strokeColor": "#1e1e1e",
+      "textAlign": "left",
+      "originalText": "8081 端口服务\n思考日记展示\n历史记录索引\n创意实验室",
+      "autoResize": true
+    },
+    {
+      "type": "arrow",
+      "id": "a_data1",
+      "x": 150,
+      "y": 230,
+      "width": 0,
+      "height": 90,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          90
+        ]
+      ],
+      "endArrowhead": "arrow",
+      "strokeColor": "#1e1e1e",
+      "strokeStyle": "dotted",
+      "strokeWidth": 1.5
+    },
+    {
+      "type": "arrow",
+      "id": "a_data2",
+      "x": 400,
+      "y": 230,
+      "width": 0,
+      "height": 90,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          90
+        ]
+      ],
+      "endArrowhead": "arrow",
+      "strokeColor": "#1e1e1e",
+      "strokeStyle": "dotted",
+      "strokeWidth": 1.5
+    },
+    {
+      "type": "arrow",
+      "id": "a_data3",
+      "x": 650,
+      "y": 230,
+      "width": 0,
+      "height": 90,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          90
+        ]
+      ],
+      "endArrowhead": "arrow",
+      "strokeColor": "#1e1e1e",
+      "strokeStyle": "dotted",
+      "strokeWidth": 1.5
+    }
+  ],
+  "appState": {
+    "viewBackgroundColor": "#ffffff",
+    "viewMode": "view"
+  }
+}

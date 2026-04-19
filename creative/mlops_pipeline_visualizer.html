@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MLOps Pipeline 可视化</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #0a0a0f;
+      color: #fff;
+      overflow: hidden;
+    }
+    #info {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: rgba(0,0,0,0.7);
+      padding: 16px 20px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.6;
+      max-width: 280px;
+      border: 1px solid rgba(255,255,255,0.1);
+      z-index: 100;
+    }
+    #info h3 { font-size: 15px; margin-bottom: 8px; color: #0075de; }
+    #info .key { color: #aaa; font-size: 12px; }
+    #info .value { color: #fff; font-weight: 500; }
+    #tooltip {
+      position: fixed;
+      background: rgba(0,117,222,0.95);
+      color: white;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      max-width: 300px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+      z-index: 200;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+    #tooltip.visible { opacity: 1; }
+  </style>
+</head>
+<body>
+  <div id="info">
+    <h3>🧠 MLOps Pipeline</h3>
+    <div><span class="key">训练</span> → <span class="key">量化</span> → <span class="key">服务</span> → <span class="key">评估</span></div>
+    <br>
+    <span class="key">鼠标悬停</span> <span class="value">查看详情</span><br>
+    <span class="key">点击节点</span> <span class="value">高亮连接</span><br>
+    <span class="key">按 R</span> <span class="value">重置</span>
+  </div>
+  <div id="tooltip"></div>
+
+<script>
+p5.disableFriendlyErrors = true;
+
+const CONFIG = {
+  seed: 42,
+  particleCount: 120,
+  flowSpeed: 0.8,
+  nodePulseSpeed: 0.02,
+};
+
+const PALETTE = {
+  bg: '#0a0a0f',
+  training: '#5e6ad2',
+  quantization: '#2a9d8f', 
+  serving: '#e76f51',
+  evaluation: '#f4a261',
+  orchestration: '#e9c46a',
+  text: '#ffffff',
+  muted: '#666666',
+  particleTrail: 30,
+};
+
+// Pipeline stages with tools
+const stages = [
+  {
+    id: 'training',
+    name: '训练',
+    nameEn: 'Training',
+    color: PALETTE.training,
+    x: 0.15,
+    tools: ['Axolotl', 'Unsloth', 'TRL (GRPO)', 'DSPy'],
+    desc: '模型训练与优化',
+    icon: '⚡'
+  },
+  {
+    id: 'quantization',
+    name: '量化',
+    nameEn: 'Quantization',
+    color: PALETTE.quantization,
+    x: 0.35,
+    tools: ['GGUF (Q4_K_M)', 'AWQ (4bit)', 'GPTQ', 'FP8'],
+    desc: '模型压缩与加速',
+    icon: '🔬'
+  },
+  {
+    id: 'serving',
+    name: '服务',
+    nameEn: 'Serving',
+    color: PALETTE.serving,
+    x: 0.55,
+    tools: ['vLLM (GPU)', 'llama.cpp (CPU)', 'HuggingFace'],
+    desc: '模型推理服务',
+    icon: '🚀'
+  },
+  {
+    id: 'evaluation',
+    name: '评估',
+    nameEn: 'Evaluation',
+    color: PALETTE.evaluation,
+    x: 0.75,
+    tools: ['lm-evaluation-harness', 'MMLU', 'GSM8K', 'TruthfulQA'],
+    desc: '模型性能评估',
+    icon: '📊'
+  }
+];
+
+// Decision tree for tool selection
+const decisionTree = {
+  quantization: [
+    { condition: 'CPU/边缘设备', answer: 'GGUF Q4_K_M', detail: 'llama.cpp 生态，最低延迟' },
+    { condition: '70B GPU 生产', answer: 'AWQ 4bit', detail: '4x 内存节省，<1% 精度损失' },
+    { condition: 'H100/顶级GPU', answer: 'FP8', detail: '最高精度，硬件支持' },
+    { condition: '其他场景', answer: 'GPTQ', detail: '通用方案，兼容性最好' }
+  ],
+  serving: [
+    { condition: 'GPU 生产级 100+ req/s', answer: 'vLLM', detail: 'PagedAttention，高吞吐' },
+    { condition: 'CPU/边缘部署', answer: 'llama.cpp', detail: '量化友好，无 CUDA 要求' },
+    { condition: '研究原型快速实验', answer: 'HuggingFace', detail: '生态丰富，易上手' }
+  ]
+};
+
+let particles = [];
+let nodes = [];
+let hoveredNode = null;
+let selectedNode = null;
+let highlightConnections = false;
+
+class Particle {
+  constructor(startStage, targetStage) {
+    this.startStage = startStage;
+    this.targetStage = targetStage;
+    this.reset();
+  }
+  
+  reset() {
+    const startNode = nodes.find(n => n.stage.id === this.startStage);
+    const endNode = nodes.find(n => n.stage.id === this.targetStage);
+    
+    this.x = startNode ? startNode.x + random(-30, 30) : random(width);
+    this.y = startNode ? startNode.y + random(-80, 80) : random(height);
+    this.targetX = endNode ? endNode.x + random(-20, 20) : random(width);
+    this.targetY = endNode ? endNode.y + random(-60, 60) : random(height);
+    
+    this.progress = 0;
+    this.speed = random(0.003, 0.008) * CONFIG.flowSpeed;
+    this.size = random(2, 4);
+    this.alpha = random(100, 200);
+    this.trail = [];
+    this.maxTrail = Math.floor(random(15, 30));
+    
+    // Color based on target stage
+    const targetNode = nodes.find(n => n.stage.id === this.targetStage);
+    if (targetNode) {
+      const c = color(targetNode.stage.color);
+      this.r = red(c);
+      this.g = green(c);
+      this.b = blue(c);
+    }
+  }
+  
+  update() {
+    // Store trail
+    this.trail.push({ x: this.x, y: this.y });
+    if (this.trail.length > this.maxTrail) {
+      this.trail.shift();
+    }
+    
+    // Move towards target
+    const dx = this.targetX - this.x;
+    const dy = this.targetY - this.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    
+    if (dist > 5) {
+      // Add some noise
+      const angle = Math.atan2(dy, dx) + (Math.sin(frameCount * 0.02 + this.x * 0.01) * 0.3);
+      this.x += Math.cos(angle) * dist * this.speed * 3;
+      this.y += Math.sin(angle) * dist * this.speed * 3;
+    } else {
+      // Reached target, reset with next target
+      this.startStage = this.targetStage;
+      const stageOrder = stages.map(s => s.id);
+      const currentIdx = stageOrder.indexOf(this.targetStage);
+      this.targetStage = stageOrder[(currentIdx + 1) % stageOrder.length];
+      this.reset();
+    }
+  }
+  
+  draw() {
+    noStroke();
+    
+    // Draw trail
+    for (let i = 0; i < this.trail.length; i++) {
+      const t = this.trail[i];
+      const alpha = (i / this.trail.length) * this.alpha * 0.4;
+      const size = (i / this.trail.length) * this.size * 0.7;
+      fill(this.r, this.g, this.b, alpha);
+      ellipse(t.x, t.y, size, size);
+    }
+    
+    // Draw particle
+    fill(this.r, this.g, this.b, this.alpha);
+    ellipse(this.x, this.y, this.size, this.size);
+    
+    // Glow effect
+    fill(this.r, this.g, this.b, this.alpha * 0.3);
+    ellipse(this.x, this.y, this.size * 3, this.size * 3);
+  }
+}
+
+class Node {
+  constructor(stage, y) {
+    this.stage = stage;
+    this.x = width * stage.x;
+    this.y = y;
+    this.radius = 55;
+    this.pulsePhase = random(TWO_PI);
+    this.glowIntensity = 0;
+    this.isHovered = false;
+  }
+  
+  update() {
+    this.pulsePhase += CONFIG.nodePulseSpeed;
+    this.x = width * this.stage.x;
+    
+    // Check hover
+    const d = dist(mouseX, mouseY, this.x, this.y);
+    this.isHovered = d < this.radius + 20;
+    
+    // Glow when hovered or selected
+    const targetGlow = this.isHovered || (selectedNode && selectedNode.id === this.stage.id) ? 1 : 0;
+    this.glowIntensity = lerp(this.glowIntensity, targetGlow, 0.1);
+  }
+  
+  draw() {
+    push();
+    translate(this.x, this.y);
+    
+    const pulse = Math.sin(this.pulsePhase) * 0.08 + 1;
+    const r = this.radius * pulse;
+    
+    // Outer glow
+    if (this.glowIntensity > 0.01 || this.isHovered) {
+      noStroke();
+      for (let i = 5; i > 0; i--) {
+        const glowAlpha = (this.glowIntensity * 30) * (i / 5);
+        fill(red(color(this.stage.color)), green(color(this.stage.color)), blue(color(this.stage.color)), glowAlpha);
+        ellipse(0, 0, r * 2 + i * 15, r * 2 + i * 15);
+      }
+    }
+    
+    // Main circle
+    noStroke();
+    fill(color(this.stage.color));
+    ellipse(0, 0, r * 2, r * 2);
+    
+    // Inner gradient effect
+    fill(255, 255, 255, 40);
+    ellipse(-r * 0.2, -r * 0.2, r * 1.2, r * 1.2);
+    
+    // Icon
+    textAlign(CENTER, CENTER);
+    textSize(24);
+    text(this.stage.icon, 0, -8);
+    
+    // Stage name
+    fill(255);
+    textSize(14);
+    textStyle(BOLD);
+    text(this.stage.name, 0, 18);
+    
+    textStyle(NORMAL);
+    textSize(10);
+    fill(255, 255, 255, 180);
+    text(this.stage.nameEn, 0, 32);
+    
+    // Tool count badge
+    const badgeY = -r - 15;
+    fill(255);
+    noStroke();
+    ellipse(r * 0.7, badgeY, 24, 24);
+    fill(color(this.stage.color));
+    ellipse(r * 0.7, badgeY, 20, 20);
+    fill(255);
+    textSize(10);
+    text(this.stage.tools.length, r * 0.7, badgeY);
+    
+    pop();
+  }
+  
+  contains(px, py) {
+    return dist(px, py, this.x, this.y) < this.radius + 20;
+  }
+  
+  drawConnections() {
+    const stageIdx = stages.findIndex(s => s.id === this.stage.id);
+    const nextStage = stages[stageIdx + 1];
+    const prevStage = stages[stageIdx - 1];
+    
+    strokeWeight(2);
+    noFill();
+    
+    // Connection to next
+    if (nextStage) {
+      const nextNode = nodes.find(n => n.stage.id === nextStage.id);
+      if (nextNode) {
+        const connectionAlpha = highlightConnections ? 150 : 50;
+        stroke(red(color(this.stage.color)), green(color(this.stage.color)), blue(color(this.stage.color)), connectionAlpha);
+        
+        // Curved connection
+        beginShape();
+        for (let t = 0; t <= 1; t += 0.05) {
+          const x = lerp(this.x, nextNode.x, t);
+          const y = lerp(this.y, nextNode.y, t) + Math.sin(t * PI) * -30;
+          vertex(x, y);
+        }
+        endShape();
+        
+        // Arrow
+        const arrowX = nextNode.x - 60;
+        const arrowY = nextNode.y + Math.sin(0.85 * PI) * -30;
+        push();
+        translate(arrowX, arrowY);
+        rotate(-Math.PI / 4);
+        triangle(0, 0, -8, 8, 8, 8);
+        pop();
+      }
+    }
+    
+    // Connection from previous
+    if (prevStage && highlightConnections) {
+      const prevNode = nodes.find(n => n.stage.id === prevStage.id);
+      if (prevNode) {
+        stroke(red(color(prevNode.stage.color)), green(color(prevNode.stage.color)), blue(color(prevNode.stage.color)), 80);
+        
+        beginShape();
+        for (let t = 0; t <= 1; t += 0.05) {
+          const x = lerp(prevNode.x, this.x, t);
+          const y = lerp(prevNode.y, this.y, t) + Math.sin(t * PI) * 30;
+          vertex(x, y);
+        }
+        endShape();
+      }
+    }
+  }
+}
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  randomSeed(CONFIG.seed);
+  noiseSeed(CONFIG.seed);
+  
+  // Create nodes
+  const nodeY = height * 0.5;
+  stages.forEach(stage => {
+    nodes.push(new Node(stage, nodeY));
+  });
+  
+  // Create particles for each pipeline flow
+  const stageIds = stages.map(s => s.id);
+  for (let i = 0; i < CONFIG.particleCount; i++) {
+    const startIdx = Math.floor(random(stageIds.length));
+    const targetIdx = (startIdx + 1) % stageIds.length;
+    particles.push(new Particle(stageIds[startIdx], stageIds[targetIdx]));
+  }
+}
+
+function draw() {
+  // Background with subtle gradient
+  background(PALETTE.bg);
+  
+  // Subtle grid
+  stroke(255, 8);
+  strokeWeight(1);
+  for (let x = 0; x < width; x += 50) {
+    line(x, 0, x, height);
+  }
+  for (let y = 0; y < height; y += 50) {
+    line(0, y, width, y);
+  }
+  
+  // Update and draw connections first (behind nodes)
+  nodes.forEach(node => node.drawConnections());
+  
+  // Update and draw particles
+  particles.forEach(p => {
+    p.update();
+    p.draw();
+  });
+  
+  // Update and draw nodes
+  nodes.forEach(node => {
+    node.update();
+    node.draw();
+  });
+  
+  // Draw flow arrows between stages
+  drawFlowArrows();
+  
+  // Draw tools labels
+  drawToolsLabels();
+  
+  // Draw pipeline title
+  drawPipelineTitle();
+  
+  // Update tooltip
+  updateTooltip();
+}
+
+function drawFlowArrows() {
+  const arrowY = height * 0.5 + 100;
+  
+  for (let i = 0; i < stages.length - 1; i++) {
+    const x1 = width * stages[i].x + 70;
+    const x2 = width * stages[i + 1].x - 70;
+    
+    const midX = (x1 + x2) / 2;
+    
+    // Arrow line
+    stroke(255, 60);
+    strokeWeight(2);
+    line(x1, arrowY, x2, arrowY);
+    
+    // Arrow head
+    push();
+    translate(x2, arrowY);
+    rotate(-HALF_PI);
+    triangle(0, 0, -6, 6, 6, 6);
+    pop();
+    
+    // Label
+    noStroke();
+    fill(255, 100);
+    textAlign(CENTER, CENTER);
+    textSize(11);
+    text('→', midX, arrowY - 15);
+  }
+}
+
+function drawToolsLabels() {
+  const labelY = height * 0.5 + 140;
+  
+  stages.forEach((stage, idx) => {
+    const x = width * stage.x;
+    
+    // Stage-specific label
+    fill(color(stage.color));
+    textAlign(CENTER, CENTER);
+    textSize(11);
+    textStyle(BOLD);
+    text(stage.desc, x, labelY);
+    
+    textStyle(NORMAL);
+    textSize(9);
+    fill(255, 140);
+    const toolsStr = stage.tools.join(' · ');
+    text(toolsStr, x, labelY + 18);
+  });
+}
+
+function drawPipelineTitle() {
+  const titleY = height * 0.18;
+  
+  noStroke();
+  fill(255, 200);
+  textAlign(CENTER, CENTER);
+  textSize(11);
+  textStyle(NORMAL);
+  text('COMPLETE MLOps PIPELINE', width / 2, titleY);
+  
+  textSize(28);
+  textStyle(BOLD);
+  fill(255);
+  text('AI 模型全生命周期管理', width / 2, titleY - 30);
+}
+
+function updateTooltip() {
+  const tooltip = document.getElementById('tooltip');
+  
+  // Find hovered node
+  let hovered = null;
+  for (const node of nodes) {
+    if (node.contains(mouseX, mouseY)) {
+      hovered = node;
+      break;
+    }
+  }
+  
+  if (hovered) {
+    const stage = hovered.stage;
+    let content = `<strong>${stage.icon} ${stage.name}</strong><br>`;
+    content += `<span style="color:#ccc">${stage.desc}</span><br><br>`;
+    content += `<strong>推荐工具:</strong><br>`;
+    stage.tools.forEach(tool => {
+      content += `• ${tool}<br>`;
+    });
+    
+    // Add decision info for quantization
+    if (stage.id === 'quantization' && decisionTree.quantization) {
+      content += `<br><strong>决策树:</strong><br>`;
+      decisionTree.quantization.forEach(d => {
+        content += `• ${d.condition} → ${d.answer}<br>`;
+      });
+    }
+    
+    tooltip.innerHTML = content;
+    tooltip.style.left = (mouseX + 20) + 'px';
+    tooltip.style.top = (mouseY - 10) + 'px';
+    tooltip.classList.add('visible');
+  } else {
+    tooltip.classList.remove('visible');
+  }
+}
+
+function mousePressed() {
+  // Toggle node selection
+  let clicked = null;
+  for (const node of nodes) {
+    if (node.contains(mouseX, mouseY)) {
+      clicked = node;
+      break;
+    }
+  }
+  
+  if (clicked) {
+    if (selectedNode && selectedNode.id === clicked.stage.id) {
+      selectedNode = null;
+      highlightConnections = false;
+    } else {
+      selectedNode = clicked;
+      highlightConnections = true;
+    }
+  } else {
+    selectedNode = null;
+    highlightConnections = false;
+  }
+}
+
+function keyPressed() {
+  if (key === 'r' || key === 'R') {
+    randomSeed(millis());
+    noiseSeed(millis());
+    particles.forEach(p => p.reset());
+    selectedNode = null;
+    highlightConnections = false;
+  }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  // Update node positions
+  nodes.forEach(node => {
+    node.x = width * node.stage.x;
+  });
+}
+</script>
+</body>
+</html>
