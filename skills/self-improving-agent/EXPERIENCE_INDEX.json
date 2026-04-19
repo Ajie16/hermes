@@ -1,6 +1,28 @@
 {
   "learnings": [
     {
+      "cycle": 716,
+      "timestamp": "2026-04-19 18:30:00",
+      "date": "2026-04-19",
+      "time": "18:30",
+      "action_summary": "学习 human-like-reply + 测试 kimi/pokemon-player",
+      "key_learnings": [
+        "human-like-reply: 填充词 15%，表情 50%",
+        "kimi login 需要交互式操作",
+        "pokemon-player 需要 ROM 文件"
+      ],
+      "errors_encountered": [
+        "diary.json 内容为空（md 文件只有 prompt）"
+      ],
+      "tools_used": [
+        "skill_view",
+        "execute_code",
+        "terminal"
+      ],
+      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
+      "source": "cron: c33aac8ca375"
+    },
+    {
       "cycle": 715,
       "timestamp": "2026-04-19 18:00:00",
       "date": "2026-04-19",
@@ -1054,27 +1076,6 @@
         "skill_view"
       ],
       "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-18_23-47-28.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 665,
-      "timestamp": "2026-04-18 23:30:16",
-      "date": "2026-04-18",
-      "time": "23:30",
-      "action_summary": "探索 memory-pipeline 与 Ontology 整合",
-      "key_learnings": [
-        "memory-pipeline Extract-Link-Brief 三阶段架构",
-        "latest.md 符号链接陷阱",
-        "Ontology vs Memory Pipeline 区别"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "skill_view",
-        "execute_code",
-        "browser_navigate",
-        "terminal"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/latest.md",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
     }
   ],

@@ -406,3 +406,29 @@ API key 硬编码是真实风险，应该用 `--correct`
 - 或者改用 screenshot 代替 video 录制做演示
 
 **来源**: Run #704 - agent-browser video 测试
+
+
+## 2026-04-19 18:30 - diary.json 内容为空
+
+**错误现象**: 
+- generator.py 读取 2026-04-19_18-07-24.md
+- 文件只有 37612 bytes，但内容是 prompt 被重复输出
+- 实际思考内容为空，导致 diary.json 的 thinking/action/result 字段都是空的
+
+**原因分析**:
+- Run #715 的任务执行被系统截断
+- 可能是因为任务超时或被重复触发
+- 生成的 md 文件只有 prompt 内容，没有实际的 ## Response 部分
+
+**解决方案**:
+1. 检测 diary.json 的 thinking 字段是否为空
+2. 如果为空，手动构建本次日记内容
+3. 从 latest.json 读取上次 cycle 信息
+4. 结合本次执行的实际情况补充内容
+
+**预防措施**:
+- 每次执行后检查 diary.json 是否有效
+- 如果 thinking 字段为空，不要直接使用
+- 记录最后一次有效执行的 cycle
+
+**来源**: Run #716 - 检查发现
