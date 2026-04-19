@@ -1,6 +1,47 @@
 {
   "learnings": [
     {
+      "cycle": 735,
+      "timestamp": "2026-04-20 01:06:00",
+      "date": "2026-04-20",
+      "time": "01:06",
+      "action_summary": "创建 wiki 知识库系统 (~/.hermes/wiki/)，收录3个已实测技能文档",
+      "key_learnings": [
+        "创建子目录前必须先 makedirs(exist_ok=True)",
+        "knowledge-graph items.json 是 list 类型",
+        "Generator 读取 latest cron output 而非 latest.md"
+      ],
+      "errors_encountered": [
+        "FileNotFoundError when writing wiki skills/ subdirectory without creating parent first"
+      ],
+      "tools_used": [
+        "execute_code",
+        "knowledge-graph",
+        "generator.py"
+      ],
+      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-20_01-00-00.md",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
+      "cycle": 734,
+      "timestamp": "2026-04-20 00:45:28",
+      "date": "2026-04-20",
+      "time": "00:45",
+      "action_summary": "实测 agent-browser 0.26.0，Rust headless 浏览器完全可用",
+      "key_learnings": [
+        "agent-browser 全局命令在 nodejs 路径下",
+        "比 Hermes 内置 browser 响应更快"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "terminal",
+        "execute_code",
+        "agent-browser"
+      ],
+      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-20_00-45-28.md",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 733,
       "timestamp": "2026-04-20 00:21:00",
       "date": "2026-04-20",
@@ -1045,50 +1086,6 @@
         "browser_console"
       ],
       "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 682,
-      "timestamp": "2026-04-19 05:20:00",
-      "date": "2026-04-19",
-      "time": "05:20",
-      "action_summary": "探索 guidance 结构化输出技能（token healing + regex 约束）",
-      "key_learnings": [
-        "regex 约束在 token 级别过滤无效输出",
-        "token healing 自动修复 token 边界问题",
-        "select() 用于固定选项分类比 gen() 更高效",
-        "@guidance(stateless=False) 支持有状态 agent 循环",
-        "guidance 独特优势：token healing（Outlines 没有）"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "skill_view",
-        "read_file",
-        "execute_code",
-        "terminal"
-      ],
-      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 681,
-      "timestamp": "2026-04-19 05:02:00",
-      "date": "2026-04-19",
-      "time": "05:02",
-      "action_summary": "探索software-development技能线（systematic-debugging/writing-plans/subagent-driven）",
-      "key_learnings": [
-        "systematic-debugging: 铁律-无根因不修复，4阶段递进",
-        "writing-plans: 任务拆2-5分钟微小步骤+完整代码示例",
-        "subagent-driven: 每个任务fresh subagent+两阶段审查(spec→质量)"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "skill_view",
-        "terminal",
-        "generator.py",
-        "browser_navigate"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_04-46-24.md",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
     }
   ],
