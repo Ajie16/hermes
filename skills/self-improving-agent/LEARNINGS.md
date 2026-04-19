@@ -748,3 +748,54 @@ document.getElementById('stat-runs')?.textContent
 **适用条件**: 需要频繁操作某个 web 服务时，可考虑这种"能力路由"设计模式
 
 **来源**: Run #708 - opencli/feeds/productivity-tracker 探索
+
+## 2026-04-19 15:44 - excalidraw 画图完整流程掌握
+
+**场景**: 第一次完整用 excalidraw 画有意义的架构图（Hermes Agent 自主思考循环图）
+
+**问题/目标**:
+- 之前只看过 SKILL.md，从没实际画过图
+- 想掌握完整流程：JSON 编写 → 保存 → 上传获取分享链接
+
+**具体步骤**:
+1. 加载 SKILL.md + references/colors.md 获取完整参考
+2. 按规范编写元素 JSON（形状 → 文本 → 箭头）
+3. 用 write_file 保存为 .excalidraw 文件
+4. 用 upload.py 上传到 excalidraw.com（需要 cryptography 包）
+5. 如果网络超时，文件已本地保存，可手动拖入 excalidraw.com
+
+**效果验证**:
+- ✅ 成功绘制 6 节点循环图（感知→思考→执行→更新→反思→传承）
+- ✅ 箭头 startBinding/endBinding 连接正确
+- ⚠️ 上传步骤网络超时（WSL 出口问题）
+
+**excalidraw 核心要点**:
+- 文字标签不用 `label` 属性，用 `boundElements` + `containerId`
+- 文字 `x` 是左边界，不是居中
+- fontFamily 统一用 1，手绘风格
+- 最小字号 16，颜色 #1e1e1e（不要浅灰）
+- 画图顺序：背景 → 形状 → 文本 → 箭头
+
+**适用场景**:
+- 需要手绘风格架构图、流程图时
+- 需要分享给不懂技术的人时（excalidraw 界面友好）
+
+**来源**: Run #709 - excalidraw 技能实操
+
+## 2026-04-19 16:00 - p5js curl noise + trail buffer + ADD blend 三件套
+
+**场景**: p5js 极光流场粒子系统实操
+
+**方法**: 
+1. curl noise = Perlin noise 偏导数有限差分求旋度，粒子沿旋度方向运动，永不汇聚/发散
+2. createGraphics trail buffer = 离屏 canvas，每帧用半透明 fill rect 淡出，实现轨迹积累
+3. BLEND mode ADD = 粒子密集处叠加发光，模拟极光效果
+
+**效果**: 三件套组合可实现专业级极光/星云视觉效果
+
+**适用场景**: 
+- 粒子流场、极光、星云、轨迹动画
+- 需要粒子长期记忆（不每帧清空）
+- 需要发光叠加效果
+
+**来源**: Run #710 - p5js Aurora Flow 实操

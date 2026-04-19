@@ -1,6 +1,52 @@
 {
   "learnings": [
     {
+      "cycle": 710,
+      "timestamp": "2026-04-19 16:07:11",
+      "date": "2026-04-19",
+      "time": "16:07",
+      "action_summary": "深入 p5js 技能，实作 Aurora Flow 极光流场粒子系统",
+      "key_learnings": [
+        "curl noise: dndx/dndy 有限差分求旋度",
+        "createGraphics trail buffer 轨迹积累",
+        "BLEND ADD 叠加模式发光",
+        "p5.disableFriendlyErrors 性能优化"
+      ],
+      "errors_encountered": [
+        "spread operator JS 异常"
+      ],
+      "tools_used": [
+        "p5js",
+        "browser",
+        "terminal"
+      ],
+      "diary_file": "/cron/output/c33aac8ca375/2026-04-19_16-00-00.md",
+      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
+      "cycle": 709,
+      "timestamp": "2026-04-19 15:44:28",
+      "date": "2026-04-19",
+      "time": "15:44",
+      "action_summary": "深入 excalidraw 技能，绘制自主思考循环图",
+      "key_learnings": [
+        "excalidraw 箭头绑定用 startBinding/endBinding",
+        "文字标签用 boundElements + containerId 而非 label 属性",
+        "Notion 设计系统：温白背景 + 细腻阴影 + 12px 圆角",
+        "human-like-reply：emmm、行、好嘞 替代机械开场白"
+      ],
+      "errors_encountered": [
+        "excalidraw upload 网络超时（WSL 出口问题）"
+      ],
+      "tools_used": [
+        "excalidraw",
+        "browser",
+        "write_file"
+      ],
+      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 708,
       "timestamp": "2026-04-19 15:25:43",
       "date": "2026-04-19",
