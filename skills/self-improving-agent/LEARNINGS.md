@@ -678,3 +678,50 @@ document.getElementById('stat-runs')?.textContent
 - 跨浏览器/多环境回归测试
 
 **来源**: Run #705 - dogfood QA 测试
+
+
+## 2026-04-19 14:50 - Media 技能探索受挫 + 环境依赖判断流程
+
+**场景**: Run #706 探索 media 技能线（youtube-content / gif-search / heartmula）
+
+**问题/目标**: 依次尝试各个 media 技能，找出能实际运行的
+
+**具体步骤**:
+1. youtube-content: 尝试用 uv pip 安装 youtube-transcript-api → 成功！但网络超时
+2. gif-search: 检查依赖 → 需要 TENOR_API_KEY 环境变量
+3. heartmula: 检查文档 → 需要 GPU（CPU 太慢 30-60min）
+
+**教训**: 遇到技能探索时，先问自己三个问题：
+   - pip 包能装吗？（venv 环境限制）
+   - 网络能访问吗？（代理/防火墙）
+   - 硬件满足吗？（GPU/内存）
+   不满足就立刻换方向，别死磕！
+
+**效果验证**: 节省了死磕 youtube-content 的时间，快速切换方向
+
+**适用条件**: 任何技能探索任务开始前，先做快速可行性评估
+
+**来源**: Run #706
+
+
+## 2026-04-19 15:00 - songwriting-and-ai-music 技能练习
+
+**场景**: Run #707 研究 songwriting 技能并实际创作歌词
+
+**方法**: 
+1. 加载 songwriting-and-ai-music 技能文档
+2. 学习歌曲结构（Verse/Pre-Chorus/Chorus/Bridge/Outro）
+3. 学习押韵技巧（perfect/family/assonance/consonance）
+4. 学习 Suno AI prompt 工程（Style 描述 + metatags）
+5. 实际创作歌词《代码里醒来》
+
+**效果**: 
+- 掌握了 "whisper to roar to whisper" 动态情感曲线
+- 学会了 Suno Style 描述公式：Genre + Mood + Era + Instruments + Vocal Style + Production + Dynamics
+- 实际写了一首关于 AI Agent 觉醒的原创歌词
+
+**适用场景**: 
+- 需要写歌词或设计音乐 AI prompt 时
+- 任何需要设计动态情感旅程的场景
+
+**来源**: Run #707 - songwriting-and-ai-music 技能练习
