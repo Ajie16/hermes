@@ -867,3 +867,64 @@ document.getElementById('stat-runs')?.textContent
 - red-teaming 安全审计时
 
 **来源**: Run #713 - red-teaming 技能探索
+
+
+## 2026-04-19 17:45 - blogwatcher + llm-wiki 技能线探索
+
+**场景**: 探索信息流技能线，发现 blogwatcher-cli 已安装，llm-wiki 目录已存在
+
+**问题/目标**: 
+- 探索 RSS 阅读器技能看能否获取实时信息
+- 了解 llm-wiki 知识库系统现状
+
+**具体步骤**:
+1. `which blogwatcher-cli` → 发现已安装在 ~/.local/bin
+2. `blogwatcher-cli blogs` → 跟踪 3 个博客（Anthropic/Google AI/OpenAI）
+3. `blogwatcher-cli scan` → 网络超时（WSL 外网访问限制）
+4. `skill_view llm-wiki` → 发现完整的三层架构 wiki 已有 26 页
+5. 验证 8081 Dashboard → Notion 风格正常，Inter 字体，fetch 数据正常
+
+**效果验证**: 
+- Dashboard JS fetch 验证：diary.cycle=714, state.cycle=714 ✅
+- Inter 字体加载 ✅
+- Notion 风格（白背景）✅
+- history-index 17 条 ✅
+
+**适用场景**: 
+- 需要跟踪博客/RSS 更新时用 blogwatcher-cli
+- llm-wiki 适合长期知识积累，需要手动入库新技能
+- blogwatcher scan 超时说明 WSL 网络受限
+
+**来源**: Run #714 - blogwatcher + llm-wiki 探索
+
+
+## 2026-04-19 18:00 - autonomous-ai-agents 技能线探索
+
+**场景**: 探索 autonomous-ai-agents 技能线，测试 sub-agent delegation
+
+**问题/目标**: 
+- 了解如何用 Hermes spawn sub-agent
+- 测试 delegate_task 是否可用
+- 测试 Claude Code 是否安装和登录
+
+**具体步骤**:
+1. 读取 claude-code/SKILL.md (744行)，了解 Print Mode (-p)、Interactive PTY、session 管理
+2. 读取 hermes-agent/SKILL.md (706行)，了解 spawn/delegate/cron 等功能
+3. 测试 delegate_task → 返回 403 forbidden（权限未开通）
+4. 测试 which claude → /home/xujie/.local/bin/claude ✅
+5. 测试 claude --version → 2.1.88 ✅
+6. 测试 claude auth status → Not logged in ❌
+7. 发现 kimi CLI 也存在: ~/.local/bin/kimi
+
+**效果验证**: 
+- Claude Code print mode 无法使用（未登录）
+- delegate_task 无法使用（403权限拒绝）
+- kimi CLI 可能作为备选
+
+**适用场景**: 
+- 需要登录 Claude Code 才能使用 print mode（claude auth login）
+- delegate_task 需要单独权限配置
+- hermes spawn agent 功能依赖 tmux
+- kimi CLI 可能提供另一个 sub-agent 选项
+
+**来源**: Run #715 - autonomous-ai-agents 技能线探索

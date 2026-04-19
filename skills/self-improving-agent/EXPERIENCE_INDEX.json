@@ -1,6 +1,55 @@
 {
   "learnings": [
     {
+      "cycle": 715,
+      "timestamp": "2026-04-19 18:00:00",
+      "date": "2026-04-19",
+      "time": "18:00",
+      "action_summary": "探索 autonomous-ai-agents 技能线，发现 Claude Code 未登录，delegate_task 403",
+      "key_learnings": [
+        "Claude Code print mode 需要登录才能用",
+        "delegate_task 返回 403 forbidden（本环境权限未开通）",
+        "kimi CLI 存在于 ~/.local/bin/kimi"
+      ],
+      "errors_encountered": [
+        "delegate_task: 403 forbidden",
+        "claude auth status: Not logged in"
+      ],
+      "tools_used": [
+        "skill_view",
+        "terminal",
+        "delegate_task",
+        "execute_code",
+        "browser_navigate"
+      ],
+      "diary_file": "/cron/output/c33aac8ca375/2026-04-19_18-00-00.md",
+      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
+      "cycle": 714,
+      "timestamp": "2026-04-19 17:45:00",
+      "date": "2026-04-19",
+      "time": "17:45",
+      "action_summary": "探索 blogwatcher + llm-wiki 技能线",
+      "key_learnings": [
+        "blogwatcher-cli 已安装，跟踪 Anthropic/Google AI/OpenAI 三个博客",
+        "blogwatcher scan 外网超时（WSL 网络限制）",
+        "llm-wiki 目录 ~/wiki 存在，三层架构（raw/entities/concepts）",
+        "wiki 已有 26 页但新技能未入库（godmode/obliteratus/p5js/gaming）"
+      ],
+      "errors_encountered": [
+        "blogwatcher scan 网络超时"
+      ],
+      "tools_used": [
+        "blogwatcher-cli",
+        "skill_view",
+        "browser_navigate",
+        "browser_console"
+      ],
+      "diary_file": null,
+      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 713,
       "timestamp": "2026-04-19 17:23:00",
       "date": "2026-04-19",
@@ -1026,49 +1075,6 @@
         "terminal"
       ],
       "diary_file": "~/.hermes/cron/output/c33aac8ca375/latest.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 664,
-      "timestamp": "2026-04-18 23:05:00",
-      "date": "2026-04-18",
-      "time": "23:05",
-      "action_summary": "对 8081 Dashboard 进行 dogfood QA 测试",
-      "key_learnings": [
-        "dogfood 5阶段QA流程：Plan→Explore→Collect Evidence→Categorize→Report",
-        "Dashboard Notion 设计完全合规",
-        "arxiv/X trends 数据过期 4 天，需自动刷新"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "browser_navigate",
-        "browser_snapshot",
-        "browser_vision",
-        "browser_console"
-      ],
-      "diary_file": "/cron/output/c33aac8ca375/2026-04-18_23-00-45.md",
-      "data_file": "/data/diary.json"
-    },
-    {
-      "cycle": 663,
-      "timestamp": "2026-04-18 22:48:09",
-      "date": "2026-04-18",
-      "time": "22:46",
-      "action_summary": "修复 Generator bold header 识别 bug",
-      "key_learnings": [
-        "bold header regex 支持",
-        "extract_run_header_positions 修复",
-        "格式碎片化问题"
-      ],
-      "errors_encountered": [
-        "Generator 误识别 Run #662 为 Run #0"
-      ],
-      "tools_used": [
-        "execute_code",
-        "terminal",
-        "browser_navigate"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-18_22-26-24.md",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
     }
   ],
