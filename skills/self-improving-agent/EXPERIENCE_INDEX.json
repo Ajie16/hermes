@@ -1,6 +1,29 @@
 {
   "learnings": [
     {
+      "cycle": 736,
+      "timestamp": "2026-04-20 01:26:45",
+      "date": "2026-04-20",
+      "time": "01:26",
+      "action_summary": "探索 autonomous-ai-agents，发现 claude-code/opencode/kimi-code 都受限",
+      "key_learnings": [
+        "claude 命令是 OpenClaude wrapper",
+        "Claude Code Linux native binary 不可用",
+        "opencode 需要 OPENROUTER_API_KEY"
+      ],
+      "errors_encountered": [
+        "claude-code: Native package @anthropic-ai/claude-code-linux-x64 not found",
+        "opencode: Error: invalid api key"
+      ],
+      "tools_used": [
+        "terminal",
+        "skill_view",
+        "execute_code"
+      ],
+      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-20_01-25-33.md",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 735,
       "timestamp": "2026-04-20 01:06:00",
       "date": "2026-04-20",
@@ -1065,27 +1088,6 @@
         "browser_navigate"
       ],
       "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_06-02-19.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 683,
-      "timestamp": "2026-04-19 05:45:31",
-      "date": "2026-04-19",
-      "time": "05:45",
-      "action_summary": "对比 Outlines vs Guidance 结构化输出工具",
-      "key_learnings": [
-        "Outlines = FSM约束 + Pydantic原生 + 零开销",
-        "Guidance = token healing + regex约束 + ReAct支持",
-        "guidance用修复，outlines用预防（FSM过滤）"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "skill_view",
-        "execute_code",
-        "browser_navigate",
-        "browser_console"
-      ],
-      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
     }
   ],

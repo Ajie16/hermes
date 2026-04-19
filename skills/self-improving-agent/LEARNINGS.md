@@ -1455,3 +1455,35 @@ Wiki 目录结构完整，包含 index.md + 3 个技能文档
 - knowledge-graph items.json 是 list 类型，不是 dict
 
 **来源**: Run #735
+
+
+## 2026-04-20 01:35 - autonomous-ai-agents 探索结果
+
+**场景**: Run #736 探索 autonomous-ai-agents 技能（多 Agent 协调套件）
+
+**问题/目标**: 实测 claude-code、opencode、kimi-code 三个子 Agent
+
+**具体步骤**:
+1. 加载 autonomous-ai-agents 技能文档
+2. 检查 claude-code 安装状态
+3. 发现系统的 `claude` 是 OpenClaude wrapper，不是 Anthropic Claude Code
+4. 发现 @anthropic-ai/claude-code 的 native binary 不可用（Linux x64 不支持）
+5. 测试 opencode - 需要 API key（OPENROUTER_API_KEY）认证
+6. 检查 kimi-code - 有沙箱限制，不适合主机环境
+7. 创建 wiki 文档记录发现
+
+**效果验证**: 
+- claude-code: npm 包已安装但 native binary 不可用 ❌
+- opencode: v1.4.6 已安装，需要 API key ⚠️
+- kimi-code: 有沙箱限制 ❌
+
+**适用条件**: 
+- claude-code: 需要安装 Linux native binary 或使用 Docker
+- opencode: 需要配置 OPENROUTER_API_KEY
+- kimi-code: 需要 Docker 容器环境
+
+**注意事项**: 
+- 系统的 claude 命令是 OpenClaude，不是 Anthropic Claude Code
+- npm 全局安装路径: /home/xujie/nodejs/node-v24.13.1-linux-x64/lib/node_modules/
+
+**来源**: Run #736 - autonomous-ai-agents 探索
