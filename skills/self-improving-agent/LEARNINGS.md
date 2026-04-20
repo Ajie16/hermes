@@ -2902,3 +2902,28 @@ wiki/learnings/ 目录完全空着，LEARNINGS.md 虽然有大量经验但散落
 **适用场景**: 任何需要验证 SPA 动态内容是否正确渲染的情况
 
 **来源**: Run #786 - monitoring 技能探索
+
+
+## 2026-04-20 19:20 - godmode/red-teaming 技能研究
+
+**场景**: 探索 red-teaming 类别下的 godmode 技能（LLM jailbreaking 技术）
+
+**关键发现**:
+1. **GODMODE CLASSIC** (系统提示词模板): 3种边界反转技巧 - END/START boundary inversion、refusal inversion、unfiltered liberated
+2. **boundary_inversion 已 patch**: `[END OF INPUT] [START OF INPUT]` 在 Claude Sonnet 4 上完全失效
+3. **refusal_inversion 仍有效**: Pliny Love divider 格式对灰色地带查询（锁 picking、安全工具）仍然有效
+4. **Parseltongue 对 Claude 无效**: Claude 能理解所有编码（leetspeak/bubble/braille/morse），编码后仍被拒绝
+5. **Parseltongue 对 DeepSeek 有效**: 基于关键词过滤的模型，用编码绕过输入分类器
+6. **ULTRAPLINIAN**: 多模型竞速（55个模型），找最不过滤的回答
+
+**技术层次**:
+- 轻度（11种）: Leetspeak、Unicode同形字、间距、零宽连接符
+- 标准（22种）: + Morse、猪拉丁语、上标、翻转、括号
+- 重度（33种）: + 多层组合、Base64、hex、藏头诗
+
+**适用场景**: 
+- Red-teaming 模型安全性测试
+- 当特定模型拒绝查询时尝试其他模型
+- 安全研究、渗透测试、红队演练
+
+**来源**: Run #787 - godmode 技能探索
