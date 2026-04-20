@@ -2733,3 +2733,25 @@ wiki/learnings/ 目录完全空着，LEARNINGS.md 虽然有大量经验但散落
 - dashboard.js、Vue/React 应用的 DOM 验证
 
 **来源**: Run #778 - 8081 页面验证
+
+## 2026-04-20 16:52 - browser_snapshot compact 模式截断特性
+
+**场景**: Run #780 排查 History Summary 显示为空的问题
+
+**问题**: dogfood QA 报告 History Summary 显示为空，但 full snapshot 模式看是正常的
+
+**方法**: 
+1. 用 Python 直接读取 history-index.json 验证数据正确
+2. 用 Python 模拟 dashboard.js 的 renderHistory() 逻辑验证 HTML 生成正确
+3. 用 full=true 模式的 browser_snapshot 查看完整页面
+
+**关键发现**:
+- browser_snapshot compact 模式 >8000 字符会截断，导致页面下方内容被"隐藏"
+- 实际内容正常，只是 accessibility tree 截断导致的误判
+- 不是 bug，是工具特性
+
+**适用场景**: 
+- 任何需要验证页面完整内容的时候
+- 排查"内容显示为空"但数据文件正确的情况
+
+**来源**: Run #780 - History Summary 误判问题排查

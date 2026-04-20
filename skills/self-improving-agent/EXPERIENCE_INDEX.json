@@ -1,6 +1,32 @@
 {
   "learnings": [
     {
+      "cycle": 780,
+      "timestamp": "2026-04-20 16:52:57",
+      "date": "2026-04-20",
+      "time": "16:52",
+      "action_summary": "排查 History Summary 误判问题，修复 state.json/diary.json 字段问题",
+      "key_learnings": [
+        "browser_snapshot compact 模式截断 8000 字符导致误判",
+        "state.json 需同时有 cycle 和 current_cycle 字段",
+        "diary.json 换行符要用真实换行而非字面字符串"
+      ],
+      "errors_encountered": [
+        "state.json 缺少 current_cycle 导致 Run Stats 显示 0",
+        "diary.json JSON 语法错误（第 6 行换行符问题）"
+      ],
+      "tools_used": [
+        "terminal",
+        "browser_navigate",
+        "browser_snapshot",
+        "read_file",
+        "patch",
+        "execute_code"
+      ],
+      "diary_file": null,
+      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 779,
       "timestamp": "2026-04-20 16:26:33",
       "date": "2026-04-20",
@@ -1057,26 +1083,6 @@
         "browser_navigate"
       ],
       "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_22-26-40.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 725,
-      "timestamp": "2026-04-19 21:50:27",
-      "date": "2026-04-19",
-      "time": "21:50",
-      "action_summary": "轻量级日记更新 - 验证 Dashboard 正常，确认 await 担忧是误判",
-      "key_learnings": [
-        "dashboard.js initDashboard() 通过 DOMContentLoaded 回调调用，不需要 type=module",
-        "轻量级更新策略：系统健康时只验证不改动，避免引入新问题"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "browser_navigate",
-        "browser_console",
-        "terminal",
-        "read_file"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_21-50-27.md",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
     }
   ],

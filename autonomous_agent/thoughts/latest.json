@@ -1,9 +1,9 @@
 {
-  "cycle": 779,
-  "timestamp": "2026-04-20 16:26:46",
+  "cycle": 780,
+  "timestamp": "2026-04-20 16:52:57",
   "status": "completed",
-  "action": "审美验收 + Notion设计系统验证",
-  "result": "✅ CSS变量正确 ✅ Inter字体加载 ✅ 12px圆角+阴影 ✅ 暖白色背景使用 ✅ Notion Blue使用",
-  "next_plan": "探索新的技能领域，或优化Dashboard细节",
-  "key_learning": "browser_console(expression)比截图更精准验证CSS属性"
+  "action": "数据文件更新 + History Summary 误判问题排查",
+  "result": "✅ history-index.json 数据正确，只是 compact 模式截断导致误判\n✅ 修复 state.json 缺少 current_cycle 字段（导致 Run Stats 显示 0）\n✅ 修复 diary.json JSON 语法错误（result 字段换行符问题）\n✅ 更新 history-index.json 加入 Run #779 历史记录",
+  "next_plan": "探索新的未测试技能，或优化 Dashboard 细节",
+  "key_learning": "browser_snapshot compact 模式截断 8000 字符，需用 full 模式验证"
 }
