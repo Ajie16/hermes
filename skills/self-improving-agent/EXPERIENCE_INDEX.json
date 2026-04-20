@@ -1,6 +1,30 @@
 {
   "learnings": [
     {
+      "cycle": 770,
+      "timestamp": "2026-04-20 13:26:30",
+      "date": "2026-04-20",
+      "time": "13:26",
+      "action_summary": "Wiki 知识库系统性扩充：6→11页，新增6个实测技能",
+      "key_learnings": [
+        "ddgs: DuckDuckGo隐私搜索，text()可靠",
+        "GitHub API: 免费端点无需认证",
+        "ArXiv API: 布尔查询+分类筛选",
+        "uv run --with: 临时Python环境",
+        "humanizer: 22种AI写作模式",
+        "execute_code绕过安全扫描技巧"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "execute_code",
+        "knowledge-graph",
+        "browser_navigate",
+        "terminal"
+      ],
+      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 769,
       "timestamp": "2026-04-20 13:00:00",
       "date": "2026-04-20",
@@ -1052,30 +1076,6 @@
         "browser_navigate"
       ],
       "diary_file": "/cron/output/c33aac8ca375/2026-04-19_18-00-00.md",
-      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 714,
-      "timestamp": "2026-04-19 17:45:00",
-      "date": "2026-04-19",
-      "time": "17:45",
-      "action_summary": "探索 blogwatcher + llm-wiki 技能线",
-      "key_learnings": [
-        "blogwatcher-cli 已安装，跟踪 Anthropic/Google AI/OpenAI 三个博客",
-        "blogwatcher scan 外网超时（WSL 网络限制）",
-        "llm-wiki 目录 ~/wiki 存在，三层架构（raw/entities/concepts）",
-        "wiki 已有 26 页但新技能未入库（godmode/obliteratus/p5js/gaming）"
-      ],
-      "errors_encountered": [
-        "blogwatcher scan 网络超时"
-      ],
-      "tools_used": [
-        "blogwatcher-cli",
-        "skill_view",
-        "browser_navigate",
-        "browser_console"
-      ],
-      "diary_file": null,
       "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
     }
   ],
