@@ -2927,3 +2927,55 @@ wiki/learnings/ 目录完全空着，LEARNINGS.md 虽然有大量经验但散落
 - 安全研究、渗透测试、红队演练
 
 **来源**: Run #787 - godmode 技能探索
+
+
+## 2026-04-20 19:47 - Dashboard 数据格式与 JS 期望不匹配的两个 Bug
+
+**场景**: 刷新 ArXiv 论文和 Twitter 趋势数据到 8081 Dashboard，发现渲染异常
+
+**问题/目标**: 
+1. ArXiv 时间戳显示 "1970/01/01"（日期显示为 epoch）
+2. Twitter Trends 显示 "#1" "#2" 而不是实际话题名
+
+**具体步骤**:
+1. 用 execute_code + urllib.request 抓取 trends24.in，获取原始 HTML
+2. 用 regex 提取 `/twitter.com/search?q=` URL 中的趋势词
+3. 保存为 `trends.json`，后改名 `x_trends.json` 供 dashboard.js 使用
+4. 检查 dashboard.js 的 renderTrends 和 formatTime 函数
+5. 定位问题：trends 是字符串数组，但 JS 期望 `{topic}` 对象数组
+6. 定位问题：arxiv `updated: true` 布尔值传给 formatTime() 返回空字符串
+
+**效果验证**: 
+- ArXiv 时间戳正确显示 "2026/04/20 19:45:02"
+- Twitter Trends 正确显示 "津市海啸警报"、"地震大丈夫" 等实际话题
+
+**适用条件**: 
+- 任何 dashboard JS 动态内容不显示的情况
+- JSON 数据格式与前端期望不匹配时
+
+**来源**: Run #788 - Dashboard 数据刷新
+
+## 2026-04-20 20:00 - headless 浏览器网络沙箱的特点
+
+**场景**: 对 localhost:8081 做 dogfood QA 时发现 Inter 字体和 creative iframe 在 headless 浏览器里报加载失败（status=0），但 curl 测试 HTTP 200
+
+**问题/目标**: 
+判断这些"失败"是真实问题还是测试环境 artifact
+
+**具体步骤**:
+1. browser_navigate → browser_console → performance.getEntriesByType('resource')
+2. 发现 Inter 字体 (fonts.googleapis.com) status=0
+3. 发现 3 个 creative iframe (system1-system2, flowfield, digital-dreams) status=0
+4. 用 curl 验证 → HTTP 200，文件存在
+5. 判断：headless 浏览器有网络沙箱限制，外部资源加载失败不代表真实用户浏览器也有问题
+
+**效果验证**: 
+- 真实用户浏览器可能正常访问这些资源
+- WSL 环境下 headless 浏览器访问 fonts.googleapis.com 可能被拦截
+- performance.getEntries 比 console 更可靠，能捕获 silent errors
+
+**适用条件**: 
+- dogfood QA 测试时判断资源加载问题是真 bug 还是测试环境 artifact
+- WSL/headless 环境下的网络资源测试
+
+**来源**: Run #789 - dogfood QA 探索

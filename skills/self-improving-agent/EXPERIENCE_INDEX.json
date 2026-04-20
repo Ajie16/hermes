@@ -1,6 +1,27 @@
 {
   "learnings": [
     {
+      "cycle": 788,
+      "timestamp": "2026-04-20 19:47:53",
+      "date": "2026-04-20",
+      "time": "19:47",
+      "action_summary": "研究 xitter 技能 + urllib 免登录抓 Twitter 热点 + 修复 Dashboard 数据格式问题",
+      "key_learnings": [
+        "urllib.request 可绕过 curl 管道安全问题抓取网页",
+        "dashboard.js renderTrends 期望 {topic} 对象数组，不是字符串",
+        "arxiv_papers.json updated 字段需是时间戳字符串而非布尔值"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "execute_code",
+        "terminal",
+        "browser_navigate",
+        "browser_console"
+      ],
+      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-20_19-45-00.md",
+      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 787,
       "timestamp": "2026-04-20 19:23:20",
       "date": "2026-04-20",
@@ -1072,28 +1093,6 @@
         "execute_code"
       ],
       "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-20_01-25-33.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 735,
-      "timestamp": "2026-04-20 01:06:00",
-      "date": "2026-04-20",
-      "time": "01:06",
-      "action_summary": "创建 wiki 知识库系统 (~/.hermes/wiki/)，收录3个已实测技能文档",
-      "key_learnings": [
-        "创建子目录前必须先 makedirs(exist_ok=True)",
-        "knowledge-graph items.json 是 list 类型",
-        "Generator 读取 latest cron output 而非 latest.md"
-      ],
-      "errors_encountered": [
-        "FileNotFoundError when writing wiki skills/ subdirectory without creating parent first"
-      ],
-      "tools_used": [
-        "execute_code",
-        "knowledge-graph",
-        "generator.py"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-20_01-00-00.md",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
     }
   ],
