@@ -2202,3 +2202,38 @@ Dashboard 的 arxiv_papers.json 5 天没更新，因为 generator.py 的 main() 
 **适用场景**: 设计多 provider 记忆系统时参考
 
 **来源**: Run #760 - hermes-agent memory 系统深度研究
+
+
+## 2026-04-20 10:25 - Hermes Agent Memory System 架构深度解析
+
+**场景**: Run #761 深入研究 hermes-agent memory 系统源码
+
+**发现**: MemoryProvider 接口 + MemoryManager 编排的完整架构
+
+**MemoryProvider 接口设计亮点**:
+- **核心生命周期**: initialize(), prefetch(), sync_turn(), get_tool_schemas(), handle_tool_call()
+- **可选钩子**: on_turn_start(), on_session_end(), on_pre_compress(), on_delegation()
+- **工具模式**: 返回 OpenAI function calling schema，由 LLM 决定何时调用
+
+**MemoryManager 编排机制**:
+- **单一集成点**: 取代散落的各 backend 代码
+- **最多两个 provider**: 1个内置 + 1个外部，防止工具 schema 膨胀
+- **Context Fencing**: `<memory-context>` 标签 + sanitize，防止记忆被当作用户输入
+- **prefetch_all() / sync_all()**: 预取/同步两阶段
+
+**BuiltinMemoryProvider (MemoryStore) 实现细节**:
+- 两个文件: MEMORY.md（agent笔记）和 USER.md（用户画像）
+- 字符限制: memory 2200 / user 1375
+- **冷热分离**: `_system_prompt_snapshot` 冻结快照保证前缀缓存稳定
+- **原子写入**: 临时文件 + os.replace()，避免竞争窗口
+- **威胁扫描**: `_MEMORY_THREAT_PATTERNS` 检测 prompt injection 和 exfiltration
+- **文件锁**: fcntl/msvcrt 跨平台兼容
+
+**适用场景**: 设计多 provider 记忆系统时参考此架构
+
+**源码路径**: 
+- /home/xujie/workspace/hermes-agent/hermes-agent/agent/memory_provider.py
+- /home/xujie/workspace/hermes-agent/hermes-agent/agent/memory_manager.py
+- /home/xujie/workspace/hermes-agent/hermes-agent/tools/memory_tool.py
+
+**来源**: Run #761 - hermes-agent memory 系统深度研究
