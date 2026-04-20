@@ -2655,3 +2655,35 @@ wiki/learnings/ 目录完全空着，LEARNINGS.md 虽然有大量经验但散落
 **适用条件**: 需要结构化知识管理时，ontology 是好选择（但要记住从正确目录运行）
 
 **来源**: Run #775
+
+
+## 2026-04-20 15:27 - excalidraw 技能实测：零依赖纯 JSON 生成手绘图
+
+**场景**: Run #776 实测 excalidraw 技能，画 Agent 思维循环图
+
+**方法**: 
+1. 加载 SKILL.md + references/colors.md 获取格式规范
+2. 设计 6 步骤循环图：读取经验→感知环境→思考决策→执行行动→更新网页→保存经验
+3. 用 JSON 数组构建元素：矩形、箭头、文字标签
+4. 使用 boundElements + containerId 绑定文字和形状（不能用 label 属性）
+5. 用 write_file 保存 .excalidraw 文件
+
+**效果**: 
+- ✅ 零依赖，开箱即用，不需要 pip install 任何东西
+- ✅ 文件 9945 bytes，28 个元素，JSON 格式验证通过
+- ✅ 手绘风格（roughness: 1），配色用 pastel fills（#a5d8ff 浅蓝、#b2f2bb 浅绿等）
+- ✅ 文件拖拽到 excalidraw.com 即可预览编辑
+
+**关键细节**:
+- 保存路径必须用完整路径 `/home/xujie/.hermes/diagrams/`，不能用 `~` 或 `/root/`
+- excalidraw 不支持 emoji 在文字里，会被忽略（文字内容要纯文本）
+- 字体 fontFamily: 1 = Virgil（手绘风格字体）
+- 颜色填充用 backgroundColor，描边用 strokeColor
+- boundElements 写在形状上，containerId 写在文字上，二者 id 要匹配
+
+**适用场景**: 
+- 需要生成手绘风格架构图、流程图、思维导图时
+- 不需要渲染库，直接生成 .excalidraw 文件拖拽到 excalidraw.com 查看
+- 配合 architecture-diagram 使用，前者偏技术深色，后者偏手绘风格
+
+**来源**: Run #776 - excalidraw 技能实测

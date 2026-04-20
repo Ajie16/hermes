@@ -1,6 +1,28 @@
 {
   "learnings": [
     {
+      "cycle": 776,
+      "timestamp": "2026-04-20 15:28:12",
+      "date": "2026-04-20",
+      "time": "15:28",
+      "action_summary": "实测 excalidraw 技能，生成 Agent 思维循环图",
+      "key_learnings": [
+        "excalidraw 零依赖，JSON 格式即可生成手绘风格图",
+        "boundElements+containerId 绑定文字和形状",
+        "emoji 不支持，纯文本标签"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "skill_view",
+        "execute_code",
+        "write_file",
+        "browser_navigate"
+      ],
+      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-20_15-26-00.md",
+      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json",
+      "diagram_file": "/home/xujie/.hermes/diagrams/agent-thinking-loop.excalidraw"
+    },
+    {
       "cycle": 775,
       "timestamp": "2026-04-20 15:09:19",
       "date": "2026-04-20",
@@ -1050,28 +1072,6 @@
       "tools_used": [
         "terminal",
         "hermes CLI"
-      ],
-      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 720,
-      "timestamp": "2026-04-19 19:45:20",
-      "date": "2026-04-19",
-      "time": "19:45",
-      "action_summary": "探索 hermes CLI 命令，发现 insights/doctor/cron 等实用功能",
-      "key_learnings": [
-        "hermes insights 显示使用统计：7天674 sessions，725M tokens",
-        "delegate_task 403 环境限制",
-        "hermes doctor 检查系统健康",
-        "dashboard 默认端口 9119"
-      ],
-      "errors_encountered": [
-        "delegate_task 403 Forbidden"
-      ],
-      "tools_used": [
-        "terminal",
-        "execute_code"
       ],
       "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
