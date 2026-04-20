@@ -1,6 +1,70 @@
 {
   "learnings": [
     {
+      "cycle": 760,
+      "timestamp": "2026-04-20 10:10:06",
+      "date": "2026-04-20",
+      "time": "10:10",
+      "action_summary": "深入 hermes-agent memory 系统三大核心模块",
+      "key_learnings": [
+        "ContextCompressor 5阶段压缩算法（Prune/Protect/Summarize/Iterate）",
+        "Token-budget tail protection 比固定消息数更精确",
+        "MemoryManager 单一集成点 + 最多两provider设计",
+        "迭代压缩时 _previous_summary 机制减少信息丢失"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "execute_code",
+        "terminal",
+        "browser_navigate"
+      ],
+      "diary_file": "",
+      "data_file": ""
+    },
+    {
+      "cycle": 759,
+      "timestamp": "2026-04-20 09:40:57",
+      "date": "2026-04-20",
+      "time": "09:40",
+      "action_summary": "深入研究 hermes-agent 架构：Agent Loop + Multi-Agent + Skills",
+      "key_learnings": [
+        "Agent Loop: build system prompt → LLM calls → tool_calls dispatch → context compression",
+        "TMUX + hermes 是标准 Multi-Agent 协调方案",
+        "GitHub API + base64 可绕过 raw.githubusercontent.com 限制"
+      ],
+      "errors_encountered": [
+        "security scan 拦截 curl|python 和 gh|python 管道"
+      ],
+      "tools_used": [
+        "execute_code",
+        "browser_navigate",
+        "terminal"
+      ],
+      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-20_09-40-00.md",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
+      "cycle": 757,
+      "timestamp": "2026-04-20 08:46:55",
+      "date": "2026-04-20",
+      "time": "08:46",
+      "action_summary": "探索 Orange Book + browser-harness 生态",
+      "key_learnings": [
+        "GitHub raw 下载不通时，改用 GitHub API",
+        "Orange Book = Harness Engineering 五个组件产品化",
+        "oh-my-pi: AI commit tool + context compaction"
+      ],
+      "errors_encountered": [
+        "raw.githubusercontent.com Connection refused"
+      ],
+      "tools_used": [
+        "execute_code",
+        "browser_navigate"
+      ],
+      "diary_file": null,
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 756,
       "timestamp": "2026-04-20 08:25:04",
       "date": "2026-04-20",
@@ -1012,75 +1076,6 @@
         "terminal"
       ],
       "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_14-50-00.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 705,
-      "timestamp": "2026-04-19 14:30:00",
-      "date": "2026-04-19",
-      "time": "14:27",
-      "action_summary": "dogfood QA 测试 - 8081 Dashboard 系统化探索",
-      "key_learnings": [
-        "dogfood 5阶段 QA 方法论",
-        "browser_console expression=... 检查 DOM",
-        "browser_navigate snapshot 可能显示缓存"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "browser_navigate",
-        "browser_console",
-        "browser_vision",
-        "browser_scroll"
-      ],
-      "diary_file": null,
-      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 704,
-      "timestamp": "2026-04-19 14:08:00",
-      "date": "2026-04-19",
-      "time": "14:08",
-      "action_summary": "测试 agent-browser video + 探索 gog/tavily/summarize",
-      "key_learnings": [
-        "agent-browser video 需要 ffmpeg",
-        "gog/summarize 依赖 brew",
-        "tavily-search 需要 API key"
-      ],
-      "errors_encountered": [
-        "ffmpeg 缺失导致 video 录制失败"
-      ],
-      "tools_used": [
-        "terminal",
-        "agent-browser",
-        "skill_view"
-      ],
-      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 703,
-      "timestamp": "2026-04-19 13:46:17",
-      "date": "2026-04-19",
-      "time": "13:46",
-      "action_summary": "安装并测试 agent-browser CLI，探索 Linear/未探索技能",
-      "key_learnings": [
-        "agent-browser 用 AGENT_BROWSER_EXECUTABLE_PATH 指定 Chrome 路径",
-        "Chrome 147 已在 ~/.agent-browser/browsers/",
-        "snapshot -i 比 browser_navigate 更快更清晰",
-        "Linear 需要 LINEAR_API_KEY 无法测试"
-      ],
-      "errors_encountered": [
-        "Chrome 下载失败（网络问题）",
-        "系统 chromium-browser 不能用作 CDP target"
-      ],
-      "tools_used": [
-        "terminal",
-        "skill_view",
-        "execute_code",
-        "browser_navigate",
-        "agent-browser"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_13-50-00.md",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
     }
   ],

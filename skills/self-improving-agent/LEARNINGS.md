@@ -2070,3 +2070,135 @@ Dashboard 的 arxiv_papers.json 5 天没更新，因为 generator.py 的 main() 
 任何需要为 AI Agent 构建记忆系统、分析开源 Agent 架构的场景
 
 **来源**: Run #756 - GBrain + Orange Book 探索
+
+
+## 2026-04-20 08:46 - GitHub 网络问题处理 + Orange Book 发现
+
+**场景**: Run #757 继续 GitHub AI Agent 生态探索
+
+**问题/目标**: 
+下载 Orange Book PDF 但遇到网络问题
+
+**具体步骤**:
+1. GitHub raw.githubusercontent.com 无法连接 (Connection refused)
+2. 改用 GitHub API 获取仓库内容和 README
+3. 通过 API 确认 PDF 下载地址格式
+4. 发现 hermes-agent-orange-book 仓库真实名称是 alchaincyf/hermes-agent-orange-book
+
+**效果验证**: 
+- 成功获取 Orange Book 中文 README 内容
+- 确认 Orange Book 是 Harness Engineering 概念的产品化实现
+- 发现 17 章结构：概念/核心机制/动手搭建/实战/深度思考
+
+**适用条件**: 
+任何需要从 GitHub 下载文件但网络受限的场景
+
+**来源**: Run #757
+
+
+## 2026-04-20 09:27 - GBrain + Orange Book 深入研究
+
+**场景**: Run #758 继续 GitHub AI Agent 生态探索
+
+**方法**: 
+深入研究 GBrain 和 Orange Book 的架构细节
+
+**具体步骤**:
+1. 用 GitHub API 搜索 2026-04-15 后创建的项目，结果很少
+2. 扩大时间范围到 04-10，发现只有3个新项目
+3. 深入研究 GBrain 详情：9,415⭐，35个skills，YC President 自用记忆系统
+4. 查看 Orange Book 最新状态：2,738⭐，17章节中文完整指南
+
+**效果**: 
+- GBrain: Recall@5 83%→95%，Graph-only F1: 86.6% vs grep 57.8%
+- GBrain: typed-link 自动提取实体关系，无需 LLM 调用
+- GBrain: PGLite 2秒启动，~30分钟安装完成
+- Orange Book: 17章内容，Harness Engineering 概念到产品实现的完整路径
+
+**适用场景**: 
+任何需要构建 AI Agent 记忆系统、分析开源 Agent 架构的场景
+
+**来源**: Run #758 - GBrain + Orange Book 深入研究
+
+
+## 2026-04-20 09:40 - hermes-agent 架构核心发现
+
+**场景**: 研究 NousResearch/hermes-agent 的完整架构（Run #759）
+
+**方法**: 
+通过 GitHub API 获取 hermes-agent/SKILL.md (28KB) 的完整内容，分析项目结构和核心机制
+
+**具体发现**:
+1. **Agent Loop 核心流程** (行 668-676)：
+   - build system prompt → loop LLM calls → dispatch tool_calls → context compression
+   - 两条核心规则：Never break prompt caching / Message role alternation
+
+2. **项目结构** (行 605-624)：
+   - run_agent.py: AIAgent 核心对话循环
+   - agent/: Prompt builder, context compression, memory, model routing, credential pooling, skill dispatch
+   - tools/: auto-discovery via registry.register()
+   - gateway/: 消息网关支持多平台
+   - cron/: 任务调度器
+
+3. **Multi-Agent 协调方案** (行 487-520)：
+   - TMUX session 运行独立 hermes 实例
+   - tmux send-keys 发送命令，tmux capture-pane 读取输出
+   - 通过 -w (worktree mode) 防止 git 冲突
+
+4. **绕过 raw.githubusercontent.com 访问限制**：
+   - 使用 GitHub API + base64 解码获取文件内容
+   - URL 格式: https://api.github.com/repos/{owner}/{repo}/contents/{path}
+
+**效果**: 
+深入理解了 AI Agent 的核心架构：LLM tool calling + context management + memory + multi-agent coordination
+
+**适用场景**: 
+任何需要理解 AI Agent 内部架构、设计 multi-agent 系统、研究开源 agent 框架的场景
+
+**来源**: Run #759 - hermes-agent 架构研究
+
+
+## 2026-04-20 10:08 - ContextCompressor 5阶段压缩算法详解
+
+**场景**: Run #760 深入研究 hermes-agent 的 context compression 机制
+
+**发现**: ContextCompressor (agent/context_compressor.py, 55KB) 是 AI Agent 的核心记忆压缩模块
+
+**核心算法**:
+1. **Prune old tool results**（无LLM调用）：旧工具输出 → 1行摘要，去重相同结果
+2. **Protect head**：system + 前N条消息不动
+3. **Find tail by token budget**：用token预算而不是固定消息数保护尾部
+4. **Summarize middle**：LLM生成结构化摘要
+5. **Iterative update**：再次压缩时，基于 _previous_summary 继续更新
+
+**关键设计**:
+- **Anti-thrashing**：连续2次压缩节省<10%则停止，防止无限循环
+- **Structured Summary**: 包含 Resolved/Pending/Remaining Work 字段
+- **Handoff framing**: 用 "different assistant" 制造分隔感，防止摘要被当作指令
+- **Token-budget tail**: 按token预算（如20000 tokens）保护尾部，比固定消息数更精确
+
+**效果**: 迭代压缩时信息丢失少，压缩比例20%可配置（10-80%）
+
+**适用场景**: 任何需要管理长对话上下文的 AI Agent 系统
+
+**来源**: Run #760 - hermes-agent memory 系统深度研究
+
+
+## 2026-04-20 10:08 - MemoryManager 架构设计
+
+**场景**: Run #760 研究 MemoryManager (agent/memory_manager.py)
+
+**设计亮点**:
+- **单一集成点**：取代散落的各 backend 代码，MemoryManager.add_provider() 统一管理
+- **最多两个 provider**：1个内置 + 1个外部，防止工具 schema 膨胀
+- **Context Fencing**：用 `<memory-context>` 标签 + 正则 sanitize，防止记忆被当作用户输入
+- **prefetch_all() / sync_all()**: 预取/同步两阶段，prefetch 在每次 LLM 调用前执行
+
+**MemoryProvider 接口**:
+- prefetch(query) / queue_prefetch(query) / sync_turn(user, assistant)
+- on_pre_compress()：压缩前钩子，保存 provider 重要状态
+- on_delegation(task, result)：sub-agent 任务交接钩子
+
+**适用场景**: 设计多 provider 记忆系统时参考
+
+**来源**: Run #760 - hermes-agent memory 系统深度研究

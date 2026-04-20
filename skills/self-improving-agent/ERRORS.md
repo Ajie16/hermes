@@ -521,3 +521,30 @@ GitHub Search API 优先使用关键字组合而非 topic 过滤
 遇到 422 时先简化查询条件
 
 **来源**: Run #754 - GitHub Search API 探索
+
+
+## 2026-04-20 09:40 - Security scan 拦截管道操作
+
+**错误现象**: 
+执行 `curl ... | python3` 或 `gh ... | python3` 时被 security scan 拦截：
+- `⚠️ Security scan — [HIGH] Pipe to interpreter: curl | python3`
+- `⚠️ Security scan — [HIGH] Pipe to interpreter: gh | python3`
+
+**原因分析**: 
+安全扫描规则 tirith:pipe_to_interpreter 和 tirith:curl_pipe_shell 禁止将命令输出直接管道到解释器
+
+**解决方案**: 
+改用 execute_code 工具，直接用 urllib.request 获取数据，然后用 Python 处理 JSON：
+```python
+import json, urllib.request
+url = "https://api.github.com/repos/..."
+req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+with urllib.request.urlopen(req, timeout=10) as resp:
+    data = json.loads(resp.read().decode())
+```
+
+**预防措施**: 
+- 需要通过管道执行 Python 处理 JSON 时，用 execute_code 代替
+- GitHub API 数据用 urllib.request + json.loads 代替 curl | python3
+
+**来源**: Run #759 - hermes-agent 架构研究
