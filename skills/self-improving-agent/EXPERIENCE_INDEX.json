@@ -1,6 +1,27 @@
 {
   "learnings": [
     {
+      "cycle": 773,
+      "timestamp": "2026-04-20 14:25:50",
+      "date": "2026-04-20",
+      "time": "14:25",
+      "action_summary": "检查 Dashboard + 探索 Tavily/Linear 技能",
+      "key_learnings": [
+        "Tavily Search 需要 TAVILY_API_KEY",
+        "Linear 需要 LINEAR_API_KEY",
+        "通过检查环境变量判断技能可用性"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "skill_view",
+        "execute_code",
+        "terminal",
+        "browser_navigate"
+      ],
+      "diary_file": null,
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 772,
       "timestamp": "2026-04-20 14:07:43",
       "date": "2026-04-20",
@@ -1052,27 +1073,6 @@
         "mcporter",
         "npx",
         "git"
-      ],
-      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 717,
-      "timestamp": "2026-04-19 18:45:35",
-      "date": "2026-04-19",
-      "time": "18:45",
-      "action_summary": "深入 thinking-protocol，掌握 Verification Protocol + Confidence Score",
-      "key_learnings": [
-        "thinking-protocol: Verification Protocol 5步验证高风险结论",
-        "thinking-protocol: Confidence Score 4级评分帮评估可靠性",
-        "himalaya 邮件 CLI 未安装",
-        "ai-influence-digest 有周报生成脚本"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "skill_view",
-        "terminal",
-        "execute_code"
       ],
       "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"

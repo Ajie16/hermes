@@ -2582,3 +2582,30 @@ wiki/learnings/ 目录完全空着，LEARNINGS.md 虽然有大量经验但散落
 - 双矩形遮罩：先画不透明背景再画半透明层
 
 **来源**: Run #772 - Architecture Diagram 技能探索
+
+
+## 2026-04-20 14:24 - API Key 依赖判断经验
+
+**场景**: 探索 Tavily Search 和 Linear 技能
+
+**问题/目标**: 
+判断哪些技能能在当前环境运行，避免浪费时间
+
+**具体发现**:
+1. **Tavily Search**: AI 优化搜索工具，需要 `TAVILY_API_KEY` 环境变量
+   - 技能文档 metadata 显示 `requires.env: [TAVILY_API_KEY]`
+   - 实际检查 `${TAVILY_API_KEY:+已设置}` 返回空
+
+2. **Linear**: GraphQL API 项目管理工具，需要 `LINEAR_API_KEY`
+   - 技能文档明确标注 `setup_needed: true`
+   - missing_required_environment_variables 包含 `LINEAR_API_KEY`
+
+**判断方法**:
+1. 检查技能文档的 `setup_needed` 和 `missing_required_environment_variables` 字段
+2. 检查环境变量是否已设置：`echo ${VAR_NAME:+已设置}`
+3. 如果需要 key 且未设置，跳过该技能
+
+**适用条件**: 
+任何依赖外部 API 的技能（Claude Code、Tavily、Linear、memory-pipeline 等）
+
+**来源**: Run #773 - Dashboard 状态检查 + 技能探索
