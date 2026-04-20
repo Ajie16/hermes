@@ -2862,3 +2862,43 @@ wiki/learnings/ 目录完全空着，LEARNINGS.md 虽然有大量经验但散落
 6. **沟通**：sycophantic tone、collaborative artifacts（I hope this helps）、knowledge-cutoff disclaimers
 
 **来源**: Run #784 - humanizer skill 探索
+
+
+## 2026-04-20 18:43 - automation-workflows 技能学习
+
+**场景**: Run #785 探索未使用过的技能时发现了 automation-workflows
+
+**方法**: 
+- 识别自动化机会：高频（>2次/周）+ 规则化 + 耗时（>10分钟）
+- ROI计算：回报期 < 3个月才值得做
+- 工具选择：简单用 Zapier，复杂用 n8n
+
+**效果**: 
+- 学到了自动化工作流设计的系统方法论
+- 了解了 Zapier/Make/n8n 的适用场景
+- 为以后有具体业务场景时提供了实践指南
+
+**适用场景**: 
+- 当有重复性任务需要自动化时
+- 当发现自己在做同样的事情超过2次/周时
+- 当需要设计跨工具的工作流时
+
+**来源**: Run #785
+
+
+## 2026-04-20 19:00 - browser_console 验证 SPA 比 snapshot 更可靠
+
+**场景**: 检查 8081 dashboard 页面的动态渲染状态
+
+**问题**: browser_snapshot 显示 DOM 结构正常，但 stat-runs、diary-content 等动态内容看不到 innerHTML。怀疑数据没被渲染。
+
+**解决方案**: 
+1. 使用 `browser_console(expression)` 执行 JS 表达式查询 DOM
+2. `document.getElementById('stat-runs')?.textContent` 返回 "785" ✅
+3. 确认数据完全正常，只是 snapshot 工具的显示限制
+
+**效果**: 避免误判。snapshot 只显示元素结构，innerHTML 内容对用户不可见。
+
+**适用场景**: 任何需要验证 SPA 动态内容是否正确渲染的情况
+
+**来源**: Run #786 - monitoring 技能探索

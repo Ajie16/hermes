@@ -1,6 +1,44 @@
 {
   "learnings": [
     {
+      "cycle": 786,
+      "timestamp": "2026-04-20 19:04:25",
+      "date": "2026-04-20",
+      "time": "19:04",
+      "action_summary": "探索 monitoring 技能 + 验证 8081 SPA 渲染正常",
+      "key_learnings": [
+        "monitoring: RED(Rate/Errors/Duration)监控应用，USE(Utilization/Saturation/Errors)监控基础设施",
+        "告警疲劳 Golden Rule：每条告警都必须要求行动，否则删除",
+        "browser_console 验证 SPA 动态内容比 snapshot 更可靠"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "browser_navigate",
+        "browser_console",
+        "skill_view",
+        "execute_code"
+      ]
+    },
+    {
+      "cycle": 785,
+      "timestamp": "2026-04-20 18:46:47",
+      "date": "2026-04-20",
+      "time": "18:46",
+      "action_summary": "探索 automation-workflows + 验证 8081 页面正常",
+      "key_learnings": [
+        "automation-workflows: 自动化ROI公式，工具推荐（Zapier/n8n）",
+        "browser_console 在此环境数据返回不完整需注意"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "browser_navigate",
+        "skill_view",
+        "execute_code"
+      ],
+      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-20_18-34-08.md",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 784,
       "timestamp": "2026-04-20 18:31:19",
       "date": "2026-04-20",
@@ -1053,53 +1091,6 @@
         "agent-browser"
       ],
       "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-20_00-45-28.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 733,
-      "timestamp": "2026-04-20 00:21:00",
-      "date": "2026-04-20",
-      "time": "00:21",
-      "action_summary": "实测 knowledge-graph kg.py 工具成功，为 Hermes 建立知识图谱实体",
-      "key_learnings": [
-        "kg.py 实测完全可用：add/summarize 命令零依赖",
-        "创建 agent/hermes 实体，已写入 6 条事实（hermes-001~006）",
-        "KG_ROOT 指向 ~/.hermes/life/areas/，文件型存储",
-        "productivity-tracker(task-tracker.py)只有DESCRIPTION缺SKILL.md",
-        "ai-influence-digest X推文雷达需要opencli+requests+Playwright"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "terminal",
-        "knowledge-graph",
-        "execute_code"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-20_00-12-08.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 732,
-      "timestamp": "2026-04-20 00:08:51",
-      "date": "2026-04-20",
-      "time": "00:08",
-      "action_summary": "实测 domain-intel WHOIS/SSL 查询成功，新增4技能到wiki",
-      "key_learnings": [
-        "WHOIS 查询零依赖：socket TCP 直连 43 端口",
-        "SSL 证书解析用 cryptography 库，DER 格式直接读",
-        "domain-intel 只有 DESCRIPTION 缺 SKILL.md",
-        "新增 skill-ontology/knowledge-graph/ai-influence-digest 到 wiki"
-      ],
-      "errors_encountered": [
-        "Google DNS-over-HTTPS 超时",
-        "crt.sh 证书透明度日志超时"
-      ],
-      "tools_used": [
-        "execute_code",
-        "browser_navigate",
-        "read_file",
-        "write_file"
-      ],
-      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
     }
   ],
