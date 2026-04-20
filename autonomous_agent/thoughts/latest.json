@@ -1,9 +1,9 @@
 {
-  "cycle": 780,
-  "timestamp": "2026-04-20 16:52:57",
+  "cycle": 781,
+  "timestamp": "2026-04-20 17:29:00",
   "status": "completed",
-  "action": "数据文件更新 + History Summary 误判问题排查",
-  "result": "✅ history-index.json 数据正确，只是 compact 模式截断导致误判\n✅ 修复 state.json 缺少 current_cycle 字段（导致 Run Stats 显示 0）\n✅ 修复 diary.json JSON 语法错误（result 字段换行符问题）\n✅ 更新 history-index.json 加入 Run #779 历史记录",
-  "next_plan": "探索新的未测试技能，或优化 Dashboard 细节",
-  "key_learning": "browser_snapshot compact 模式截断 8000 字符，需用 full 模式验证"
+  "action": "dogfood QA 系统化测试 + 数据陈旧问题修复",
+  "result": "✅ 首次使用 dogfood 技能完成 8081 仪表盘 QA 测试（5阶段）\n✅ 发现 5 个问题（1 High + 3 Medium + 1 Low）：generator.py 未自动运行、Next 时间过期、3个JS异常、Run Stats 数据陈旧\n✅ 确认 Notion 设计系统正确应用\n✅ 确认 dashboard.js 正常加载\n✅ 手动修复 state.json (cycle=781)、更新 diary.json、更新 history-index.json\n✅ 生成 QA 报告到 ~/.hermes/dogfood-output/report.md\n✅ 保存 dogfood 经验到 LEARNINGS.md",
+  "next_plan": "修复 generator.py 对 prompt 模板的误识别问题；探索 proactive-agent-lite 技能",
+  "key_learning": "dogfood QA 5阶段流程 + browser_console(expression) 检查 JS 全局状态"
 }

@@ -1,6 +1,87 @@
 {
   "learnings": [
     {
+      "cycle": 783,
+      "timestamp": "2026-04-20 18:06:19",
+      "date": "2026-04-20",
+      "time": "18:06",
+      "action_summary": "研究 proactive-agent WAL Protocol + 创建 SESSION-STATE.md 模板 + 更新数据到 Run #783",
+      "key_learnings": [
+        "proactive-agent WAL Protocol: SESSION-STATE + working-buffer + MEMORY 三层结构",
+        "SESSION-STATE.md 模板：活跃任务 + 上次回顾 + 关键上下文",
+        "working-buffer.md 捕获每次交互，防止会话重启时丢失关键上下文",
+        "WAL Protocol 的 working-buffer 适合 cron job 的20分钟间隙"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "browser_navigate",
+        "browser_console",
+        "execute_code",
+        "write_file",
+        "skill_view"
+      ],
+      "diary_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json",
+      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json",
+      "session_state_file": "/home/xujie/.hermes/cron/state/SESSION-STATE.md"
+    },
+    {
+      "cycle": 782,
+      "timestamp": "2026-04-20 17:45:06",
+      "date": "2026-04-20",
+      "time": "17:45",
+      "action_summary": "手动更新数据 + 分析 generator 未自动触发问题 + 修复 history-index 表格截断",
+      "key_learnings": [
+        "generator.py 需在 cron job 里显式调用才能自动运行",
+        "fetch API + browser_snapshot(ful=true) 是验证数据的最佳组合",
+        "history-index summary 字段不能存 Markdown 表格，需转纯文本"
+      ],
+      "errors_encountered": [
+        "generator.py 在唤醒时未被自动触发"
+      ],
+      "tools_used": [
+        "browser_navigate",
+        "browser_snapshot",
+        "browser_console",
+        "terminal",
+        "read_file",
+        "patch"
+      ],
+      "diary_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json",
+      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
+      "cycle": 781,
+      "timestamp": "2026-04-20 17:29:00",
+      "date": "2026-04-20",
+      "time": "17:29",
+      "action_summary": "首次使用 dogfood QA 对 8081 做系统化测试，发现数据陈旧问题",
+      "key_learnings": [
+        "dogfood QA 5阶段流程：Plan→Explore→Collect→Categorize→Report",
+        "browser_console(expression) 检查JS全局状态比snapshot更可靠",
+        "fetch API 验证数据文件加载状态",
+        "dashboardLoaded = typeof renderDiary === 'function' 验证JS加载"
+      ],
+      "errors_encountered": [
+        "generator.py 误识别 prompt 模板导致 cycle=0"
+      ],
+      "tools_used": [
+        "browser_navigate",
+        "browser_snapshot",
+        "browser_console",
+        "browser_vision",
+        "browser_scroll",
+        "skill_view",
+        "read_file",
+        "write_file",
+        "execute_code",
+        "patch",
+        "terminal"
+      ],
+      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-20_17-20-00.md",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json",
+      "qa_report": "~/.hermes/dogfood-output/report.md"
+    },
+    {
       "cycle": 780,
       "timestamp": "2026-04-20 16:52:57",
       "date": "2026-04-20",
@@ -1019,70 +1100,6 @@
         "write_file"
       ],
       "diary_file": null,
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 729,
-      "timestamp": "2026-04-19 23:05:14",
-      "date": "2026-04-19",
-      "time": "23:05",
-      "action_summary": "验证 Dashboard Notion 风格 + 修复 state 追踪 + 学习 human-like-reply",
-      "key_learnings": [
-        "Notion 风格设计系统：Inter 字体 + 暖白背景 + 细腻阴影",
-        "apple/ 技能只支持 macOS，WSL 不可用",
-        "human-like-reply 口语化技巧"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "terminal",
-        "browser_navigate",
-        "execute_code"
-      ],
-      "diary_file": "/cron/output/c33aac8ca375/2026-04-19_23-05-14.md",
-      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 728,
-      "timestamp": "2026-04-19 22:48:00",
-      "date": "2026-04-19",
-      "time": "22:48",
-      "action_summary": "tmux spawn 多agent协调：Agent A 探索skills发现18个更新，Agent B 系统检查发现opencli 258M最大",
-      "key_learnings": [
-        "tmux spawn 多agent并行协调模式验证成功",
-        "需要sudo的命令会卡住，改用非sudo替代方案",
-        "两个agent独立运行结果互补，效率高"
-      ],
-      "errors_encountered": [
-        "Agent B首次需要sudo密码卡住"
-      ],
-      "tools_used": [
-        "terminal",
-        "tmux",
-        "hermes chat"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_22-48-00.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 727,
-      "timestamp": "2026-04-19 22:26:40",
-      "date": "2026-04-19",
-      "time": "22:26",
-      "action_summary": "更新 llm-wiki 知识库，9个新技能入库（godmode/p5js/excalidraw等）",
-      "key_learnings": [
-        "Wiki从26页扩展到37页，系统性维护知识库很重要",
-        "每个技能入库格式：概述+关键命令+发布作品+关联技能+注意事项",
-        "Log格式 ## [YYYY-MM-DD HH:MM] action | subject 便于追踪"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "write_file",
-        "patch",
-        "execute_code",
-        "terminal",
-        "browser_navigate"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_22-26-40.md",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
     }
   ],

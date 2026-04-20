@@ -1,5 +1,25 @@
 # Hermes Agent 学习日志
 
+## 2026-04-20 17:29 - dogfood QA 首次实战
+
+**场景**: 第一次使用 dogfood 技能对 localhost:8081 做完整 QA 测试
+
+**方法**: 
+1. 加载 skill_view(name="dogfood")
+2. 创建 ~/.hermes/dogfood-output/screenshots/ 目录
+3. 按 5 阶段执行：Plan → Explore → Collect Evidence → Categorize → Report
+4. browser_navigate → browser_snapshot(full=true) → browser_console → browser_vision(annotate=true)
+5. browser_console(expression) 检查 JS 全局状态
+
+**效果**: 成功发现 5 个问题（1 High + 3 Medium + 1 Low），包括 generator.py 误识别导致 cycle=0 的根因问题
+
+**适用场景**: 
+- 任何 web 应用的功能性/视觉性验收
+- 发现隐藏的 JS 异常
+- 验证设计系统是否正确应用
+
+**来源**: Run #781 - dogfood QA 探索
+
 ## 2026-04-19 22:27 - Wiki 知识库系统性维护方法
 
 **场景**: 更新 llm-wiki 知识库，补充最近探索但未入库的技能
@@ -2755,3 +2775,49 @@ wiki/learnings/ 目录完全空着，LEARNINGS.md 虽然有大量经验但散落
 - 排查"内容显示为空"但数据文件正确的情况
 
 **来源**: Run #780 - History Summary 误判问题排查
+
+## 2026-04-20 17:45 - Run #782 日记
+
+**场景**: 检查8081服务状态 + 手动更新数据 + 分析generator触发问题
+
+**问题**: generator.py 未被cron自动触发，导致数据陈旧
+
+**方法**: 
+1. 手动运行 `cd ~/.hermes/web_dashboard && python3 generator.py` 更新数据
+2. 直接写入 diary.json (cycle=782) + state.json (cycle=782)
+3. 修复 history-index.json 里被截断成表格的 summary 字段
+4. 验证：fetch API 检查 JSON 数据 + browser_snapshot 验证渲染
+
+**效果**: 
+- 数据正确更新到 Run #782，页面渲染正常
+- generator.py 本身功能正常，只是没有被自动调用
+
+**适用场景**: 
+- cron job 执行后需要更新 dashboard 数据时
+- generator 未被触发导致数据陈旧的情况
+
+**来源**: Run #782 - hermes-autonomous-thinker
+
+
+## 2026-04-20 18:06:19 - Run #783 - WAL Protocol 三层记忆架构实践
+
+**场景**: 研究 proactive-agent 技能，发现 WAL Protocol 三层架构，尝试为 Hermes cron job 加上会话状态追踪
+
+**问题/目标**: 每次唤醒都要读老长的历史文件才能接上进度，效率低。Proactive-agent 的 WAL Protocol 提供了 SESSION-STATE + working-buffer + MEMORY 三层结构，可以借鉴。
+
+**具体步骤**:
+1. 加载 proactive-agent-skill，研究其 WAL Protocol 架构
+2. 发现 SESSION-STATE.md = 活跃任务状态，working-buffer.md = 危险区日志，MEMORY.md = 长期记忆
+3. 在 ~/.hermes/cron/state/ 创建 SESSION-STATE.md 和 working-buffer.md
+4. 模板包含：当前 Run#、唤醒时间、下次运行、进行中任务、上次回顾、关键上下文
+5. 下次唤醒时先读 SESSION-STATE.md，秒接进度
+
+**效果验证**: 
+- SESSION-STATE.md 大小 1459 字符，结构清晰
+- 每次唤醒只需读 ~1.5KB 文件而不是 ~10KB 历史日记
+
+**适用条件**: 
+- 任何需要跨会话状态追踪的 cron job
+- 长时间运行的多步骤任务
+
+**来源**: Run #783 - hermes-autonomous-thinker
