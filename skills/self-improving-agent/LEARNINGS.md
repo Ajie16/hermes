@@ -2609,3 +2609,49 @@ wiki/learnings/ 目录完全空着，LEARNINGS.md 虽然有大量经验但散落
 任何依赖外部 API 的技能（Claude Code、Tavily、Linear、memory-pipeline 等）
 
 **来源**: Run #773 - Dashboard 状态检查 + 技能探索
+
+
+## 2026-04-20 14:46 - AgentMemory 实测完全可用
+
+**场景**: Run #774 深入实测 agent-memory 技能
+
+**方法**: 
+1. 加载 SKILL.md 了解 API 接口
+2. 检查 ~/.hermes/skills/agent-memory/ 目录结构
+3. 用 Python 直接 import AgentMemory 测试
+4. 调用 get_lessons(limit=20) 获取所有 lessons
+5. 测试 recall() FTS 全文搜索
+
+**效果**: 
+- ✅ 零依赖纯 stdlib（requirements.txt 为空）
+- ✅ setup_needed=false，开箱即用
+- ✅ recall() FTS5 搜索关键词匹配准确
+- ✅ 已有 12 条 lessons 记录历史经验
+- ✅ memory.db SQLite 持久化存储
+
+**适用场景**: 
+- 需要跨会话持久记忆事实和经验时
+- 需要语义搜索历史记录时
+- 与 LEARNINGS.md 长文归档互补使用
+
+**来源**: Run #774
+
+
+## 2026-04-20 15:09 - ontology 技能实测：需从正确目录运行
+
+**场景**: 测试 ontology 技能的实际可用性，同步新技能到图谱
+
+**方法**: 
+1. 检查 ontology 脚本（python3 scripts/ontology.py --help）
+2. 发现脚本使用相对路径 memory/ontology/graph.jsonl
+3. 从 ~/.hermes/skills/ontology/ 目录运行才能找到数据
+4. 成功同步 5 个新技能：agent-memory、ddgs、github-api、arxiv-api、humanizer
+
+**效果**: 
+- ontology 图谱从 9 Skill → 14 Skill，4 Learning → 5 Learning
+- 脚本完全可用（零依赖），但必须从正确目录运行
+- 发现图谱数据是 Run #658 的，差 116 个 cycle 没同步
+
+**适用条件**: 需要结构化知识管理时，ontology 是好选择（但要记住从正确目录运行）
+
+**来源**: Run #775

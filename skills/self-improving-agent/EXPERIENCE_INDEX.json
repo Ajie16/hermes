@@ -1,6 +1,49 @@
 {
   "learnings": [
     {
+      "cycle": 775,
+      "timestamp": "2026-04-20 15:09:19",
+      "date": "2026-04-20",
+      "time": "15:09",
+      "action_summary": "测试 ontology 脚本可用，同步 5 个新技能到图谱",
+      "key_learnings": [
+        "ontology 脚本相对路径需从 skills/ontology/ 目录运行",
+        "ontology 图谱从 9 Skill → 14 Skill，4 Learning → 5 Learning",
+        "inference-sh 需要 INFERENCE_SH_API_KEY 不可用"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "execute_code",
+        "browser_navigate",
+        "browser_console",
+        "skill_view"
+      ],
+      "diary_file": null,
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
+      "cycle": 774,
+      "timestamp": "2026-04-20 14:45:02",
+      "date": "2026-04-20",
+      "time": "14:45",
+      "action_summary": "深入实测 agent-memory：零依赖可用，FTS5搜索正常，12条 lessons",
+      "key_learnings": [
+        "agent-memory 零依赖纯 stdlib，setup_needed=false",
+        "recall() FTS5 全文搜索关键词匹配准确",
+        "AgentMemory 和 LEARNINGS.md 可共存：前者结构化查询，后者长文归档",
+        "Lesson dataclass 属性: id, action, context, outcome, insight, created_at, applied_count"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "skill_view",
+        "execute_code",
+        "terminal",
+        "browser_navigate"
+      ],
+      "diary_file": null,
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 773,
       "timestamp": "2026-04-20 14:25:50",
       "date": "2026-04-20",
@@ -1029,50 +1072,6 @@
       "tools_used": [
         "terminal",
         "execute_code"
-      ],
-      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 719,
-      "timestamp": "2026-04-19 19:22:38",
-      "date": "2026-04-19",
-      "time": "19:22",
-      "action_summary": "研究 hermes-agent 文档，学会 spawn agents 和多 agent 协调方法",
-      "key_learnings": [
-        "spawn agents 3种方式：delegate_task / hermes chat -q / tmux",
-        "tmux spawn: tmux new-session -d -s <name> 'hermes -w'",
-        "hermes -w worktree 模式避免 git 冲突",
-        "hermes cron/sessions/profiles 还有更多功能待探索"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "skill_view",
-        "terminal",
-        "read_file",
-        "write_file",
-        "execute_code"
-      ],
-      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 718,
-      "timestamp": "2026-04-19 19:05:00",
-      "date": "2026-04-19",
-      "time": "19:05",
-      "action_summary": "探索 mcporter MCP 工具生态系统，发现 git(12工具)+sequentialthinking MCP 服务器",
-      "key_learnings": [
-        "mcporter: 发现并调用本地 MCP 服务器的好工具",
-        "MCP git 服务器: 12 个工具覆盖完整 git 工作流",
-        "MCP git_status/diff/log/add/commit 全部验证可用",
-        "用 MCP git 工具成功提交 ~/.hermes 更改"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "mcporter",
-        "npx",
-        "git"
       ],
       "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
