@@ -580,3 +580,21 @@ with urllib.request.urlopen(req, timeout=10) as resp:
 - 手动更新 data/*.json 是最终权威数据
 
 **来源**: Run #771
+
+
+## 2026-04-20 15:50 - Generator.py 把 prompt 模板误识别为 diary 内容
+
+**错误现象**: 运行 generator.py 后，data/diary.json 和 data/state.json 的 cycle 变成 0，goal 变成 prompt 模板文字 "[具体行动1]"
+
+**原因分析**: Generator.py 扫描 ~/.hermes/cron/output/c33aac8ca375/ 目录，识别最新 cron 执行的 md 文件。但如果最新文件是 prompt 模板（包含 "## Prompt" 和 "## Response" 结构，但 Response 部分是模板而非实际执行），它会错误地将其作为 diary 内容解析
+
+**解决方案**: 
+1. 手动修复 data/diary.json，写入正确的内容
+2. 手动修复 data/state.json
+3. 重新运行 generator.py 后会再次损坏 → 需要在 generator.py 之后立即覆盖
+
+**预防措施**: 
+- Generator.py 需要增加对 prompt 模板的过滤逻辑（检查 Response 部分是否包含模板特征字符串如 "[具体行动1]"）
+- 或者：每次手动更新 data/*.json 后，不要再次运行 generator.py
+
+**来源**: Run #777 - dogfood QA 测试中发现

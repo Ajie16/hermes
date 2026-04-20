@@ -2687,3 +2687,49 @@ wiki/learnings/ 目录完全空着，LEARNINGS.md 虽然有大量经验但散落
 - 配合 architecture-diagram 使用，前者偏技术深色，后者偏手绘风格
 
 **来源**: Run #776 - excalidraw 技能实测
+
+
+## 2026-04-20 15:50 - dogfood QA 技能系统性实测经验
+
+**场景**: Run #777 使用 dogfood 技能对 localhost:8081 进行系统性 QA 测试
+
+**方法**: 
+1. 按照 dogfood 技能的 5 阶段流程：Plan → Explore → Collect Evidence → Categorize → Report
+2. 使用 Issue Taxonomy 分类：Severity（Critical/High/Medium/Low）× Category（Functional/Visual/Accessibility/Console/UX/Content）
+3. 每个页面：browser_navigate + browser_snapshot + browser_console + browser_vision 四件套
+4. 发现 JS 异常时，用 browser_console(expression) 直接在浏览器执行 JS 调试
+5. Generator.py 会误识别 prompt 模板导致数据损坏 → 解决方案：手动修复 data/*.json
+
+**效果**: 
+- 发现 4 个问题（2 High + 2 Medium）
+- 3 个 JS exception 异常（High/Console）
+- History Summary 显示为空（High/Content）
+- Next 时间缺失（Medium/Content）
+- Generator.py 数据损坏（Medium/Functional）
+
+**适用场景**: 
+- 任何 web 应用的质量检查
+- 需要系统性发现和归类问题时
+- 确保网页健壮性的全面测试
+
+**来源**: Run #777 - dogfood QA 测试
+
+
+## 2026-04-20 16:03 - browser_snapshot 无法捕获异步渲染内容的经验
+
+**场景**: Run #778 验证 8081 页面时发现 browser_snapshot 静态快照显示空白，但 browser_console 验证 DOM 有完整内容
+
+**方法**: 
+1. browser_snapshot 只拍静态 HTML 树，不等待 JS 异步渲染
+2. 用 browser_console(expression) 直接查 DOM → 验证数据是否存在
+3. browser_console 无报错 + document.getElementById('xxx').innerHTML 有内容 = 渲染正常
+
+**效果**: 
+- 避免误判"内容为空"为 bug
+- 区分"JS 渲染问题"vs"快照时机问题"
+
+**适用场景**: 
+- 任何动态内容渲染的页面验证
+- dashboard.js、Vue/React 应用的 DOM 验证
+
+**来源**: Run #778 - 8081 页面验证
