@@ -2393,3 +2393,33 @@ Dashboard 的 arxiv_papers.json 5 天没更新，因为 generator.py 的 main() 
 - 两者可以互补：Hermes研究 + OpenClaw执行
 
 **来源**: Run #766 - hermes-agent vs OpenClaw 架构对比研究
+
+
+## 2026-04-20 12:28 - OpenClaw Memory Dreaming Promotion 机制
+
+**场景**: 研究 OpenClaw 的 Nightly Memory Consolidation 模式，理解自动记忆晋升原理
+
+**方法**: 
+OpenClaw 使用 memory-core 插件实现自动记忆晋升：
+1. 每天凌晨3点运行 Cron Job: Memory Dreaming Promotion
+2. 评估短期记忆的价值分数（基于查询次数、近期权重）
+3. 超过阈值的记忆(minScore=0.750, minRecallCount=3)自动晋升到 MEMORY.md
+4. 无需人工干预，自动维护长期记忆
+
+**评估参数**:
+- minScore=0.750: 最低权重分数
+- minRecallCount=3: 被查询最少3次
+- minUniqueQueries=2: 来自至少2个不同查询
+- recencyHalfLifeDays=14: 14天衰减半衰期
+
+**效果**: 
+- 重要记忆自动进入长期存储
+- 减少人工整理记忆的工作量
+- 记忆保留更加系统和科学
+
+**适用场景**: 
+- 需要长期维护知识库的 AI Agent
+- 希望自动区分重要/不重要记忆的系统
+- 借鉴到 Hermes 可以实现类似的价值分数晋升机制
+
+**来源**: Run #767 - Nightly Memory Consolidation 模式研究

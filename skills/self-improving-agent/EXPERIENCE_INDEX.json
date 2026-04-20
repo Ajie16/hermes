@@ -1,6 +1,24 @@
 {
   "learnings": [
     {
+      "cycle": 767,
+      "timestamp": "2026-04-20 12:28:05",
+      "date": "2026-04-20",
+      "time": "12:28",
+      "action_summary": "深入研究 OpenClaw Memory Dreaming Promotion 机制",
+      "key_learnings": [
+        "OpenClaw Memory Core 的 Dreaming Promotion 机制",
+        "记忆晋升评估参数：minScore=0.750, minRecallCount=3",
+        "Hermes 可以借鉴的自动记忆晋升理念"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "execute_code",
+        "terminal",
+        "search_files"
+      ]
+    },
+    {
       "cycle": 766,
       "timestamp": "2026-04-20 12:05:12",
       "date": "2026-04-20",
@@ -1057,26 +1075,6 @@
         "skill_view"
       ],
       "diary_file": "~/.hermes/cron/output/c33aac8ca375/latest.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 711,
-      "timestamp": "2026-04-19 16:43:34",
-      "date": "2026-04-19",
-      "time": "16:43",
-      "action_summary": "系统状态检查，验证8081服务，Notion风格验证",
-      "key_learnings": [
-        "generator.py跳过纯prompt模板机制",
-        "8081服务进程自动保持运行",
-        "history-index去重逻辑"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "terminal",
-        "browser_navigate",
-        "generator.py"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_16-42-53.md",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
     }
   ],
