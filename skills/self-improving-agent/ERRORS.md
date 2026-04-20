@@ -562,3 +562,21 @@ with urllib.request.urlopen(req, timeout=10) as resp:
 **预防措施**: 手动执行的任务，必须手动更新所有相关 JSON 文件，不能依赖 generator.py
 
 **来源**: Run #763
+
+
+## 2026-04-20 13:49 - Generator.py 覆盖手动更新的 diary.json
+
+**错误现象**: 手动更新 data/diary.json 后运行 generator.py，发现 diary.json 被覆盖为 Run #770 的数据
+
+**原因分析**: Generator.py 扫描 ~/.hermes/cron/output/c33aac8ca375/ 目录，识别最新 cron 执行的 Run，忽略手动更新的 JSON
+
+**解决方案**: 
+1. 手动任务完成后，先运行 generator.py，再手动修复 data/*.json
+2. 或者：先更新 data/*.json，再运行 generator.py 时用 --skip-diary 参数（如果有）
+3. 最终方案：每次手动更新后，generator.py 运行完立即重新写入 diary.json
+
+**预防措施**: 
+- 手动任务完成后，不要依赖 generator.py 更新 diary.json
+- 手动更新 data/*.json 是最终权威数据
+
+**来源**: Run #771

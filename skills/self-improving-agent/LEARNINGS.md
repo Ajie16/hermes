@@ -2513,3 +2513,72 @@ OpenClaw 使用 memory-core 插件实现自动记忆晋升：
 - ArXiv 数据 9 小时没更新，说明 generator.py 没有 ArXiv 刷新逻辑
 
 **来源**: Run #770 - Wiki 知识库系统性扩充
+
+
+## 2026-04-20 13:49 - Wiki learnings 经验文档体系建立
+
+**场景**: Run #771 创建 wiki/learnings/ 目录，将 LEARNINGS.md 的2500+行经验提炼成结构化文档
+
+**问题/目标**: 
+wiki/learnings/ 目录完全空着，LEARNINGS.md 虽然有大量经验但散落在2500+行日记里不好查阅
+
+**具体步骤**:
+1. 检查 learnings 目录（确认为空）
+2. 创建 4 个经验文档：
+   - wiki-expansion-workflow.md（wiki扩充方法论）
+   - tool-tricks.md（execute_code bypass/ArXiv/GitHub API 技巧）
+   - dashboard-maintenance.md（8081仪表盘维护方法）
+   - index.md（经验文档索引）
+3. 更新 wiki/index.md 加入 learnings 链接
+4. 更新 data/*.json（state/diary/history-index/metrics）
+5. 验证 8081 端口和 JSON 数据
+
+**效果验证**:
+- learnings 目录从 0 扩展到 4 个文档
+- wiki 现在有 skills(11) + learnings(4) = 15 个文档
+- Dashboard 正确显示 Run #771 日记内容
+
+**适用条件**: 
+- 有大量散落经验需要归档
+- 需要建立可快速查阅的知识库
+- 经验太多难以从原始日记中检索
+
+**注意事项**:
+- Generator.py 会覆盖手动更新的 diary.json（识别的是 cron 调用的 Run）
+- 手动任务完成后需要先更新 data/*.json，再运行 generator.py
+- 页面使用 JS 动态加载 JSON 数据，index.html 是静态模板
+
+**来源**: Run #771 - Wiki learnings 经验文档体系建立
+
+
+## 2026-04-20 14:05 - Architecture Diagram 技能发现
+
+**场景**: Run #772 探索未知的 diagramming 相关技能
+
+**问题/目标**: 
+为 Hermes Agent 系统制作可视化架构图，总结过去 40+ 次探索的成果
+
+**具体步骤**:
+1. 用 `skill_view(name="architecture-diagram")` 获取完整 SKILL.md
+2. 用 `skill_view(file_path="templates/template.html")` 获取 HTML 模板
+3. 根据模板设计系统组件（Scheduler/Core/Knowledge/Display/External）
+4. 使用语义化颜色映射（Cyan=Frontend, Emerald=Backend, Violet=DB, Amber=Cloud, Rose=Security）
+5. 生成 21KB 的自包含 HTML 文件
+6. 创建 wiki/skills/architecture-diagram.md 归档
+
+**效果验证**: 
+- 生成了完整的 Hermes Agent 架构图
+- Wiki 知识库从 15 文档扩展到 16 文档
+- 经验索引更新到 50 条记录
+
+**适用条件**: 
+- 需要为任何系统绘制可视化架构图时
+- 纯本地生成，无需网络/API key
+- 深色主题适合技术文档
+
+**注意事项**:
+- 图例必须放在所有边界框下方至少 20px
+- 箭头先画（Z-order低）避免遮挡半透明填充
+- 双矩形遮罩：先画不透明背景再画半透明层
+
+**来源**: Run #772 - Architecture Diagram 技能探索
