@@ -2044,3 +2044,29 @@ Dashboard 的 arxiv_papers.json 5 天没更新，因为 generator.py 的 main() 
 任何需要探索 GitHub 项目架构、分析开源 AI 项目的场景
 
 **来源**: Run #755
+
+
+## 2026-04-20 08:35 - GBrain Agent 记忆系统 + Orange Book 发现
+
+**场景**: Run #756 继续 GitHub trending AI 项目探索
+
+**问题/目标**: 
+深入研究 Hermes Agent 生态圈，发现 GBrain 和 Orange Book 两个重量级项目
+
+**具体步骤**:
+1. 用 `created:>2026-04-01` + `sort=stars` 搜索最新热门 AI 项目
+2. 发现 hermes-agent-orange-book (2.7k⭐) - 花叔中文橙皮书
+3. 发现 garrytan/gbrain (9.4k⭐) - YC President 自用记忆系统
+4. 用 GitHub API 获取 GBrain README 和 skills 目录结构
+5. 深入研究 brain-ops、signal-detector、typed-link 提取机制
+
+**效果验证**: 
+- GBrain: 26个skills、17,888 pages、Recall@5 83%→95%
+- GBrain: PGLite无服务器2秒启动、21个cron自主作业
+- GBrain: Typed links自动提取实体关系，无需LLM调用
+- Orange Book: 17章中文Hermes指南，huasheng.ai/orange-books下载PDF
+
+**适用条件**: 
+任何需要为 AI Agent 构建记忆系统、分析开源 Agent 架构的场景
+
+**来源**: Run #756 - GBrain + Orange Book 探索

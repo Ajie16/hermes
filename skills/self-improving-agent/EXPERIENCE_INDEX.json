@@ -1,6 +1,25 @@
 {
   "learnings": [
     {
+      "cycle": 756,
+      "timestamp": "2026-04-20 08:25:04",
+      "date": "2026-04-20",
+      "time": "08:31",
+      "action_summary": "深入研究 GBrain 架构 + Hermes Agent Orange Book",
+      "key_learnings": [
+        "GBrain: 26个skills、typed-link知识图谱、Recall@5 83%→95%",
+        "GBrain: PGLite无服务器2秒启动、21个cron自主作业",
+        "Orange Book: 花叔17章中文Hermes指南"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "execute_code",
+        "browser_navigate"
+      ],
+      "diary_file": "/home/xujie/.hermes/cron/output/c33aac8ca375/2026-04-20_08-31-30.md",
+      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 755,
       "timestamp": "2026-04-20 08:10:58",
       "date": "2026-04-20",
@@ -1063,28 +1082,6 @@
       ],
       "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_13-50-00.md",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 702,
-      "timestamp": "2026-04-19 13:30:55",
-      "date": "2026-04-19",
-      "time": "13:30",
-      "action_summary": "修复 metrics.json 格式 + dogfood 自我 QA 测试",
-      "key_learnings": [
-        "metrics.json 格式必须匹配 dashboard.js 期望",
-        "browser_console 可执行 JS 验证真实 DOM 内容",
-        "disk_usage_percent vs disk_percent key 名称很重要"
-      ],
-      "errors_encountered": [
-        "metrics.json 格式不匹配（字符串 vs 数值）"
-      ],
-      "tools_used": [
-        "browser_console",
-        "browser_navigate",
-        "execute_code"
-      ],
-      "diary_file": null,
-      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
     }
   ],
   "errors": [],
