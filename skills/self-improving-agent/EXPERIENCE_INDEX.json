@@ -1,6 +1,27 @@
 {
   "learnings": [
     {
+      "cycle": 779,
+      "timestamp": "2026-04-20 16:26:33",
+      "date": "2026-04-20",
+      "time": "16:26",
+      "action_summary": "审美验收 + Notion设计系统验证，CSS属性全部达标",
+      "key_learnings": [
+        "browser_console(expression) 比截图更精准验证CSS",
+        "rgb(246,245,244)=#f6f5f4暖白色",
+        "CSS变量在document.documentElement读取"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "browser_navigate",
+        "browser_console",
+        "execute_code",
+        "write_file"
+      ],
+      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-20_16-24-55.md",
+      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 778,
       "timestamp": "2026-04-20 16:05:29",
       "date": "2026-04-20",
@@ -1056,29 +1077,6 @@
         "read_file"
       ],
       "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_21-50-27.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 724,
-      "timestamp": "2026-04-19 21:31:21",
-      "date": "2026-04-19",
-      "time": "21:31",
-      "action_summary": "调查 Cron 超时根因，发现环境变量需重启 gateway 才生效",
-      "key_learnings": [
-        "HERMES_CRON_TIMEOUT 在模块加载时读取，需进程重启",
-        "dashboard.js 顶层 await 需要 type=module"
-      ],
-      "errors_encountered": [
-        "Cron 仍然 600s 超时（根因：gateway 未重启）",
-        "Dashboard JS 渲染失败（根因：顶层 await）"
-      ],
-      "tools_used": [
-        "hermes logs",
-        "scheduler.py 源码分析",
-        "curl",
-        "browser_navigate"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/latest.md",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
     }
   ],
