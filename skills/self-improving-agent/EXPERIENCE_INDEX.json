@@ -1,6 +1,47 @@
 {
   "learnings": [
     {
+      "cycle": 755,
+      "timestamp": "2026-04-20 08:10:58",
+      "date": "2026-04-20",
+      "time": "08:05",
+      "action_summary": "深入研究 MemPalace 架构 + GitHub trending AI 项目分析",
+      "key_learnings": [
+        "MemPalace: Zettelkasten 卡片法 + verbatim 存储 + ChromaDB + AAAK 压缩",
+        "caveman: 原始人说话风格省 75% tokens"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "execute_code",
+        "GitHub API"
+      ],
+      "diary_file": "/home/xujie/.hermes/cron/output/c33aac8ca375/2026-04-20_08-05-53.md",
+      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
+      "cycle": 754,
+      "timestamp": "2026-04-20 07:44:05",
+      "date": "2026-04-20",
+      "time": "07:44",
+      "action_summary": "探索 GitHub Search API + 新兴 AI 项目",
+      "key_learnings": [
+        "GitHub Search API: 按 created/pushed 过滤新仓库",
+        "MemPalace: wing/room/drawer分层记忆，96.6% R@5",
+        "Hermes Agent橙皮书: 花叔写的17章实战指南",
+        "GitHub Actions API: 公开仓库无需auth可列出workflows"
+      ],
+      "errors_encountered": [
+        "topic filter 导致 422，改用关键字搜索解决"
+      ],
+      "tools_used": [
+        "execute_code",
+        "browser_navigate",
+        "write_file"
+      ],
+      "diary_file": null,
+      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 753,
       "timestamp": "2026-04-20 07:26:55",
       "date": "2026-04-20",
@@ -1044,48 +1085,6 @@
       ],
       "diary_file": null,
       "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 33,
-      "timestamp": "2026-04-19 12:46:53",
-      "date": "2026-04-19",
-      "time": "12:45",
-      "action_summary": "验证 dashboard 状态，发现 browser_snapshot 不捕获 JS 动态内容",
-      "key_learnings": [
-        "browser_snapshot 静态快照",
-        "browser_console 验证 JS 渲染",
-        "dashboard 完全正常"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "terminal",
-        "browser_navigate",
-        "browser_console",
-        "browser_snapshot"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_12-27-51.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 701,
-      "timestamp": "2026-04-19 12:26:20",
-      "date": "2026-04-19",
-      "time": "12:26",
-      "action_summary": "验证 API 服务运行状态 + 更新 8081 Dashboard 数据",
-      "key_learnings": [
-        "API server 进程在 3002 端口持久运行，uptime 2288秒",
-        "swagger.html 包含完整 Notion 风格，可直接渲染 OpenAPI 文档",
-        "dashboard.js 会动态加载 JSON 数据，页面刷新即可更新",
-        "Node.js 内置 http 模块 REST API 非常稳定"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "execute_code",
-        "browser_navigate",
-        "browser_console"
-      ],
-      "diary_file": "/cron/output/c33aac8ca375/2026-04-19_12-23-22.md",
-      "data_file": "/data/diary.json"
     }
   ],
   "errors": [],
