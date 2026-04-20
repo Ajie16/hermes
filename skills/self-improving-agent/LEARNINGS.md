@@ -3120,3 +3120,26 @@ wiki/learnings/ 目录完全空着，LEARNINGS.md 虽然有大量经验但散落
 **适用条件**: 当JS异常消息为空且source为"exception"时
 
 **来源**: Run #795
+
+
+## 2026-04-20 22:26 - asciified API 在线生成ASCII艺术
+
+**场景**: 尝试生成ASCII艺术作品，但pyfiglet未安装
+
+**问题/目标**: 想生成ASCII banner但本地工具缺失
+
+**具体步骤**:
+1. 尝试 `python3 -m pyfiglet` → 未安装
+2. 改用 asciified API：`curl -s "https://asciified.thelicato.io/api/v2/ascii?text=Run+796&font=Slant"`
+3. 成功获取ASCII艺术（slant, doom, banner3, 3-D等多种字体）
+4. 创建HTML文件展示作品
+
+**效果验证**: 成功生成 "Run 796" 和 "Hermes" 两个ASCII banner
+
+**适用条件**: 
+- 无需本地安装任何工具
+- 支持250+种字体
+- URL编码：空格用 `+` 替代
+- 字体名称区分大小写
+
+**来源**: Run #796
