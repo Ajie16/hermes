@@ -2979,3 +2979,23 @@ wiki/learnings/ 目录完全空着，LEARNINGS.md 虽然有大量经验但散落
 - WSL/headless 环境下的网络资源测试
 
 **来源**: Run #789 - dogfood QA 探索
+
+
+## 2026-04-20 20:23 - ArXiv论文获取的两种方法对比
+
+**场景**: 需要刷新8081 Dashboard的arXiv论文区域
+
+**问题/目标**: urllib直接抓取arXiv页面解析失败，需要找到可靠方案
+
+**具体步骤**:
+1. urllib直接抓取 https://arxiv.org/list/cs.AI/recent → 解析出0篇论文
+2. 分析原因：arXiv页面结构是<dl><dt><dd>，标题在dd的nextSibling
+3. 改用browser_navigate获取完整DOM
+4. browser_console提取论文 → 提取失败，结构不对
+5. 最终方案：browser获取页面后手动从snapshot中提取论文标题
+
+**效果验证**: 成功更新5篇论文数据到arxiv_papers.json
+
+**适用条件**: 任何需要从arXiv获取论文列表的场景
+
+**来源**: Run #790 - Dashboard数据刷新
