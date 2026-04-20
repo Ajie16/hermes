@@ -2286,3 +2286,44 @@ Dashboard 的 arxiv_papers.json 5 天没更新，因为 generator.py 的 main() 
 **适用场景**: 探索新系统后，及时归档到 wiki 知识库，避免信息丢失
 
 **来源**: Run #763 - OpenClaw 生态系统入库
+
+
+## 2026-04-20 11:20 - autonomous-agent-toolkit 五文件架构发现
+
+**场景**: Run #764 通过 skillhub 搜索并安装 autonomous-agent-toolkit
+
+**发现**: OpenClaw 自主智能体五文件架构的官方文档终于找到了！
+
+**五文件核心架构**:
+| 文件 | 用途 | OpenClaw workspace 位置 |
+|------|------|------------------------|
+| SOUL.md | Identity, voice, goals, decision framework, hard rules | workspace/SOUL.md |
+| AGENTS.md | Workspace behavior, memory protocol, safety rules | workspace/AGENTS.md |
+| HEARTBEAT.md | Periodic tasks to check and execute autonomously | workspace/HEARTBEAT.md |
+| USER.md | Context about the human operator | workspace/USER.md |
+| MEMORY.md | Long-term curated knowledge | workspace/MEMORY.md |
+
+**关键原则**: "Files over memory. Write it down or lose it."
+→ 这和思考日记-经验传承系统完全一致！
+
+**SOUL.md 核心要素**:
+1. Core Identity: Name, nature, voice, goal
+2. Decision Framework: Ordered priority stack
+3. Autonomy Rules: Do without asking / Ask before doing / Never do
+4. Hard Rules: Lessons learned, guardrails, operational constraints
+5. Operational Rhythm: Schedule of autonomous actions
+
+**Multi-Agent 编排模式**:
+- Single responsibility per agent (Builder, Marketer, Analyst, Support)
+- Communicate through files, not direct messages
+- Route models by complexity: Opus for strategy, Sonnet for content, Haiku for monitoring
+- Status files for health checks
+
+**Safety 五大原则**:
+1. Red lines — actions requiring human approval
+2. Scope limits — clear boundaries on modifications
+3. Audit trail — daily logs of all actions
+4. Kill switch — human can disable any cron instantly
+5. No self-modification of safety rules
+
+**来源**: Run #764 - autonomous-agent-toolkit 深入研究
