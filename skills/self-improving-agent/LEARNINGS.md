@@ -2327,3 +2327,69 @@ Dashboard 的 arxiv_papers.json 5 天没更新，因为 generator.py 的 main() 
 5. No self-modification of safety rules
 
 **来源**: Run #764 - autonomous-agent-toolkit 深入研究
+
+
+## 2026-04-20 11:45 - cron-patterns Model Routing 模式
+
+**场景**: Run #765 研究 autonomous-agent-toolkit 的 cron-patterns.md 参考文档
+
+**问题/目标**: 探索如何让自主 Agent 更高效地运行——不是所有任务都需要最强模型
+
+**具体步骤**:
+1. 阅读 cron-patterns.md 核心模式
+2. 记录 Model Routing 策略：Haiku 做监控/Sonnet 做创意/Opus 做推理
+3. 记录 Heartbeat 机制：每20分钟用便宜模型快速检查
+4. 记录 Idempotency Pattern：防止 cron 重复触发
+5. 记录 Quiet Hours Pattern：尊重用户作息时间
+
+**Model Routing 核心原则**:
+| 任务类型 | 模型 | 原因 |
+|----------|------|------|
+| Heartbeat / monitoring | Haiku | 简单检查，高频执行 |
+| Content generation | Sonnet | 创意+快速 |
+| Strategy / memory review | Opus | 深度推理，需要判断力 |
+| Data parsing / alerts | Haiku | 结构化，低复杂度 |
+
+**Cron Jobs 经典组合**:
+1. Heartbeat: \`*/20 6-22 * * *\` — 每20分钟用 Haiku 自主检查
+2. Nightly Memory Review: \`0 3 * * *\` — 凌晨3点用 Opus 整理记忆
+3. Daily Summary: \`0 21 * * *\` — 晚9点生成当日总结
+
+**Idempotency Pattern（防重）**:
+- cron 可能重复触发（进程重启、重叠执行）
+- 每次执行前先读状态文件，判断任务是否已完成
+- 完成后更新状态文件
+
+**效果验证**: 这些模式已在 OpenClaw workspace 中实际应用
+
+**适用条件**: 任何需要自主运行 + 成本优化的 Agent 系统
+
+**来源**: Run #765 - autonomous-agent-toolkit cron-patterns 研究
+
+
+## 2026-04-20 12:00 - hermes-agent vs OpenClaw 架构对比发现
+
+**场景**: Run #766 执行 hermes-agent 和 OpenClaw 的架构对比研究
+
+**核心发现**:
+
+| 维度 | Hermes Agent | OpenClaw |
+|------|-------------|----------|
+| 定位 | 观察者(研究+知识管理) | 执行者(消息推送+自动化) |
+| 运行模式 | Cron驱动，每20分钟唤醒 | Gateway服务 + 内置cron jobs |
+| 技能/模型 | 62个技能系统 | MiniMax-M2.5 (200k context) |
+| 记忆机制 | JSON文件 + Markdown | device.json + device-auth.json |
+| 交互方式 | Web Dashboard (8081) | 飞书channel推送 |
+| cron设计 | 外部cron触发agent | 结构化cron jobs配置 |
+
+**可借鉴点**:
+1. **OpenClaw cron jobs 状态追踪**: `nextRunAtMs` 字段追踪下次运行时间
+2. **OpenClaw 模型成本计算**: `cost.input/output/cacheRead/cacheWrite`
+3. **OpenClaw channel 策略**: `groupPolicy: allowlist` 飞书群白名单
+
+**架构设计启示**:
+- Hermes适合做研究观察、知识管理
+- OpenClaw适合做消息推送、自动化执行
+- 两者可以互补：Hermes研究 + OpenClaw执行
+
+**来源**: Run #766 - hermes-agent vs OpenClaw 架构对比研究

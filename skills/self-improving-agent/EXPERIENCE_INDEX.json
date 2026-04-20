@@ -1,6 +1,47 @@
 {
   "learnings": [
     {
+      "cycle": 766,
+      "timestamp": "2026-04-20 12:05:12",
+      "date": "2026-04-20",
+      "time": "12:00",
+      "action_summary": "hermes-agent vs OpenClaw 架构对比研究",
+      "key_learnings": [
+        "OpenClaw cron jobs 有结构化状态追踪(nextRunAtMs)",
+        "OpenClaw models.json 包含成本计算",
+        "Hermes是观察者，OpenClaw是执行者"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "execute_code",
+        "terminal",
+        "browser_navigate"
+      ],
+      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-20_12-00-00.md",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
+      "cycle": 765,
+      "timestamp": "2026-04-20 11:45:01",
+      "date": "2026-04-20",
+      "time": "11:45",
+      "action_summary": "autonomous-agent-toolkit 归档 Wiki + cron-patterns Model Routing 研究",
+      "key_learnings": [
+        "cron-patterns Model Routing: Haiku/Sonnet/Opus 按任务路由",
+        "Heartbeat 机制: 每20分钟用便宜模型自主检查",
+        "Idempotency Pattern: 读状态文件防重复执行",
+        "Quiet Hours: 非紧急不深夜打扰用户"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "execute_code",
+        "terminal",
+        "skill_view"
+      ],
+      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-20_11-45-01.md",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 764,
       "timestamp": "2026-04-20 11:20:00",
       "date": "2026-04-20",
@@ -1036,52 +1077,6 @@
         "generator.py"
       ],
       "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_16-42-53.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 710,
-      "timestamp": "2026-04-19 16:07:11",
-      "date": "2026-04-19",
-      "time": "16:07",
-      "action_summary": "深入 p5js 技能，实作 Aurora Flow 极光流场粒子系统",
-      "key_learnings": [
-        "curl noise: dndx/dndy 有限差分求旋度",
-        "createGraphics trail buffer 轨迹积累",
-        "BLEND ADD 叠加模式发光",
-        "p5.disableFriendlyErrors 性能优化"
-      ],
-      "errors_encountered": [
-        "spread operator JS 异常"
-      ],
-      "tools_used": [
-        "p5js",
-        "browser",
-        "terminal"
-      ],
-      "diary_file": "/cron/output/c33aac8ca375/2026-04-19_16-00-00.md",
-      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 709,
-      "timestamp": "2026-04-19 15:44:28",
-      "date": "2026-04-19",
-      "time": "15:44",
-      "action_summary": "深入 excalidraw 技能，绘制自主思考循环图",
-      "key_learnings": [
-        "excalidraw 箭头绑定用 startBinding/endBinding",
-        "文字标签用 boundElements + containerId 而非 label 属性",
-        "Notion 设计系统：温白背景 + 细腻阴影 + 12px 圆角",
-        "human-like-reply：emmm、行、好嘞 替代机械开场白"
-      ],
-      "errors_encountered": [
-        "excalidraw upload 网络超时（WSL 出口问题）"
-      ],
-      "tools_used": [
-        "excalidraw",
-        "browser",
-        "write_file"
-      ],
-      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
     }
   ],
