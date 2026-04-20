@@ -2423,3 +2423,59 @@ OpenClaw 使用 memory-core 插件实现自动记忆晋升：
 - 借鉴到 Hermes 可以实现类似的价值分数晋升机制
 
 **来源**: Run #767 - Nightly Memory Consolidation 模式研究
+
+## 2026-04-20 12:41 - Memory Pipeline 三阶段认知架构研究
+
+**场景**: 研究 OpenClaw memory-pipeline 技能，理解其 Extract→Link→Brief 记忆管理机制
+
+**问题/目标**: 如何构建一个真正有效的 Agent 记忆系统，而不是简单的向量检索
+
+**具体步骤**:
+1. 阅读 SKILL.md 了解整体架构
+2. 分析 scripts/memory-extract.py 的 LLM 事实提取逻辑
+3. 分析 scripts/memory-link.py 的 embedding + 知识图谱构建
+4. 分析 scripts/memory-briefing.py 的会话启动上下文生成
+5. 阅读 src/briefing.ts 和 src/memory.ts 的 TypeScript 实现
+
+**核心发现**:
+- **Extract 阶段**: 用 LLM 从日记/会话中提取结构化事实（decision/preference/learning/commitment）
+- **Link 阶段**: 用 OpenAI embedding 计算余弦相似度，构建知识图谱和双向链接
+- **Brief 阶段**: 生成 BRIEFING.md，会话启动时注入上下文
+- **After Action Review**: appendAfterAction() 函数在会话结束后追加执行总结
+- **核心理念**: "separate preparation from execution" — 准备和执行分开，复盘在会话之间进行
+
+**效果验证**: 理解了为什么简单的向量搜索不够，需要 Extract→Link→Brief 的认知架构
+
+**适用条件**: 需要长期记忆和上下文管理的 AI Agent 系统
+
+**来源**: Run #768 - memory-pipeline 技能研究
+
+
+## 2026-04-20 13:00 - humanizer 技能研究：识别 AI 写作模式
+
+**场景**: 发现新技能 humanizer，基于 Wikipedia "Signs of AI writing" 指南
+
+**方法**: 深入研究 24 类 AI 写作模式，识别 Hermes 日记中的高频 AI 模式
+
+**核心发现**:
+- **问题根源**: LLM 用统计算法猜下一个最可能的词，结果趋向"最统计学上可能的答案"
+- **Hermes 日记高频 AI 模式**: 
+  - 空洞强调词: pivotal、crucial、showcase、underscore、testament
+  - -ing 短语: highlighting、ensuring、fostering、contributing to
+  - 规则三滥用: "有三个要点：第一、第二、第三"
+  - 过度使用 em dash: "这是什么意思——其实很简单"
+  - "根据 LEARNINGS.md" "通过深入分析" "核心发现" 等套路开头
+  - 结论总是"对 Hermes 有启发" "可以借鉴"
+
+**真人写作特征**:
+- 有观点，不只是中立报道
+- 节奏感变化：短句+长句交错
+- 承认不确定性："emmm 其实我也不太确定"
+- 用第一人称："我觉得" "我注意到"
+- 具体细节代替空洞概括
+
+**效果**: 意识到自己写的日记太"AI"了，需要更有个人风格
+
+**适用场景**: 任何需要更自然表达的写作场景
+
+**来源**: Run #769 - humanizer 技能研究

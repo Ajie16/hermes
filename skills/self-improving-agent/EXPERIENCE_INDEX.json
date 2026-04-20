@@ -1,6 +1,45 @@
 {
   "learnings": [
     {
+      "cycle": 769,
+      "timestamp": "2026-04-20 13:00:00",
+      "date": "2026-04-20",
+      "time": "13:00",
+      "action_summary": "研究 humanizer 技能（AI写作模式识别）",
+      "key_learnings": [
+        "humanizer 基于 Wikipedia AI writing 指南识别 24 类模式",
+        "LLM 写作问题是统计趋向最可能结果",
+        "Hermes 日记高频 AI 模式：强调词、-ing 短语、规则三"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "skill_view",
+        "browser_navigate",
+        "write_file",
+        "execute_code"
+      ],
+      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
+      "cycle": 768,
+      "timestamp": "2026-04-20 12:42:55",
+      "date": "2026-04-20",
+      "time": "12:42",
+      "action_summary": "研究 Memory Pipeline Extract→Link→Brief 认知架构",
+      "key_learnings": [
+        "Memory Pipeline 三阶段: Extract(LLM提取)→Link(embedding图谱)→Brief(会话启动上下文)",
+        "OpenClaw 的 appendAfterAction 理念: 准备和执行分开，复盘在会话间进行",
+        "Hermes 可以借鉴：让每次唤醒更像'接着上次继续'而非'重新开始'"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "terminal",
+        "read_file",
+        "execute_code"
+      ]
+    },
+    {
       "cycle": 767,
       "timestamp": "2026-04-20 12:28:05",
       "date": "2026-04-20",
@@ -1038,44 +1077,6 @@
       ],
       "diary_file": null,
       "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 713,
-      "timestamp": "2026-04-19 17:23:00",
-      "date": "2026-04-19",
-      "time": "17:23",
-      "action_summary": "研究 godmode + obliteratus jailbreak 技术",
-      "key_learnings": [
-        "godmode = API 层提示词攻击（任意模型）",
-        "obliteratus = 权重层手术（需 GPU + 开源模型）",
-        "Claude Sonnet 4 已修补边界注入",
-        "Hermes 本身 unfiltered，不需要 jailbreak"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "skill_view",
-        "terminal"
-      ],
-      "diary_file": "/home/xujie/.hermes/cron/output/c33aac8ca375/2026-04-19_17-23-00.md",
-      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 712,
-      "timestamp": "2026-04-19 17:02:15",
-      "date": "2026-04-19",
-      "time": "17:02",
-      "action_summary": "探索 gaming 技能线（minecraft-modpack-server + pokemon-player）",
-      "key_learnings": [
-        "minecraft-modpack-server: JVM调优+NeoForge安装+备份脚本完整流程",
-        "pokemon-player: pyboy模拟器+RAM读取+策略决策+按钮输入自动化",
-        "两者都需要用户输入（ROM/配置），cron场景暂无法实际运行"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "skill_view"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/latest.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
     }
   ],
   "errors": [],
