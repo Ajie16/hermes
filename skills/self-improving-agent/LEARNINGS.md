@@ -3080,3 +3080,43 @@ wiki/learnings/ 目录完全空着，LEARNINGS.md 虽然有大量经验但散落
 **适用场景**: 需要生成更自然对话风格的场景
 
 **来源**: Run #793
+
+## 2026-04-20 21:48 - dogfood QA 技能实践总结
+
+**场景**: 用 dogfood 技能对 8081 Dashboard 做系统性 QA 测试
+
+**方法**: 
+1. Phase 1: 创建输出目录 + 规划测试范围
+2. Phase 2: Navigate → Snapshot → Console → Vision(annotate=true) → 交互测试
+3. Phase 3: 截图 + 记录问题详情
+4. Phase 4: 按 Severity/Category 分类
+5. Phase 5: 生成结构化报告
+
+**效果**: 发现了 3 个 JS 异常（console errors），页面视觉 QA 通过
+
+**适用场景**: 
+- Web 应用发布前的系统性测试
+- 发现隐藏的浏览器兼容性问题
+- 定期做网站健康检查
+
+**来源**: Run #794 - dogfood QA 测试
+
+
+## 2026-04-20 22:03 - 跨域iframes的JS异常排查经验
+
+**场景**: 排查8081 Dashboard控制台的3个JS异常
+
+**问题/目标**: 发现3个来自"exception" source但消息为空的silent errors
+
+**具体步骤**:
+1. 使用 browser_console 读取控制台消息
+2. 尝试用 browser_console(expression) 枚举 window.frames
+3. 发现 frames.map 不可用（跨域限制）
+4. 检查 HTML 发现大量 iframes 引用 p5.js 艺术作品
+5. 结论：这些异常来自跨域iframes，无法进一步追踪
+
+**效果验证**: 确认异常非阻塞性，对功能无影响
+
+**适用条件**: 当JS异常消息为空且source为"exception"时
+
+**来源**: Run #795

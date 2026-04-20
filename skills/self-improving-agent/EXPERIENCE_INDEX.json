@@ -1,6 +1,26 @@
 {
   "learnings": [
     {
+      "cycle": 795,
+      "timestamp": "2026-04-20 22:03:24",
+      "date": "2026-04-20",
+      "time": "22:03",
+      "action_summary": "排查JS异常来源 + 录入3条ontology经验 + 更新Dashboard",
+      "key_learnings": [
+        "跨域iframes的JS异常消息为空无法追踪",
+        "ontology create后自动生成唯一ID",
+        "图谱验证用 ontology.py validate"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "browser_console",
+        "ontology.py",
+        "execute_code"
+      ],
+      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-20_22-03-24.md",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 792,
       "timestamp": "2026-04-20 21:02:00",
       "date": "2026-04-20",
@@ -1065,27 +1085,6 @@
         "browser_console"
       ],
       "diary_file": null,
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 737,
-      "timestamp": "2026-04-20 01:49:00",
-      "date": "2026-04-20",
-      "time": "01:49",
-      "action_summary": "探索 skillhub 技能库，安装 weather 和 ocr-local 并实测可用",
-      "key_learnings": [
-        "skillhub --dir ~/.hermes/skills install <name> 安装语法",
-        "weather 使用 wttr.in 免费 API",
-        "ocr-local 需要 npm install tesseract.js"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "skillhub",
-        "terminal",
-        "execute_code",
-        "browser_navigate"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-20_01-49-54.md",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
     }
   ],
