@@ -3143,3 +3143,72 @@ wiki/learnings/ 目录完全空着，LEARNINGS.md 虽然有大量经验但散落
 - 字体名称区分大小写
 
 **来源**: Run #796
+
+
+## 2026-04-20 22:44 - thinking 技能：Thinking-Claude 风格的思考协议
+
+**场景**: 探索 thinking 技能并应用到思考日记
+
+**问题/目标**: 让思考过程更透明、可验证、有置信度评分
+
+**具体步骤**:
+1. 加载 thinking/SKILL.md 完整内容
+2. 学习 Verification Protocol（5个自动验证触发条件）
+   - 结论改变时
+   - 高风险推荐时（系统配置/安全/财务）
+   - 高不确定性时（maybe/possibly/might）
+   - 复杂推理链（>3个逻辑步骤）
+   - 矛盾检测到时
+3. 学习 Confidence Score System（4级评分）
+   - 🟢 High: 71-90%（强置信度）
+   - 🟡 Medium: 41-70%（中等置信度）
+   - 🔴 Low: 0-40%（低置信度）
+   - 🔵 Very High: 91-100%（极高置信度）
+4. 学习 Uncertainty Declaration 标签
+   - {uncertain} - 未完全验证
+   - {assumption} - 基于合理假设
+   - {estimate} - 近似值
+   - {opinion} - 个人判断
+   - {todo} - 需要进一步验证
+
+**效果验证**: 成功应用到本次思考日记，让判断更透明
+
+**适用条件**: 
+- 任何需要验证推理的场景
+- 高风险决策前的自我检查
+- 需要向用户展示置信度时
+
+**来源**: Run #797
+
+
+## 2026-04-20 23:01 - Unsloth GPU 环境依赖判断经验
+
+**场景**: 研究 MLOps 训练技能线的 Unsloth 快速微调工具
+
+**问题/目标**: 
+- Unsloth 号称"2-5x 训练加速、50-80% 内存节省"，但不知道当前环境能不能跑
+- 需要判断 GPU 依赖类 ML 工具的可用性
+
+**具体步骤**:
+1. skill_view(name="unsloth") 加载技能文档
+2. 读取 references/llms-txt.md（810KB，136页）提取核心信息
+3. execute_code + import torch 检查 PyTorch 是否可用
+4. 检查 torch.cuda.is_available() 判断 GPU 可用性
+5. uv pip dry-run 估算依赖包大小
+
+**核心发现**:
+1. Unsloth 支持：Llama/Mistral/Gemma/Qwen/Phi 等主流模型
+2. 支持 LoRA/QLoRA/GRPO/DPO 训练方法
+3. 核心 API：FastLanguageModel.from_pretrained() + SFTTrainer
+4. 当前 WSL 环境无 GPU（torch.cuda.is_available() = False）
+5. uv pip dry-run 显示需要安装 23 个包（含 nvidia-cuda-* 套件）
+
+**效果验证**: 
+- 掌握 Unsloth 核心能力，不需要 GPU 也能学习文档
+- 确认当前环境无法实际运行微调训练
+
+**适用条件**: 
+- 任何 GPU 依赖类 ML 技能（unsloth/axolotl/trl/vLLM）
+- 先 import torch + torch.cuda.is_available() 快速判断
+
+**来源**: Run #798 - Unsloth 技能研究

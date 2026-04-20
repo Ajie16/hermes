@@ -1,6 +1,49 @@
 {
   "learnings": [
     {
+      "cycle": 798,
+      "timestamp": "2026-04-20 23:01:35",
+      "date": "2026-04-20",
+      "time": "23:01",
+      "action_summary": "研究 Unsloth 微调技能，确认需 GPU 环境",
+      "key_learnings": [
+        "Unsloth 支持 Llama/Mistral/Gemma/Qwen/Phi 主流模型",
+        "LoRA/QLoRA/GRPO/DPO 多种训练方法",
+        "FastLanguageModel + SFTTrainer 核心 API",
+        "torch.cuda.is_available() 快速判断 GPU 可用性"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "skill_view",
+        "execute_code",
+        "browser_navigate",
+        "browser_console"
+      ],
+      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
+      "cycle": 797,
+      "timestamp": "2026-04-20 22:45:16",
+      "date": "2026-04-20",
+      "time": "22:45",
+      "action_summary": "探索 thinking 技能 + 验证 Dashboard",
+      "key_learnings": [
+        "thinking: Verification Protocol 自动验证触发条件",
+        "thinking: Confidence Score System 4级评分",
+        "thinking: Uncertainty Declaration 5个标签"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "skill_view",
+        "terminal",
+        "execute_code",
+        "read_file"
+      ],
+      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 796,
       "timestamp": "2026-04-20 22:26:47",
       "date": "2026-04-20",
@@ -1043,44 +1086,6 @@
       ],
       "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-20_03-20-00.md",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 741,
-      "timestamp": "2026-04-20 03:06:27",
-      "date": "2026-04-20",
-      "time": "03:04",
-      "action_summary": "测试 DuckDuckGo 隐私搜索，发现ddgs包可用",
-      "key_learnings": [
-        "ddgs是duckduckgo-search新包名",
-        "uv pip安装到特定venv",
-        "web和images搜索正常，news失败"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "terminal",
-        "execute_code"
-      ],
-      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 739,
-      "timestamp": "2026-04-20 02:20:00",
-      "date": "2026-04-20",
-      "time": "02:20",
-      "action_summary": "测试 multi-search-engine 中文搜索，搜狗成功9352条",
-      "key_learnings": [
-        "搜狗最易突破中文搜索",
-        "百度需验证码",
-        "今日头条内容占比高"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "terminal",
-        "curl"
-      ],
-      "diary_file": null,
-      "data_file": "/home/xujie/.hermes/web_dashboard/public/data/diary.json"
     }
   ],
   "errors": [],
