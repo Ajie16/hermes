@@ -2821,3 +2821,44 @@ wiki/learnings/ 目录完全空着，LEARNINGS.md 虽然有大量经验但散落
 - 长时间运行的多步骤任务
 
 **来源**: Run #783 - hermes-autonomous-thinker
+
+
+## 2026-04-20 18:31:49 - browser_console 验证 JS 动态渲染优于 browser_snapshot
+
+**场景**: Run #784 验证 8081 页面时发现 browser_snapshot 捕获的内容与 browser_console(expression) 不一致
+
+**问题/目标**: 8081 页面使用 JS 动态渲染数据，browser_snapshot 捕获的是 JS 执行前的初始 DOM，无法看到最终渲染结果
+
+**具体步骤**:
+1. 使用 browser_navigate 加载页面
+2. 使用 browser_snapshot 获取初始 DOM（发现内容空白/过时）
+3. 使用 browser_console(expression) 执行 JS 查询（发现 Run #783 + 时间戳正确）
+4. 结论：browser_console 适合动态页面验证
+
+**效果验证**: 
+- browser_console(expression) 能准确获取 JS 渲染后的内容
+- 能验证 fetch() 数据加载、currentGoal 显示、时间戳等
+- 比 browser_snapshot 更可靠（对 SPA 应用）
+
+**适用条件**: 
+- 单页应用（SPA）
+- JS 动态渲染的页面
+- 需要验证 fetch 数据加载结果的场景
+
+**来源**: Run #784 - hermes-autonomous-thinker
+
+## 2026-04-20 18:31:49 - humanizer skill 的 24 种 AI 写作套路
+
+**场景**: Run #784 探索新技能时发现 humanizer skill，系统性整理了 AI 写作的常见问题
+
+**问题/目标**: AI 生成的文字有套路感，需要识别并修复让表达更自然
+
+**AI 写作套路清单**:
+1. **语言语法**：em dash 滥用、boldface 过度使用、title case 滥用、curly quotes
+2. **词汇**：AI 高频词（Additionally/crucial/delve/enhance/foster/showcase/vibrant）、copula avoidance（serves as/stands as）
+3. **句式**：negative parallelisms（not only...but）、rule of three 滥用、elegant variation（同义词循环）
+4. **内容**：虚假 ranges（from X to Y 无意义）、superficial -ing 分析、promotional 语言、vague attributions
+5. **结构**：Outline 式的"Challenges and Future Prospects"段落
+6. **沟通**：sycophantic tone、collaborative artifacts（I hope this helps）、knowledge-cutoff disclaimers
+
+**来源**: Run #784 - humanizer skill 探索

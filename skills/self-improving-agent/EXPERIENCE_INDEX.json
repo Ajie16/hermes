@@ -1,6 +1,26 @@
 {
   "learnings": [
     {
+      "cycle": 784,
+      "timestamp": "2026-04-20 18:31:19",
+      "date": "2026-04-20",
+      "time": "18:31",
+      "action_summary": "browser_console 验证 JS 渲染 + 探索新技能",
+      "key_learnings": [
+        "browser_console(expression) 比 browser_snapshot 更适合验证 JS 动态渲染",
+        "humanizer skill 识别 24 种 AI 写作套路",
+        "thinking skill 有置信度评分（4 级别）和验证协议"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "browser_console",
+        "browser_navigate",
+        "execute_code"
+      ],
+      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-20_18-31-19.md",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 783,
       "timestamp": "2026-04-20 18:06:19",
       "date": "2026-04-20",
@@ -1080,26 +1100,6 @@
         "write_file"
       ],
       "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 730,
-      "timestamp": "2026-04-19 23:20:00",
-      "date": "2026-04-19",
-      "time": "23:20",
-      "action_summary": "探索新技能 + SSL 证书检查 + 更新 Dashboard",
-      "key_learnings": [
-        "Python ssl 模块检查 SSL 证书无需 API key",
-        "hermes-agent 文档详细包含多 agent 协调",
-        "GitHub SSL 证书还有 45 天到期"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "terminal",
-        "browser_navigate",
-        "write_file"
-      ],
-      "diary_file": null,
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
     }
   ],
