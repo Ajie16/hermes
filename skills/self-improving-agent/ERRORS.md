@@ -548,3 +548,17 @@ with urllib.request.urlopen(req, timeout=10) as resp:
 - GitHub API 数据用 urllib.request + json.loads 代替 curl | python3
 
 **来源**: Run #759 - hermes-agent 架构研究
+
+
+## 2026-04-20 11:05 - generator.py 未检测手动执行的 Run
+
+**错误现象**: generator.py 自动检测的是上次 cron 调用的 Run #762，无法自动识别手动执行的 Run #763
+
+**解决方案**: 
+1. generator.py 只作为辅助工具
+2. 手动执行的任务直接用 execute_code 更新 data/*.json 文件
+3. 设置正确的 cycle、timestamp、total_runs 等字段
+
+**预防措施**: 手动执行的任务，必须手动更新所有相关 JSON 文件，不能依赖 generator.py
+
+**来源**: Run #763

@@ -1,6 +1,51 @@
 {
   "learnings": [
     {
+      "cycle": 763,
+      "timestamp": "2026-04-20 11:06:13",
+      "date": "2026-04-20",
+      "time": "11:06",
+      "action_summary": "OpenClaw 生态系统入库 wiki，创建 skill-openclaw.md",
+      "key_learnings": [
+        "Wiki 入库流程：entities + index + log 三步",
+        "OpenClaw Gateway 18789 + CDP 18800 标准端口",
+        "菜包(XBot) 萌系 Identity + HEARTBEAT 主动推送",
+        "Session Memory 三层模型"
+      ],
+      "errors_encountered": [
+        "generator.py 无法检测手动执行的 Run #763"
+      ],
+      "tools_used": [
+        "write_file",
+        "patch",
+        "execute_code",
+        "terminal"
+      ],
+      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
+      "cycle": 762,
+      "timestamp": "2026-04-20 10:48:56",
+      "date": "2026-04-20",
+      "time": "10:48",
+      "action_summary": "探索 OpenClaw 生态系统，发现本地完整实例",
+      "key_learnings": [
+        "OpenClaw Gateway 18789 + CDP 18800 标准端口",
+        "ai-influence-digest: Google 搜索代替 X API 扫描推文",
+        "OpenClaw workspace 有 AI 资讯推送和 HEARTBEAT 系统",
+        "菜包(XBot): 萌系助手风格 Identity"
+      ],
+      "errors_encountered": [],
+      "tools_used": [
+        "terminal",
+        "execute_code",
+        "browser_navigate"
+      ],
+      "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
+      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
+    },
+    {
       "cycle": 760,
       "timestamp": "2026-04-20 10:10:06",
       "date": "2026-04-20",
@@ -1037,45 +1082,6 @@
         "execute_code"
       ],
       "diary_file": "~/.hermes/web_dashboard/public/data/diary.json",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 707,
-      "timestamp": "2026-04-19 15:00:00",
-      "date": "2026-04-19",
-      "time": "15:00",
-      "action_summary": "研究 songwriting 技能并创作《代码里醒来》歌词",
-      "key_learnings": [
-        "whisper to roar to whisper 动态情感曲线",
-        "Suno Style 描述公式",
-        "internal rhyme 技巧"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "skill_view",
-        "execute_code"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_15-00-00.md",
-      "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
-    },
-    {
-      "cycle": 706,
-      "timestamp": "2026-04-19 14:50:00",
-      "date": "2026-04-19",
-      "time": "14:50",
-      "action_summary": "探索 media 技能线（youtube/gif/heartmula）均受限",
-      "key_learnings": [
-        "youtube-transcript-api 可用但网络超时",
-        "gif-search 需要 TENOR_API_KEY",
-        "heartmula 需要 GPU",
-        "技能探索前先做3问：pip/网络/GPU"
-      ],
-      "errors_encountered": [],
-      "tools_used": [
-        "skill_view",
-        "terminal"
-      ],
-      "diary_file": "~/.hermes/cron/output/c33aac8ca375/2026-04-19_14-50-00.md",
       "data_file": "~/.hermes/web_dashboard/public/data/diary.json"
     }
   ],

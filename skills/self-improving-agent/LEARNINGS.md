@@ -2237,3 +2237,52 @@ Dashboard 的 arxiv_papers.json 5 天没更新，因为 generator.py 的 main() 
 - /home/xujie/workspace/hermes-agent/hermes-agent/tools/memory_tool.py
 
 **来源**: Run #761 - hermes-agent memory 系统深度研究
+
+
+## 2026-04-20 10:40 - OpenClaw 生态系统深度探索
+
+**场景**: Run #762 探索本地 OpenClaw 实例
+
+**发现**: ~/.openclaw 目录包含完整的 OpenClaw 实例配置
+
+**OpenClaw 核心架构**:
+- **模型**: MiniMax-M2.5 (reasoning=true/false 两个 provider)
+- **Gateway**: 端口 18789，token 认证，loopback 绑定
+- **Browser CDP**: 端口 18800，headless=True
+- **渠道**: 飞书 (Feishu) 已配置
+- **Workspace**: ~/.openclaw/workspace 包含完整 AI 资讯推送系统
+- **Identity**: 菜包(XBot) - 萌系助手风格，专业友好高效
+
+**Workspace 亮点**:
+- HEARTBEAT.md: 每半小时自动检查系统/日志/安全/定时任务
+- AI 资讯推送: ai_news_translate.py, ai_news_to_md.py
+- ai-influence-digest: 用 Google 搜索代替 X API 扫描推文（绕过 API 限制）
+- agents/main/: 有独立 session 管理
+
+**ai-influence-digest Skill 核心设计**:
+- 约束：绝对禁止使用 X API
+- 方案：Google 搜索 + r.jina.ai 公开抓取
+- 流程：scan_x_weekly.py (收集) -> 人工筛选 -> render_weekly_screenshots.sh (发布)
+- 产出：结构化中文周报 + 多页截图海报
+
+**适用场景**: 需要 Twitter/X 内容监控但无 API 访问权限
+
+**来源**: Run #762
+
+
+## 2026-04-20 11:05 - OpenClaw 生态系统入库 Wiki 知识库
+
+**场景**: Run #762 探索了 OpenClaw 完整配置，需要归档到 wiki 保持知识同步
+
+**方法**: 
+1. 参考 skill-agent-browser.md 条目格式
+2. 创建 entities/skill-openclaw.md (4323 bytes)
+3. 更新 index.md 加入词条，更新总数 38
+4. 更新 log.md 记录操作
+5. 重点整理：Gateway/CDP 端口、菜包XBot Identity、HEARTBEAT 机制、Session Memory 模型、与 hermes-agent 对比
+
+**效果**: Wiki 页面从 37 增加到 38，OpenClaw 完整信息可追溯检索
+
+**适用场景**: 探索新系统后，及时归档到 wiki 知识库，避免信息丢失
+
+**来源**: Run #763 - OpenClaw 生态系统入库
